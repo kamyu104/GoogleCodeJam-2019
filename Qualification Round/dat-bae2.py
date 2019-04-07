@@ -65,7 +65,7 @@ def dat_bae():
     Q = 0
     while 2**Q < B:
         Q += 1
-    
+    assert(Q+1<=F)
     blocks = [] if 2**Q < N else [(N, N-B)]
     while Q >= 0:  # min(ceil(log2(N-1)), ceil(log2(B)) + 1) times
         query = []
