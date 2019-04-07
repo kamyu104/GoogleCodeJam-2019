@@ -41,7 +41,7 @@ def cryptopangrams():
             result.append(lookup[p])
         else:
             return "".join(result)
-    return ""
+    return ""  # never reach
 
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, cryptopangrams())
