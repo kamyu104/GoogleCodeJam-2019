@@ -14,7 +14,7 @@ def dat_bae():
 
     # find the smallest Q s.t. 2**Q > B
     # p.s. 2**Q != B is because when all the 2**Q block is missing,
-    #      we cannot tell which idx is lost
+    #      we cannot tell which block is lost
     Q = 1
     while 2**Q <= B:
         Q += 1
