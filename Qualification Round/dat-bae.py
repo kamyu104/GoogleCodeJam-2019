@@ -61,17 +61,17 @@ def dat_bae():
     # => B <= min(15, N-1)
     # => ceil(log2(B)) + 1 <= 5 = F
     
-    # find the smalleset value of size >= B
-    size = 1
-    while size < B:
-        size *= 2
+    # find the smallest Q s.t. 2**Q >= B
+    Q = 0
+    while 2**Q < B:
+        Q += 1
     
-    blocks = [] if size < N else [(N, N-B)]
-    while size:  # min(ceil(log2(N-1)), ceil(log2(B)) + 1) times
+    blocks = [] if 2**Q < N else [(N, N-B)]
+    while Q >= 0:  # min(ceil(log2(N-1)), ceil(log2(B)) + 1) times
         query = []
         query_callback = functools.partial(encode, query)
         if not blocks:
-            init_codec(N, size, query_callback)
+            init_codec(N, 2**Q, query_callback)
         else:
             is_done = codec(blocks, query_callback)
             if is_done: break
@@ -83,13 +83,13 @@ def dat_bae():
         next_blocks = []
         response_callback = functools.partial(decode, response, next_blocks)
         if not blocks:
-            init_codec(N, size, response_callback)
+            init_codec(N, 2**Q, response_callback)
         else: 
             codec(blocks, response_callback)
         blocks, next_blocks = next_blocks, blocks
 
         # print >> sys.stderr, blocks
-        size //= 2
+        Q -= 1
 
     result, i = [], 0
     for total, valid in blocks:
