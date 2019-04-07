@@ -12,10 +12,7 @@ def you_can_go_your_own_way():
     P = list(raw_input().strip().split()[0])
     result = []
     for move in P:
-        if move == 'E':
-            result.append('S')
-        else:
-            result.append('E')
+        result.append('E' if move == 'S' else 'S')
     return "".join(result)
 
 for case in xrange(input()):
