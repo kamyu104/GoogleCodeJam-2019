@@ -1,5 +1,11 @@
+# Copyright (c) 2019 kamyu. All rights reserved.
+#
+# Google Code Jam 2019 Qualification Round - Problem C. Cryptopangrams 
+# https://codingcompetitions.withgoogle.com/codejam/round/0000000000051705/000000000008830b
+#
 # Time:  O(LlogN)
 # Space: O(1)
+#
 
 def gcd(a, b):
     while b:
