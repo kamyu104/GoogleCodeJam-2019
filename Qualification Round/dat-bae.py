@@ -42,9 +42,7 @@ def dat_bae():
     for idx in xrange(N):
         if cur_idx != (idx % (2**Q)) :
             result.append(str(idx))
-        else:
-            if i+1 == N-B:
-                continue
+        elif i+1 < N-B:
             i += 1
             cur_idx = get_idx(responses, i)
 
