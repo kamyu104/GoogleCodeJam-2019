@@ -62,8 +62,8 @@ def dat_bae():
     # => ceil(log2(B)) + 1 <= 5 = F
     
     # find the smallest Q s.t. 2**Q >= B
-    # p.s. 2**Q == B is because when all the 2**Q block is missing,
-    #      we can still tell which idx is lost
+    # p.s. 2**Q == B is because when the whole 2**Q block is missing,
+    #      we can still tell which block is lost
     Q = 0
     while 2**Q < B:
         Q += 1
