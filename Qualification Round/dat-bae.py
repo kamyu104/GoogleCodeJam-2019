@@ -37,8 +37,6 @@ def dat_bae():
     result = []
     i = 0
     cur_idx = get_idx(responses, i)
-    for j in xrange(Q):
-        cur_idx |= (responses[j][i])<<j
     for idx in xrange(N):
         if cur_idx != (idx % (2**Q)) :
             result.append(str(idx))
