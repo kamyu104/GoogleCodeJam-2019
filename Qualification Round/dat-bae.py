@@ -16,7 +16,7 @@ def dat_bae():
     Q = 1
     while 2**Q <= B:
         Q += 1
-
+    assert(Q <= F)
     queries = [[0 for _ in xrange(N)] for _ in xrange(Q)]  # floor(log2(B)) + 1 times
     for i in xrange(N):
         r = i % (2**Q)
