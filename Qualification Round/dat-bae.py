@@ -19,7 +19,7 @@ def dat_bae():
     assert(Q <= F)
 
     idxs = [0]*(N-B)
-    for j in xrange(Q): # floor(log2(B)) + 1 times
+    for j in xrange(Q):  # floor(log2(B)) + 1 times
         query = [((i%(2**Q))>>j)&1 for i in xrange(N)]
         print "".join(map(str, query))
         sys.stdout.flush()
