@@ -10,26 +10,26 @@
 import sys
 import functools
 
-def count(response, i, c, cnt):
-    same_cnt = 0
-    while i < len(response) and same_cnt < cnt:
-        if response[i] == c:
-            same_cnt += 1
-        else:
-            break
-        i += 1
-    return same_cnt, i
-
 def encode(query, i, flip, total, valid):
     query.append(str(flip)*total)
     return valid, i
 
 def decode(next_segments, response, i, flip, total, valid):
-    valid, i = count(response, i, str(flip), valid)
-    next_segments.append((total, valid))
-    return valid, i
+    def count(response, i, c, cnt):
+        same_cnt = 0
+        while i < len(response) and same_cnt < cnt:
+            if response[i] == c:
+                same_cnt += 1
+            else:
+                break
+            i += 1
+        return same_cnt, i
+    
+    used_valid, i = count(response, i, str(flip), valid)
+    next_segments.append((total, used_valid))
+    return used_valid, i
 
-def initial_codec(N, total, callback):
+def init_codec(N, total, callback):
     i = 0
     cnt, flip = N, 0
     while cnt > total:
@@ -65,7 +65,7 @@ def dat_bae():
     while size:  # min(ceil(log2(N-1)), ceil(log2(B)) + 1) times
         query = []
         if not segments:
-            initial_codec(N, size, functools.partial(encode, query))
+            init_codec(N, size, functools.partial(encode, query))
         else:
             is_done = codec(segments, functools.partial(encode, query))
             if is_done: break
@@ -76,7 +76,7 @@ def dat_bae():
 
         next_segments = []
         if not segments:
-            initial_codec(N, size, functools.partial(decode, next_segments, response))
+            init_codec(N, size, functools.partial(decode, next_segments, response))
         else: 
             codec(segments, functools.partial(decode, next_segments, response))
         segments, next_segments = next_segments, segments
