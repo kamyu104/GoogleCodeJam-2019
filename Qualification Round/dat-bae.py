@@ -67,10 +67,11 @@ def dat_bae():
     segments = [] if size < N else [(N, N-B)]
     while size:  # min(ceil(log2(N-1)), ceil(log2(B)) + 1) times
         query = []
+        query_callback = functools.partial(encode, query)
         if not segments:
-            init_codec(N, size, functools.partial(encode, query))
+            init_codec(N, size, query_callback)
         else:
-            is_done = codec(segments, functools.partial(encode, query))
+            is_done = codec(segments, query_callback)
             if is_done: break
 
         print "".join(query)
@@ -78,10 +79,11 @@ def dat_bae():
         response = list(raw_input().strip().split()[0])
 
         next_segments = []
+        response_callback = functools.partial(decode, response, next_segments)
         if not segments:
-            init_codec(N, size, functools.partial(decode, response, next_segments))
+            init_codec(N, size, response_callback)
         else: 
-            codec(segments, functools.partial(decode, response, next_segments))
+            codec(segments, response_callback)
         segments, next_segments = next_segments, segments
         size //= 2
 
