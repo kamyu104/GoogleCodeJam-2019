@@ -1,5 +1,11 @@
-# Time:  O(logn)
+# Copyright (c) 2019 kamyu. All rights reserved.
+#
+# Google Code Jam 2019 Qualification Round - Problem A. Foregone Solution
+# https://codingcompetitions.withgoogle.com/codejam/round/0000000000051705/0000000000088231
+#
+# Time:  O(logN)
 # Space: O(1)
+#
 
 def foregone_solution():
     N = list(str(input()))
