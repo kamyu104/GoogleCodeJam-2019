@@ -21,7 +21,7 @@ def dat_bae():
     size //= 2
     
     segments = []
-    while size:
+    while size:  # ceil(log2(B)) + 1 times
         query = []
         if not segments:
             cnt, flip = N, 0
