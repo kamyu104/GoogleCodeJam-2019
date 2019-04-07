@@ -30,6 +30,7 @@ def decode(next_segments, response, i, flip, total, valid):
     return used_valid, i
 
 def init_codec(N, total, callback):
+    # split N into segments with size "total"
     i = 0
     cnt, flip = N, 0
     while cnt > total:
@@ -45,6 +46,7 @@ def codec(segments, callback):
         if total == valid or valid == 0:
             used_valid, i = callback(i, 0, total, valid)
         else:
+            # equally split each segment into 2 segments
             is_done = False
             used_valid, i = callback(i, 0, total//2, valid)
             used_valid, i = callback(i, 1, (total+1)//2, valid-used_valid)
@@ -56,10 +58,11 @@ def dat_bae():
     # ceil(log2(B)) + 1 <= F
     # => B <= min(15, N-1)
     # => ceil(log2(B)) + 1 <= 5 = F
+    
+    # find the smalleset value of size >= B
     size = 1
-    while size < 2 * B:
+    while size < B:
         size *= 2
-    size //= 2
     
     segments = [] if size < N else [(N, N-B)]
     while size:  # min(ceil(log2(N-1)), ceil(log2(B)) + 1) times
