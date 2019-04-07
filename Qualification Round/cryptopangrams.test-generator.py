@@ -13,7 +13,7 @@ def GetPrimes(n):
     return primes
 
 T = 100
-N = 1000000
+N = 10000
 PRIMES = GetPrimes(N+1)
 
 print T
