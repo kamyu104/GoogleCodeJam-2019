@@ -24,7 +24,7 @@ def dat_bae():
         print "".join(map(str, query))
         sys.stdout.flush()
         response = map(int, raw_input())
-        for i in xrange(N-B):
+        for i in xrange(len(response)):
             idxs[i] |= (response[i])<<j
 
     result = []
