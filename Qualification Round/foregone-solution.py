@@ -8,7 +8,7 @@
 #
 
 def foregone_solution():
-    N = list(str(input()))
+    N = raw_input()
     A, B = [], []
     for d in N:
         if d == '4':
