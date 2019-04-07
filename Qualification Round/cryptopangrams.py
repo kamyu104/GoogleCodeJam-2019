@@ -17,7 +17,6 @@ def cryptopangrams():
     MSG = map(int, raw_input().strip().split())
 
     primes = set()
-
     for i in xrange(L-1):
         if MSG[i] == MSG[i+1]:
             continue
