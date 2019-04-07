@@ -25,7 +25,7 @@ def decode(response, next_blocks, i, flip, total, valid):
             i += 1
         return same_cnt, i
     
-    used_valid, i = count(response, i, str(flip), valid)
+    used_valid, i = count(response, i, flip, valid)
     next_blocks.append((total, used_valid))
     return used_valid, i
 
@@ -78,7 +78,7 @@ def dat_bae():
 
         print "".join(query)
         sys.stdout.flush()
-        response = list(raw_input().strip().split()[0])
+        response = map(int, raw_input())
 
         next_blocks = []
         response_callback = functools.partial(decode, response, next_blocks)
