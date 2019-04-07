@@ -1,4 +1,4 @@
-# Time:  O(L*logN)
+# Time:  O(LlogN)
 # Space: O(1)
 
 def gcd(a, b):
