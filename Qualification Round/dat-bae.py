@@ -42,13 +42,13 @@ def dat_bae():
             query.append(str(flip)*cnt)
         else:
             is_done = True
-            for seg in segments:
-                if seg[0] == seg[1] or seg[1] == 0:
-                    query.append('0'*seg[0])
+            for total, valid in segments:
+                if total == valid or valid == 0:
+                    query.append('0'*total)
                 else:
                     is_done = False
-                    query.append('0'*((seg[0])//2))
-                    query.append('1'*((seg[0]+1)//2))
+                    query.append('0'*(total//2))
+                    query.append('1'*((total+1)//2))
             if is_done: break
 
         print "".join(query)
@@ -81,11 +81,11 @@ def dat_bae():
         size //= 2
 
     result, i = [], 0
-    for seg in segments:
-        if seg[1] == 0:
-            for j in xrange(i, i+seg[0]):
+    for total, valid in segments:
+        if valid == 0:
+            for j in xrange(i, i+total):
                 result.append(str(j))
-        i += seg[0]
+        i += total
 
     print " ".join(result)
     sys.stdout.flush()
