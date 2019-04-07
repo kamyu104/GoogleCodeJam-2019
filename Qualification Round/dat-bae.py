@@ -8,6 +8,7 @@
 #
 
 import sys
+import functools
 
 def count(response, i, c, cnt):
     same_cnt = 0
@@ -18,6 +19,45 @@ def count(response, i, c, cnt):
             break
         i += 1
     return same_cnt, i
+
+def initial_encode(query, i, flip, total):
+    query.append(str(flip)*total)
+    return i
+
+def initial_decode(next_segments, response, i, flip, total):
+    valid, i = count(response, i, str(flip), total)
+    next_segments.append((total, valid))
+    return i
+
+def initial_codec(N, total, callback):
+    i = 0
+    cnt, flip = N, 0
+    while cnt > total:
+        i = callback(i, flip, total)
+        cnt -= total
+        flip ^= 1
+    i = callback(i, flip, cnt)
+
+def encode(query, i, flip, total, valid):
+    query.append(str(flip)*total)
+    return valid, i
+
+def decode(next_segments, response, i, flip, total, valid):
+    valid, i = count(response, i, str(flip), valid)
+    next_segments.append((total, valid))
+    return valid, i
+
+def codec(segments, callback):
+    i = 0
+    is_done = True
+    for total, valid in segments:
+        if total == valid or valid == 0:
+            used_valid, i = callback(i, 0, total, valid)
+        else:
+            is_done = False
+            used_valid, i = callback(i, 0, total//2, valid)
+            used_valid, i = callback(i, 1, (total+1)//2, valid-used_valid)
+    return is_done
 
 def dat_bae():
     N, B, F = map(int, raw_input().strip().split())
@@ -34,21 +74,9 @@ def dat_bae():
     while size:  # min(ceil(log2(N-1)), ceil(log2(B)) + 1) times
         query = []
         if not segments:
-            cnt, flip = N, 0
-            while cnt > size:
-                query.append(str(flip)*size)
-                cnt -= size
-                flip ^= 1
-            query.append(str(flip)*cnt)
+            initial_codec(N, size, functools.partial(initial_encode, query))
         else:
-            is_done = True
-            for total, valid in segments:
-                if total == valid or valid == 0:
-                    query.append('0'*total)
-                else:
-                    is_done = False
-                    query.append('0'*(total//2))
-                    query.append('1'*((total+1)//2))
+            is_done = codec(segments, functools.partial(encode, query))
             if is_done: break
 
         print "".join(query)
@@ -57,26 +85,9 @@ def dat_bae():
 
         next_segments = []
         if not segments:
-            i = 0
-            cnt, flip = N, 0
-            while cnt > size:
-                same_cnt, i = count(response, i, str(flip), size)
-                next_segments.append((size, same_cnt))
-                cnt -= size
-                flip ^= 1
-            same_cnt, i = count(response, i, str(flip), cnt)
-            next_segments.append((cnt, same_cnt))
-        else:
-            i = 0
-            for total, valid in segments:
-                if total == valid or valid == 0:
-                    used_valid, i = count(response, i, '0', valid)
-                    next_segments.append((total, used_valid))
-                else:
-                    used_valid, i = count(response, i, '0', valid)
-                    next_segments.append((total//2, used_valid))
-                    used_valid, i = count(response, i, '1', valid-used_valid)
-                    next_segments.append(((total+1)//2, used_valid))
+            initial_codec(N, size, functools.partial(initial_decode, next_segments, response))
+        else: 
+            codec(segments, functools.partial(decode, next_segments, response))
         segments, next_segments = next_segments, segments
         size //= 2
 
