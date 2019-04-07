@@ -56,7 +56,8 @@ def dat_bae():
         response = list(raw_input().strip().split()[0])
 
         if not segments:
-            cnt, flip, i = N, 0, 0
+            i = 0
+            cnt, flip = N, 0
             while cnt > size:
                 same_cnt, i = count(response, i, str(flip), size)
                 segments.append((size, same_cnt))
