@@ -9,7 +9,7 @@
 
 def you_can_go_your_own_way():
     N = input()
-    P = list(raw_input().strip().split()[0])
+    P = raw_input()
     result = []
     for move in P:
         result.append('E' if move == 'S' else 'S')
