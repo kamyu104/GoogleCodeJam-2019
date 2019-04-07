@@ -4,7 +4,7 @@
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051705/000000000008830b
 #
 # Time:  O(NlogB)
-# Space: O(NlogB)
+# Space: O(N)
 #
 
 import sys
@@ -27,19 +27,20 @@ def dat_bae():
     while 2**Q <= B:
         Q += 1
     assert(Q <= F)
-    queries = [[0 for _ in xrange(N)] for _ in xrange(Q)]  # floor(log2(B)) + 1 times
-    for i in xrange(N):
-        set_idx(queries, i, i % (2**Q))
-    for q in queries:
-        print "".join(map(str, q))
-    sys.stdout.flush()
 
-    responses = [map(int, raw_input()) for _ in xrange(Q)]
+    idxs = [0]*(N-B)
+    for j in xrange(Q): # floor(log2(B)) + 1 times
+        query = [((i%(2**Q))>>j)&1 for i in xrange(N)]
+        print "".join(map(str, query))
+        sys.stdout.flush()
+        response = map(int, raw_input())
+        for i in xrange(N-B):
+            idxs[i] |= (response[i])<<j
 
     result = []
     i = 0
     for idx in xrange(N):
-        if get_idx(responses, i) != (idx % (2**Q)) :
+        if idxs[i] != (idx % (2**Q)) :
             result.append(str(idx))
         elif i+1 < N-B:
             i += 1
