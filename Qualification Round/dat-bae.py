@@ -9,6 +9,12 @@
 
 import sys
 
+def get_idx(responses, i):
+    cur_idx = 0
+    for j in xrange(len(responses)):
+        cur_idx |= (responses[j][i])<<j
+    return cur_idx
+
 def dat_bae():
     N, B, F = map(int, raw_input().strip().split())
 
@@ -29,7 +35,8 @@ def dat_bae():
     responses = [map(int, raw_input()) for _ in xrange(Q)]
 
     result = []
-    i, cur_idx = 0, 0
+    i = 0
+    cur_idx = get_idx(responses, i)
     for j in xrange(Q):
         cur_idx |= (responses[j][i])<<j
     for idx in xrange(N):
@@ -39,9 +46,7 @@ def dat_bae():
             if i+1 == N-B:
                 continue
             i += 1
-            cur_idx = 0
-            for j in xrange(Q):
-                cur_idx |= (responses[j][i])<<j
+            cur_idx = get_idx(responses, i)
 
     print " ".join(result)
     sys.stdout.flush()
