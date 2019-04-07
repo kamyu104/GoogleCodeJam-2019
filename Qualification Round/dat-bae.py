@@ -88,7 +88,6 @@ def dat_bae():
                     next_segments.append(((seg[0])//2, zeros))
                     next_segments.append(((seg[0]+1)//2, ones))
             segments, next_segments = next_segments, segments
-        print >> sys.stderr, segments
         size //= 2
 
     result, i = [], 0
