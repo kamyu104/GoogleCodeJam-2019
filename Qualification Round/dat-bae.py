@@ -38,13 +38,11 @@ def dat_bae():
 
     result = []
     i = 0
-    cur_idx = get_idx(responses, i)
     for idx in xrange(N):
-        if cur_idx != (idx % (2**Q)) :
+        if get_idx(responses, i) != (idx % (2**Q)) :
             result.append(str(idx))
         elif i+1 < N-B:
             i += 1
-            cur_idx = get_idx(responses, i)
 
     print " ".join(result)
     sys.stdout.flush()
