@@ -46,7 +46,9 @@ def codec(segments, callback):
         if total == valid or valid == 0:
             used_valid, i = callback(i, 0, total, valid)
         else:
-            # equally split each segment into 2 segments
+            # equally split each segment into 2 segments.
+            # after ceil(log2(B)) times splits,
+            # each segment must converge into size 1 or stop split
             is_done = False
             used_valid, i = callback(i, 0, total//2, valid)
             used_valid, i = callback(i, 1, (total+1)//2, valid-used_valid)
