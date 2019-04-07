@@ -37,7 +37,6 @@ def dat_bae():
             result.append(str(idx))
         else:
             if i+1 == N-B:
-                r = None
                 continue
             i += 1
             cur_idx = 0
