@@ -17,8 +17,6 @@ def foregone_solution():
         else:
             A.append(d)
             if B: B.append('0')
-    if not B:
-        B.append('0')
     return "{} {}".format("".join(A), "".join(B))
 
 for case in xrange(input()):
