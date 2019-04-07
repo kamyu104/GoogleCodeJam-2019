@@ -14,7 +14,7 @@ def encode(query, i, flip, total, valid):
     query.append(str(flip)*total)
     return valid, i
 
-def decode(next_segments, response, i, flip, total, valid):
+def decode(response, next_segments, i, flip, total, valid):
     def count(response, i, c, cnt):
         same_cnt = 0
         while i < len(response) and same_cnt < cnt:
@@ -79,9 +79,9 @@ def dat_bae():
 
         next_segments = []
         if not segments:
-            init_codec(N, size, functools.partial(decode, next_segments, response))
+            init_codec(N, size, functools.partial(decode, response, next_segments))
         else: 
-            codec(segments, functools.partial(decode, next_segments, response))
+            codec(segments, functools.partial(decode, response, next_segments))
         segments, next_segments = next_segments, segments
         size //= 2
 
