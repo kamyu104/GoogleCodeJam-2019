@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Qualification Round - Problem D. Dat Bae
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051705/000000000008830b
 #
-# Time:  O(logB)
+# Time:  O(NlogB)
 # Space: O(N)
 #
 
