@@ -34,6 +34,9 @@ def dat_bae():
     while size:  # ceil(log2(B)) + 1 times
         query = []
         if not segments:
+            if size == N:
+                segments = [(N, N-B)]
+                continue
             cnt, flip = N, 0
             while cnt > size:
                 query.append(str(flip)*size)
