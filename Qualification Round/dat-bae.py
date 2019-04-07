@@ -85,6 +85,7 @@ def dat_bae():
         else: 
             codec(segments, response_callback)
         segments, next_segments = next_segments, segments
+
         size //= 2
 
     result, i = [], 0
