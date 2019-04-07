@@ -9,6 +9,10 @@
 
 import sys
 
+def set_idx(queries, i, idx):
+    for j in xrange(len(queries)):
+        queries[j][i] = (idx>>j)&1
+        
 def get_idx(responses, i):
     cur_idx = 0
     for j in xrange(len(responses)):
@@ -25,9 +29,7 @@ def dat_bae():
     assert(Q <= F)
     queries = [[0 for _ in xrange(N)] for _ in xrange(Q)]  # floor(log2(B)) + 1 times
     for i in xrange(N):
-        r = i % (2**Q)
-        for j in xrange(Q):
-            queries[j][i] = (r>>j)&1
+        set_idx(queries, i, i % (2**Q))
     for q in queries:
         print "".join(map(str, q))
     sys.stdout.flush()
