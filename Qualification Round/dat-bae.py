@@ -30,13 +30,10 @@ def dat_bae():
         size *= 2
     size //= 2
     
-    segments = []
-    while size:  # ceil(log2(B)) + 1 times
+    segments = [] if size < N else [(N, N-B)]
+    while size:  # min(ceil(log2(N-1)), ceil(log2(B)) + 1) times
         query = []
         if not segments:
-            if size == N:
-                segments = [(N, N-B)]
-                continue
             cnt, flip = N, 0
             while cnt > size:
                 query.append(str(flip)*size)
@@ -58,18 +55,18 @@ def dat_bae():
         sys.stdout.flush()
         response = list(raw_input().strip().split()[0])
 
+        next_segments = []
         if not segments:
             i = 0
             cnt, flip = N, 0
             while cnt > size:
                 same_cnt, i = count(response, i, str(flip), size)
-                segments.append((size, same_cnt))
+                next_segments.append((size, same_cnt))
                 cnt -= size
                 flip ^= 1
             same_cnt, i = count(response, i, str(flip), cnt)
-            segments.append((cnt, same_cnt))
+            next_segments.append((cnt, same_cnt))
         else:
-            next_segments = []
             i = 0
             for seg in segments:
                 if seg[0] == seg[1] or seg[1] == 0:
@@ -80,7 +77,7 @@ def dat_bae():
                     ones, i = count(response, i, '1', seg[1]-zeros)
                     next_segments.append(((seg[0])//2, zeros))
                     next_segments.append(((seg[0]+1)//2, ones))
-            segments, next_segments = next_segments, segments
+        segments, next_segments = next_segments, segments
         size //= 2
 
     result, i = [], 0
