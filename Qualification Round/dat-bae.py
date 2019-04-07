@@ -32,7 +32,7 @@ def dat_bae():
     for idx in xrange(N):
         if idxs[i] != (idx % (2**Q)) :
             result.append(str(idx))
-        elif i+1 < N-B:
+        elif i+1 < len(idxs):
             i += 1
 
     print " ".join(result)
