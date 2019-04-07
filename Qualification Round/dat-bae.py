@@ -68,15 +68,15 @@ def dat_bae():
             next_segments.append((cnt, same_cnt))
         else:
             i = 0
-            for seg in segments:
-                if seg[0] == seg[1] or seg[1] == 0:
-                    i += seg[1]
-                    next_segments.append(seg)
+            for total, valid in segments:
+                if total == valid or valid == 0:
+                    used_valid, i = count(response, i, '0', valid)
+                    next_segments.append((total, used_valid))
                 else:
-                    zeros, i = count(response, i, '0', seg[1])
-                    ones, i = count(response, i, '1', seg[1]-zeros)
-                    next_segments.append(((seg[0])//2, zeros))
-                    next_segments.append(((seg[0]+1)//2, ones))
+                    used_valid, i = count(response, i, '0', valid)
+                    next_segments.append((total//2, used_valid))
+                    used_valid, i = count(response, i, '1', valid-used_valid)
+                    next_segments.append(((total+1)//2, used_valid))
         segments, next_segments = next_segments, segments
         size //= 2
 
