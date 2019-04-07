@@ -12,6 +12,7 @@ import sys
 def dat_bae():
     N, B, F = map(int, raw_input().strip().split())
 
+    # ceil(log2(B)) + 1 <= F
     size = 1
     while size < 2 * B:
         size *= 2
