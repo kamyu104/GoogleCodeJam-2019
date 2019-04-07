@@ -9,16 +9,6 @@
 
 import sys
 
-def set_idx(queries, i, idx):
-    for j in xrange(len(queries)):
-        queries[j][i] = (idx>>j)&1
-        
-def get_idx(responses, i):
-    cur_idx = 0
-    for j in xrange(len(responses)):
-        cur_idx |= (responses[j][i])<<j
-    return cur_idx
-
 def dat_bae():
     N, B, F = map(int, raw_input().strip().split())
 
