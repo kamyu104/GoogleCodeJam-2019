@@ -88,6 +88,7 @@ def dat_bae():
             codec(blocks, response_callback)
         blocks, next_blocks = next_blocks, blocks
 
+        # print >> sys.stderr, blocks
         size //= 2
 
     result, i = [], 0
