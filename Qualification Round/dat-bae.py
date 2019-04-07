@@ -8,95 +8,40 @@
 #
 
 import sys
-import functools
-
-def encode(query, i, flip, total, valid):
-    query.append(str(flip)*total)
-    return valid, i
-
-def decode(response, next_blocks, i, flip, total, valid):
-    def count(response, i, c, cnt):
-        same_cnt = 0
-        while i < len(response) and same_cnt < cnt:
-            if response[i] == c:
-                same_cnt += 1
-            else:
-                break
-            i += 1
-        return same_cnt, i
-    
-    used_valid, i = count(response, i, str(flip), valid)
-    next_blocks.append((total, used_valid))
-    return used_valid, i
-
-def init_codec(N, total, callback):
-    # split N into blocks with size "total"
-    i = 0
-    cnt, flip = N, 0
-    while cnt > total:
-        used_valid, i = callback(i, flip, total, total)
-        cnt -= total
-        flip ^= 1
-    used_valid, i = callback(i, flip, cnt, cnt)
-
-def codec(blocks, callback):
-    i = 0
-    is_done = True
-    for total, valid in blocks:
-        if total == valid or valid == 0:
-            used_valid, i = callback(i, 0, total, valid)
-        else:
-            # equally split each block into 2 blocks.
-            # after ceil(log2(B)) times splits,
-            # each block must converge into size 1 or stop split
-            is_done = False
-            used_valid, i = callback(i, 0, total//2, valid)
-            used_valid, i = callback(i, 1, (total+1)//2, valid-used_valid)
-    return is_done
 
 def dat_bae():
     N, B, F = map(int, raw_input().strip().split())
 
-    # ceil(log2(B)) + 1 <= F
-    # => B <= min(15, N-1)
-    # => ceil(log2(B)) + 1 <= 5 = F
-    
-    # find the smallest Q s.t. 2**Q >= B
-    Q = 0
-    while 2**Q < B:
+    # find the smallest Q s.t. 2**Q > B
+    Q = 1
+    while 2**Q <= B:
         Q += 1
-    
-    blocks = [] if 2**Q < N else [(N, N-B)]
-    while Q >= 0:  # min(ceil(log2(N-1)), ceil(log2(B)) + 1) times
-        query = []
-        query_callback = functools.partial(encode, query)
-        if not blocks:
-            init_codec(N, 2**Q, query_callback)
+
+    queries = [[0 for _ in xrange(N)] for _ in xrange(Q)]  # floor(log2(B)) + 1 times
+    for i in xrange(N):
+        r = i % (2**Q)
+        for j in xrange(Q):
+            queries[j][i] = (r>>j)&1
+    for q in queries:
+        print "".join(map(str, q))
+    sys.stdout.flush()
+
+    responses = [map(int, raw_input()) for _ in xrange(Q)]
+
+    result = []
+    i, cur_idx = 0, 0
+    for j in xrange(Q):
+        cur_idx |= (responses[j][i])<<j
+    for idx in xrange(N):
+        if cur_idx != (idx % (2**Q)) :
+            result.append(str(idx))
         else:
-            is_done = codec(blocks, query_callback)
-            if is_done: break
-
-        print "".join(query)
-        sys.stdout.flush()
-        response = list(raw_input().strip().split()[0])
-
-        next_blocks = []
-        response_callback = functools.partial(decode, response, next_blocks)
-        if not blocks:
-            init_codec(N, 2**Q, response_callback)
-        else: 
-            codec(blocks, response_callback)
-        blocks, next_blocks = next_blocks, blocks
-
-        # print >> sys.stderr, blocks
-        Q -= 1
-
-    result, i = [], 0
-    for total, valid in blocks:
-        if valid == 0:
-            for j in xrange(i, i+total):
-                result.append(str(j))
-        i += total
+            if i+1 == N-B:
+                continue
+            i += 1
+            cur_idx = 0
+            for j in xrange(Q):
+                cur_idx |= (responses[j][i])<<j
 
     print " ".join(result)
     sys.stdout.flush()
