@@ -13,6 +13,8 @@ def dat_bae():
     N, B, F = map(int, raw_input().strip().split())
 
     # ceil(log2(B)) + 1 <= F
+    # => B <= min(15, N-1)
+    # => ceil(log2(B)) + 1 <= 5 = F
     size = 1
     while size < 2 * B:
         size *= 2
