@@ -12,7 +12,7 @@ import sys
 def dat_bae():
     N, B, F = map(int, raw_input().strip().split())
 
-    # find the smallest Q s.t. 2**Q > B (2**Q != B)
+    # find the smallest Q s.t. 2**Q > B
     # p.s. 2**Q != B is because when all the 2**Q block is missing,
     #      we cannot tell which idx is lost
     Q = 1
