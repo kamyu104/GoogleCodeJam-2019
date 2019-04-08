@@ -68,7 +68,8 @@ def dat_bae():
     while 2**Q < B:
         Q += 1
     assert(Q+1<=F)
-    # if 2**Q == N, we can just skip init_codec to begin with block (N, N-B)
+    # if 2**Q == N, in order to save a query,
+    # we can just skip init_codec and begin with block (N, N-B)
     blocks = [] if 2**Q < N else [(N, N-B)]
     while Q >= 0:  # at most ceil(log2(B)) + 1 times
         query = []
