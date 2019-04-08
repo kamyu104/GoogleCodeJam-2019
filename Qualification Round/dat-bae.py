@@ -1,7 +1,7 @@
 # Copyright (c) 2019 kamyu. All rights reserved.
 #
 # Google Code Jam 2019 Qualification Round - Problem D. Dat Bae
-# https://codingcompetitions.withgoogle.com/codejam/round/0000000000051705/000000000008830b
+# https://codingcompetitions.withgoogle.com/codejam/round/0000000000051705/00000000000881de
 #
 # Time:  O(NlogB)
 # Space: O(N)
