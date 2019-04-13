@@ -9,4 +9,4 @@ for m in xrange(1, prod+1):
         break
     lookup[residues] = m
 else:
-    print "proved: residues are all unique if M <= PI({}) = {},".format(modulis, prod)
+    print "proved: residues are all unique if M <= PI({}) = {}".format(modulis, prod)
