@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round 1A - Problem B. Golf Gophers
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635/0000000000104f1a
 #
-# Time:  O(B * N + BlogM))
+# Time:  O(B * N + BlogM)
 # Space: O(B)
 #
 
