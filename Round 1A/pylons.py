@@ -24,7 +24,7 @@ def pylons():
     result = []
     r = 0
     if C >= 4:
-        while (R-r) >= 3 and (R-r) != 4:
+        while (R-r) >= 3 and (R-r) != 4:  # case 3 rows
             iter1 = begin_at_i_seq(C, 1)
             iter2 = begin_at_i_seq(C, 3)
             iter3 = begin_at_i_seq(C, 1)
