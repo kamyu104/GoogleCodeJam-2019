@@ -25,10 +25,10 @@ def pylons():
     r = 0
     if C >= 4:
         while (R-r) >= 4 and (R-r) != 5:  # case 4 rows
-            iter1 = begin_at_i_seq(C, 1)
-            iter2 = begin_at_i_seq(C, 3)
-            iter3 = begin_at_i_seq(C, 1)
-            iter4 = begin_at_i_seq(C, 3)
+            iter1 = begin_at_i_seq(C, 3)
+            iter2 = begin_at_i_seq(C, 1)
+            iter3 = begin_at_i_seq(C, 3)
+            iter4 = begin_at_i_seq(C, 1)
             for c in xrange(C):
                 result.append((r+4, next(iter1)))
                 result.append((r+3, next(iter2)))
