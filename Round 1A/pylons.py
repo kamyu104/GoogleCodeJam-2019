@@ -64,6 +64,11 @@ def pylons():
             result[i] = (result[i][1], result[i][0])
         R, C = C, R
 
+    assert(R*C == len(result))
+    for i in xrange(1, len(result)):
+        assert((abs(result[i][0]-result[i-1][0]) != abs(result[i][1]-result[i-1][1]) and
+               result[i][0]-result[i-1][0] != 0 and result[i][1]-result[i-1][1] != 0))
+
     return "POSSIBLE\n{}".format("\n".join(map(lambda x: " ".join(map(str, x)), result)))
 
 for case in xrange(input()):
