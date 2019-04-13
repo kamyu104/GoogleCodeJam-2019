@@ -29,22 +29,8 @@ def pylons():
 
     result = []
     r = 0
-    if R >= 3 and C >= 4:
-        if R % 4 == 0:  # 4k+4
-            while r != R:
-                iter1 = begin_at_i_seq(C, 1)
-                iter2 = begin_at_i_seq(C, 3)
-                iter3 = begin_at_i_seq(C, 1)
-                iter4 = begin_at_i_seq(C, 3)
-                for c in xrange(C):
-                    result.append((r+1, next(iter1)))
-                    result.append((r+2, next(iter2)))
-                    result.append((r+3, next(iter3)))
-                    result.append((r+4, next(iter4)))
-                    if len(result) >= 5 and abs(result[-5][0]-result[-4][0]) == abs(result[-5][1]-result[-4][1]):
-                        result[-4], result[-2] = result[-2], result[-4]
-                r += 4
-        elif R % 2 != 0:  # 2k+3
+    if C >= 4:
+        while (R-r) >= 3 and (R-r) != 4:  # case 3 rows
             iter1 = begin_at_i_seq(C, 1)
             iter2 = begin_at_i_seq(C, 3)
             iter3 = begin_at_i_seq(C, 1)
@@ -54,16 +40,25 @@ def pylons():
                 result.append((r+3, next(iter3)))
             r += 3
 
-    if (R-r) % 2 == 0 and C >= 5:  # 2k+2
-        while r != R:
-            r1, r2 = r+1, r+2
-            if result and abs(r1 - result[-1][0]) == abs(3 - result[-1][1]):
-                r1, r2 = r2, r1
+        if (R-r) == 4:  # case 4 rows
+            iter1 = begin_at_i_seq(C, 1)
+            iter2 = begin_at_i_seq(C, 3)
+            iter3 = begin_at_i_seq(C, 1)
+            iter4 = begin_at_i_seq(C, 3)
+            for c in xrange(C):
+                result.append((r+1, next(iter1)))
+                result.append((r+2, next(iter2)))
+                result.append((r+3, next(iter3)))
+                result.append((r+4, next(iter4)))
+                if len(result) >= 5 and abs(result[-5][0]-result[-4][0]) == abs(result[-5][1]-result[-4][1]):
+                    result[-4], result[-2] = result[-2], result[-4]
+            r += 4
+        elif (R-r) == 2 and C >= 5:  # case 2 rows
             iter1 = begin_at_i_seq(C, 3)
             iter2 = reverse_since_i_seq(C, C-1)
             for _ in xrange(C):
-                result.append((r1, next(iter1)))
-                result.append((r2, next(iter2)))
+                result.append((r+1, next(iter1)))
+                result.append((r+2, next(iter2)))
             r += 2
 
     if r != R:
