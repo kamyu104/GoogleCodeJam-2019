@@ -33,18 +33,21 @@ def chinese_remainder(n, a):  # Time: O(BlogM), len(n) = B, PI(n) = M
 
 def golf_gophers(N, M):
     modulis, residues = [], []
-    cnt = 1
+    prod = 1
     for i in reversed(MODULIS):
         print " ".join(map(str, [i]*B))
         sys.stdout.flush()
         modulis.append(i)
         residues.append(sum(map(int, raw_input().strip().split())) % i)
-        cnt *= i
-        if cnt >= M:
+        prod *= i
+        if prod >= M:
             break
 
     # these modulis work in chinese remainder theorem (each one is prime to the others)
-    print chinese_remainder(modulis, residues)
+    result = chinese_remainder(modulis, residues)
+    if result == 0:
+        result = prod
+    print result
     sys.stdout.flush()
     verdict = input()
     if verdict == -1:  # error
