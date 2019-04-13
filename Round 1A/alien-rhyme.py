@@ -11,7 +11,7 @@ import collections
 import functools
 
 def alien_rhyme_helper(node):
-    no_rhyme_count = sum(alien_rhyme_helper(child) for c, child in node.iteritems() if child)
+    no_rhyme_count = sum(alien_rhyme_helper(child) for child in node.values() if child)
     if "_end" in node:
         no_rhyme_count += 1
     if "_root" not in node and no_rhyme_count >= 2:
