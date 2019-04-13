@@ -18,8 +18,8 @@ def golf_gophers(N, M):
         modulis.append(i)
         residues.append(sum(map(int, raw_input().strip().split())) % i)
 
-    # these modulis won't work in chinese remainder theorem,
-    # but if the modulis are [18, 17, 16, 15, 14, 13, 12], the residues of m are unique if m <= 1113840
+    # these modulis won't work in chinese remainder theorem (because each one is not prime to the others),
+    # but residues are still unique if M <= 1113840 in modulis of [18, 17, 16, 15, 14, 13, 12].
     # see golf-gophers2-prove.py
     for m in xrange(1, M+1):
         for i, residue in enumerate(residues):
