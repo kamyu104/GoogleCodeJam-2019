@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round 1A - Problem A. Pylons
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635/0000000000104e03
 #
-# Time:  O(m * n)
+# Time:  O(R * C)
 # Space: O(1)
 #
 
