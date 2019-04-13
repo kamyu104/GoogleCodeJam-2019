@@ -11,23 +11,24 @@ import sys
 
 B = 18
 def golf_gophers(N, M):
-    responses = []
+    modulis, residues = [], []
     cnt = 1
     # for i in reversed([5, 7, 9, 11, 13, 16, 17]):
     for i in reversed(xrange(max(2, B-N+1), B+1)):
         print " ".join(map(str, [i]*B))
         sys.stdout.flush()
-        responses.append((i, sum(map(int, raw_input().strip().split())) % i))
+        modulis.append(i)
+        residues.append(sum(map(int, raw_input().strip().split())) % i)
         cnt *= i
         if i > M:
             break
 
-    for i in xrange(1, M+1):
-        for response in responses:
-            if i % response[0] != response[1]:
+    for m in xrange(1, M+1):
+        for i, residue in enumerate(residues):
+            if m % modulis[i] != residue:
                 break
         else:
-            print i
+            print m
             sys.stdout.flush()
             verdict = input()
             if verdict == -1:  # error
