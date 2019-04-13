@@ -11,11 +11,11 @@ import sys
 
 def golf_gophers(N, M):
     modulis, residues = [], []
-    for i in reversed(xrange(max(2, B-N+1), B+1)):
-        print " ".join(map(str, [i]*B))
+    for b in reversed(xrange(max(2, B-N+1), B+1)):
+        print " ".join(map(str, [b]*B))
         sys.stdout.flush()
-        modulis.append(i)
-        residues.append(sum(map(int, raw_input().strip().split())) % i)
+        modulis.append(b)
+        residues.append(sum(map(int, raw_input().strip().split())) % b)
 
     # these modulis won't work in chinese remainder theorem (because each one is not prime to the others),
     # but residues are still unique if M <= 1113840 in modulis of [18, 17, 16, 15, 14, 13, 12].
