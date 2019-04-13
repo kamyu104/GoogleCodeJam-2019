@@ -31,11 +31,10 @@ def chinese_remainder(n, a):  # Time: O(BlogM), len(n) = B, PI(n) = M
         sum += a_i * mul_inv(p, n_i) * p
     return sum % prod
 
-B = 18
 def golf_gophers(N, M):
     modulis, residues = [], []
     cnt = 1
-    for i in reversed([5, 7, 9, 11, 13, 16, 17]):
+    for i in reversed(MODULIS):
         print " ".join(map(str, [i]*B))
         sys.stdout.flush()
         modulis.append(i)
@@ -50,6 +49,31 @@ def golf_gophers(N, M):
     verdict = input()
     if verdict == -1:  # error
         exit()
+
+def getPrimes(n):
+    primes = []
+    if n < 2:
+        return []
+
+    primes.append(2)
+    is_prime = [True] * n
+    for i in xrange(3, n+1, 2):
+        if not is_prime[i-1]:
+            continue
+        primes.append(i)
+        for j in xrange(i*i, n+1, 2*i):
+            is_prime[j-1] = False
+    return primes
+
+B = 18
+primes = getPrimes(B)
+MODULIS = []
+for i in xrange(len(primes)): # Time:  O(BlogB)
+    moduli = 1
+    while moduli * primes[i] <= B:
+        moduli *= primes[i]
+    MODULIS.append(moduli)
+MODULIS.sort()  # [5, 7, 9, 11, 13, 16, 17]
 
 T, N, M = map(int, raw_input().strip().split())
 for case in xrange(T):
