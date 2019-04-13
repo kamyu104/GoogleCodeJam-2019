@@ -15,7 +15,7 @@ def mul_inv(a, b):
     x0, x1 = 0, 1
     if b == 1: return 1
     while a > 1:
-        q = a / b
+        q = a // b
         a, b = b, a%b
         x0, x1 = x1 - q * x0, x0
     if x1 < 0: x1 += b0
