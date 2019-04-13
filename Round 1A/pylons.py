@@ -13,12 +13,6 @@ def begin_at_i_seq(C, i):
     for c in xrange(1, i):
         yield c
 
-def reverse_since_i_seq(C, i):
-    for c in xrange(1, i):
-        yield c
-    for c in reversed(xrange(i, C+1)):
-        yield c
-
 def pylons():
     R, C = map(int, raw_input().strip().split())
 
@@ -30,7 +24,7 @@ def pylons():
     result = []
     r = 0
     if C >= 4:
-        while (R-r) >= 3 and (R-r) != 4:  # case 3 rows
+        while (R-r) >= 3 and (R-r) != 4:
             iter1 = begin_at_i_seq(C, 1)
             iter2 = begin_at_i_seq(C, 3)
             iter3 = begin_at_i_seq(C, 1)
@@ -55,7 +49,7 @@ def pylons():
             r += 4
         elif (R-r) == 2 and C >= 5:  # case 2 rows
             iter1 = begin_at_i_seq(C, 3)
-            iter2 = reverse_since_i_seq(C, C-1)
+            iter2 = begin_at_i_seq(C, 1)
             for _ in xrange(C):
                 result.append((r+1, next(iter1)))
                 result.append((r+2, next(iter2)))
