@@ -23,7 +23,7 @@ def golf_gophers(N, M):
             break
 
     # these modulis won't work in chinese remainder theorem,
-    # but the residues of m are unique if m <= M
+    # but if the modulis are [18, 17, 16, 15, 14], the residues of m are unique if m <= 1000000
     for m in xrange(1, M+1):
         for i, residue in enumerate(residues):
             if m % modulis[i] != residue:
