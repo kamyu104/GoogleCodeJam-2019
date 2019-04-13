@@ -16,6 +16,6 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 ## Round 1A
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
-|A| [Pylons](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635/0000000000104e03)| [Python](./Round%201A/pylons.py)| _O(R * C)_ | _O(1)_ | Easy | | |
-|B| [Golf Gophers](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635/0000000000104f1a)| [Python](./Round%201A/golf-gophers.py) [Python](./Round%201A/golf-gophers2.py) | _O(B * N + BlogM)_ | _O(B)_ | Medium | | Chinese Remainder Theorem |
+|A| [Pylons](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635/0000000000104e03)| [Python](./Round%201A/pylons.py)| _O(R * C)_ | _O(1)_ | Easy | | Constructive |
+|B| [Golf Gophers](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635/0000000000104f1a)| [Python](./Round%201A/golf-gophers.py) [Python](./Round%201A/golf-gophers2.py) | _O(B * N + BlogM)_ | _O(B)_ | Medium | | `Chinese Remainder Theorem` |
 |C| [Alien Rhyme](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635/0000000000104e05)| [Python](./Round%201A/alien-rhyme.py)| _O(T)_ | _O(T)_ | Medium | | Trie |
