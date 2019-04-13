@@ -13,7 +13,6 @@ B = 18
 def golf_gophers(N, M):
     modulis, residues = [], []
     cnt = 1
-    # for i in reversed([5, 7, 9, 11, 13, 16, 17]):
     for i in reversed(xrange(max(2, B-N+1), B+1)):
         print " ".join(map(str, [i]*B))
         sys.stdout.flush()
@@ -23,6 +22,8 @@ def golf_gophers(N, M):
         if i > M:
             break
 
+    # these modulis won't work in chinese remainder theorem,
+    # but the residues of m are unique if m <= M
     for m in xrange(1, M+1):
         for i, residue in enumerate(residues):
             if m % modulis[i] != residue:
