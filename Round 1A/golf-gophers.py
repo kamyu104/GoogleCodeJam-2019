@@ -71,7 +71,7 @@ def getPrimes(n):
 B = 18
 primes = getPrimes(B)
 MODULIS = []
-for i in xrange(len(primes)): # Time:  O(BlogB)
+for i in xrange(len(primes)):  # Time:  O(BlogB)
     moduli = 1
     while moduli * primes[i] <= B:
         moduli *= primes[i]
