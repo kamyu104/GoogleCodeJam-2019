@@ -44,7 +44,7 @@ def golf_gophers(N, M):
         if i > M:
             break
 
-    # these modulis work in chinese remainder theorem (each one is prime to the other)
+    # these modulis work in chinese remainder theorem (each one is prime to the others)
     print chinese_remainder(modulis, residues)
     sys.stdout.flush()
     verdict = input()
