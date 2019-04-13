@@ -9,7 +9,6 @@
 
 import sys
 
-B = 18
 def golf_gophers(N, M):
     modulis, residues = [], []
     for i in reversed(xrange(max(2, B-N+1), B+1)):
@@ -33,6 +32,7 @@ def golf_gophers(N, M):
                 exit()
             break
 
+B = 18
 T, N, M = map(int, raw_input().strip().split())
 for case in xrange(T):
     golf_gophers(N, M)
