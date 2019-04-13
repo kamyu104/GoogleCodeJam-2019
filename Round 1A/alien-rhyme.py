@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round 1A - Problem C. Alien Rhyme
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635/0000000000104e05
 #
-# Time:  O(T), t is size of trie
+# Time:  O(T), t is size of trie, may be up to O(N * l), l is the average length of words
 # Space: O(T)
 #
 
