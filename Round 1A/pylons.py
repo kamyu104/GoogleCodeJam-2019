@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round 1A - Problem A. Pylons
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635/0000000000104e03
 #
-# Time:  O(R * C)
+# Time:  O(m * n)
 # Space: O(1)
 #
 
@@ -13,7 +13,7 @@ def begin_at_i_seq(C, i):
     for c in xrange(1, i):
         yield c
 
-def reverse_after_i_seq(C, i):
+def reverse_since_i_seq(C, i):
     for c in xrange(1, i):
         yield c
     for c in reversed(xrange(i, C+1)):
@@ -60,7 +60,7 @@ def pylons():
             if result and abs(r1 - result[-1][0]) == abs(3 - result[-1][1]):
                 r1, r2 = r2, r1
             iter1 = begin_at_i_seq(C, 3)
-            iter2 = reverse_after_i_seq(C, C-1)
+            iter2 = reverse_since_i_seq(C, C-1)
             for _ in xrange(C):
                 result.append((r1, next(iter1)))
                 result.append((r2, next(iter2)))
