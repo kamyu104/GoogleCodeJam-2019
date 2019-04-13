@@ -34,12 +34,12 @@ def chinese_remainder(n, a):  # Time: O(BlogM), len(n) = B, PI(n) = M
 def golf_gophers(N, M):
     modulis, residues = [], []
     prod = 1
-    for i in reversed(MODULIS):
-        print " ".join(map(str, [i]*B))
+    for n_i in reversed(MODULIS):
+        print " ".join(map(str, [n_i]*B))
         sys.stdout.flush()
-        modulis.append(i)
-        residues.append(sum(map(int, raw_input().strip().split())) % i)
-        prod *= i
+        modulis.append(n_i)
+        residues.append(sum(map(int, raw_input().strip().split())) % n_i)
+        prod *= n_i
         if prod >= M:
             break
 
