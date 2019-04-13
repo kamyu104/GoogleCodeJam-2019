@@ -31,6 +31,7 @@ def chinese_remainder(n, a):  # Time: O(BlogM), len(n) = B, PI(n) = M
         sum += a_i * mul_inv(p, n_i) * p
     return sum % prod
 
+B = 18
 def golf_gophers(N, M):
     modulis, residues = [], []
     cnt = 1
