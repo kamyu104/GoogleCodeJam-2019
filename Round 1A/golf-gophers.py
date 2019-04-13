@@ -41,7 +41,7 @@ def golf_gophers(N, M):
         modulis.append(i)
         residues.append(sum(map(int, raw_input().strip().split())) % i)
         cnt *= i
-        if i > M:
+        if cnt >= M:
             break
 
     # these modulis work in chinese remainder theorem (each one is prime to the others)
