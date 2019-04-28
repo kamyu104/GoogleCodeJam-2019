@@ -10,32 +10,30 @@
 import sys
 
 def draupnir():
-    Q = 200
-    assert(2**(Q//5) > 100 * 2**(Q//6))
+    Q = Q1  # 190
     print Q
     sys.stdout.flush()
     N = input()
     R6 = (N % 2**(Q//5)) // 2**(Q//6)
     N -= R6 * 2**(Q//6)
-    N %= 2**63
+    N %= 2**P
     R5 = (N % 2**(Q//4)) // 2**(Q//5)
     N -= R5 * 2**(Q//5)
-    N %= 2**63
+    N %= 2**P
     R4 = N // 2**(Q//4)
 
-    Q = 40
-    assert(2**(Q//2) > 100 * 2**(Q//3))
+    Q = Q2  # 38
     print Q
     sys.stdout.flush()
     N = input()
     N -= R4 * 2**(Q//4) + R5 * 2**(Q//5) + R6 * 2**(Q//6)
-    N %= 2**63
+    N %= 2**P
     R3 = (N % 2**(Q//2)) // 2**(Q//3)
     N -= R3 * 2**(Q//3)
-    N %= 2**63
+    N %= 2**P
     R2 = (N % 2**(Q//1)) // 2**(Q//2)
     N -= R2 * 2**(Q//2)
-    N %= 2**63
+    N %= 2**P
     R1 = N // 2**(Q//1)
 
     print R1, R2, R3, R4, R5, R6
@@ -44,6 +42,14 @@ def draupnir():
     if verdict == -1:  # error
         exit()
 
+R = 100
+P = 63
+Q1 = 3*P  # 2**(Q1//3) >= 2**63
+while 2**(Q1//5) <= R * 2**(Q1//6):
+    Q1 +=1
+Q2 = 1
+while 2**(Q2//2) <= R * 2**(Q2//3):
+    Q2 +=1
 T, W = map(int, raw_input().strip().split())
 for case in xrange(T):
     draupnir()
