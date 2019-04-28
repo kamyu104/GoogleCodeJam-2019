@@ -8,7 +8,7 @@
 
 import collections
 
-def choose(P, Q, L, R, lookup):
+def choose(lookup, L, R):
     positions = []
     for k, v in lookup.iteritems():
         positions.append((k, v[L], v[R]))
@@ -37,8 +37,8 @@ def manhattan_crepe_cart():
         elif D in "SN":
             lookup_Y[Y][D] += 1
     
-    return "{} {}".format(choose(P, Q, "W", "E", lookup_X),
-                          choose(P, Q, "S", "N", lookup_Y))
+    return "{} {}".format(choose(lookup_X, "W", "E"),
+                          choose(lookup_Y, "S", "N"))
 
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, manhattan_crepe_cart())
