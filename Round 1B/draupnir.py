@@ -14,12 +14,11 @@ def draupnir():
     print Q
     sys.stdout.flush()
     N = input()
+    N %= 2**P
     R6 = (N % 2**(Q//5)) // 2**(Q//6)
     N -= R6 * 2**(Q//6)
-    N %= 2**P
     R5 = (N % 2**(Q//4)) // 2**(Q//5)
     N -= R5 * 2**(Q//5)
-    N %= 2**P
     R4 = N // 2**(Q//4)
 
     Q = Q2  # 38
@@ -27,13 +26,10 @@ def draupnir():
     sys.stdout.flush()
     N = input()
     N -= R4 * 2**(Q//4) + R5 * 2**(Q//5) + R6 * 2**(Q//6)
-    N %= 2**P
     R3 = (N % 2**(Q//2)) // 2**(Q//3)
     N -= R3 * 2**(Q//3)
-    N %= 2**P
     R2 = (N % 2**(Q//1)) // 2**(Q//2)
     N -= R2 * 2**(Q//2)
-    N %= 2**P
     R1 = N // 2**(Q//1)
 
     print R1, R2, R3, R4, R5, R6
