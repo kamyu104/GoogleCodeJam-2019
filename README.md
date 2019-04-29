@@ -4,6 +4,7 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 
 * [Qualification Round](https://github.com/kamyu104/GoogleCodeJam-2019#qualification-round)
 * [Round 1A](https://github.com/kamyu104/GoogleCodeJam-2019#round-1a)
+* [Round 1A](https://github.com/kamyu104/GoogleCodeJam-2019#round-1b)
 
 ## Qualification Round
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
@@ -19,3 +20,10 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 |A| [Pylons](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635/0000000000104e03)| [Python](./Round%201A/pylons.py)| _O(R * C)_ | _O(1)_ | Medium | | Constructive |
 |B| [Golf Gophers](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635/0000000000104f1a)| [Python](./Round%201A/golf-gophers.py) [Python](./Round%201A/golf-gophers2.py) | _O(B * N + BlogM)_ | _O(B)_ | Medium | | Chinese Remainder Theorem |
 |C| [Alien Rhyme](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635/0000000000104e05)| [Python](./Round%201A/alien-rhyme.py)| _O(T)_ | _O(T)_ | Easy | | Trie |
+
+## Round 1B
+| # | Title | Solution | Time | Space | Difficulty | Tag | Note |
+|---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
+|A| [Manhattan Crepe Cart](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/000000000012295c)| [Python](./Round%201B/manhattan-crepe-cart.py)| _O(PlogP)_ | _O(P)_ | Easy | | Sweep Line |
+|B| [Draupnir](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/0000000000122837)| [Python](./Round%201B/draupnir.py) | _O(1)_ | _O(1)_ | Medium | | Math |
+|C| [Fair Fight](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/0000000000122838)| [*Python](./Round%201B/fair-fight.py)| _O(NlogN)_ | _O(NlogN)_ | Hard | | Binary Search |
