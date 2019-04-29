@@ -62,7 +62,7 @@ def fair_fight():
     result, next_to_last_max_C = 0, collections.defaultdict(int)
     for i in xrange(N):
         L2 = binary_search_left(RMQ_C, RMQ_D, next_to_last_max_C[C[i]], i, C[i], K)
-        R2 = binary_search_right(RMQ_C, RMQ_D, i, RMQ_C.size()-1, C[i], K)
+        R2 = binary_search_right(RMQ_C, RMQ_D, i, N-1, C[i], K)
         if not (L2 <= i <= R2):
             continue
         result += (i-L2+1)*(R2-i+1)
