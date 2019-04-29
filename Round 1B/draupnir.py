@@ -14,7 +14,6 @@ def draupnir():
     print Q
     sys.stdout.flush()
     N = input()
-    N %= 2**P
     R6 = (N % 2**(Q//5)) // 2**(Q//6)
     N -= R6 * 2**(Q//6)
     R5 = (N % 2**(Q//4)) // 2**(Q//5)
@@ -40,7 +39,7 @@ def draupnir():
 
 R = 100
 P = 63
-Q1 = 3*P  # 2**(Q1//3) >= 2**P
+Q1 = 3*P  # 2**(Q1//3) >= 2**P, s.t. R1, R2, R3 factors would be excluded in the response
 while 2**(Q1//5) <= R * 2**(Q1//6):
     Q1 +=1
 Q2 = 1
