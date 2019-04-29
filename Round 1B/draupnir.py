@@ -39,7 +39,7 @@ def draupnir():
 
 R = 100
 P = 63
-Q1 = 3*P  # 2**(Q1//3) >= 2**P, s.t. R1, R2, R3 factors would be excluded in the response
+Q1 = 3*P  # 2**(Q1//3) >= 2**P, s.t. R1, R2, R3 factors would be excluded in the first response
 while 2**(Q1//5) <= R * 2**(Q1//6):
     Q1 +=1
 Q2 = 1
