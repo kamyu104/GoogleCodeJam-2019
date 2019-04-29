@@ -59,20 +59,21 @@ def fair_fight():
     C = map(int, raw_input().strip().split())
     D = map(int, raw_input().strip().split())
     RMQ_C, RMQ_D = RMQ(C), RMQ(D)
-    result = 0
-    next_to_last_C = collections.defaultdict(int)
+    result, next_to_last_C = 0, collections.defaultdict(int)
     for i in xrange(N):
         L2 = binary_search_left(RMQ_C, RMQ_D, next_to_last_C[C[i]], i, C[i], K)
         R2 = binary_search_right(RMQ_C, RMQ_D, i, RMQ_C.size()-1, C[i], K)
         if not (L2 <= i <= R2):
             continue
-        next_to_last_C[C[i]] = i+1
         result += (i-L2+1)*(R2-i+1)
+        next_to_last_C[C[i]] = i+1
+
         L3 = binary_search_left(RMQ_C, RMQ_D, L2, i, C[i], -K-1)
         R3 = binary_search_right(RMQ_C, RMQ_D, i, R2, C[i], -K-1)
         if not (L3 <= i <= R3):
             continue
         result -= (i-L3+1)*(R3-i+1)
+
     return result
 
 for case in xrange(input()):
