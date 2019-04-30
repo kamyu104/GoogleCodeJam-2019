@@ -27,23 +27,23 @@ def fair_fight():
     L_lookup = collections.defaultdict(int)
     C_curr_maxs, D_curr_maxs = [], []
     for i in xrange(N):
-        while C_curr_maxs and C[C_curr_maxs[-1]] < c:  # keep the idx where C[idx] == Ci
+        while C_curr_maxs and C[C_curr_maxs[-1]] < C[i]:  # keep the idx where C[idx] == Ci
             C_curr_maxs.pop()
         C_L_idx = C_curr_maxs[-1]+1 if C_curr_maxs else 0  # get the leftmost idx of Ci s.t. C[idx] < Ci
         C_curr_maxs.append(i)
-        while D_curr_maxs and D[D_curr_maxs[-1]] <= d:
+        while D_curr_maxs and D[D_curr_maxs[-1]] <= D[i]:
             D_curr_maxs.pop()
         D_curr_maxs.append(i)
 
         if D[i]-C[i] > K:
             continue
         
-        D_L_bad = lower_bound(D, D_curr_maxs, C[i]-K-1)
         D_L_good = lower_bound(D, D_curr_maxs, C[i]+K)
-        D_L_bad_idx = D_curr_maxs[D_L_bad-1]+1 if D_L_bad > 0 else 0
+        D_L_bad = lower_bound(D, D_curr_maxs, C[i]-K-1)
         D_L_good_idx = D_curr_maxs[D_L_good-1]+1 if D_L_good > 0 else 0
+        D_L_bad_idx = D_curr_maxs[D_L_bad-1]+1 if D_L_bad > 0 else 0
         L_good = max(C_L_idx, D_L_good_idx)
-        L_bad = max(D_L_bad_idx, L_good)
+        L_bad = max(L_good, D_L_bad_idx)
 
         L_lookup[i] = (L_good, L_bad)
 
@@ -61,12 +61,12 @@ def fair_fight():
         if D[i]-C[i] > K:
             continue
 
-        D_R_bad = lower_bound(D, D_curr_maxs, C[i]-K-1)
         D_R_good = lower_bound(D, D_curr_maxs, C[i]+K)
-        D_R_bad_idx = D_curr_maxs[D_R_bad-1]-1 if D_R_bad > 0 else N-1
+        D_R_bad = lower_bound(D, D_curr_maxs, C[i]-K-1)
         D_R_good_idx = D_curr_maxs[D_R_good-1]-1 if D_R_good > 0 else N-1
+        D_R_bad_idx = D_curr_maxs[D_R_bad-1]-1 if D_R_bad > 0 else N-1
         R_good = min(C_R_idx, D_R_good_idx)
-        R_bad = min(D_R_bad_idx, R_good)
+        R_bad = min(R_good, D_R_bad_idx)
 
         assert(i in L_lookup)
         L_good, L_bad = L_lookup[i]
