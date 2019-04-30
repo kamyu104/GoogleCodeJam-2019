@@ -11,7 +11,7 @@ import collections
 def choose(lookup):
     positions = list(lookup.iteritems())
     positions.sort()
-    result, max_votes = 0, float("-inf")
+    result, max_votes = None, float("-inf")
     curr_pos, curr_votes = 0, 0
     for pos, v in positions:
         if pos > curr_pos:
