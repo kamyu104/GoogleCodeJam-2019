@@ -10,7 +10,7 @@
 def lower_bound(A, curr_max_idxs, K):
     left, right = 0, len(curr_max_idxs)-1
     while left <= right:
-        mid = (left + right) // 2
+        mid = left + (right-left)//2
         if A[curr_max_idxs[mid]] <= K:
             right = mid-1
         else:
