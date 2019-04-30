@@ -29,9 +29,9 @@ def fair_fight():
     C_curr_maxs, D_curr_maxs = [], []
     for i in xrange(N):
         c, d = C[i], D[i]
-        while C_curr_maxs and C[C_curr_maxs[-1]] < c:  # keep the leftmost index if with the same max c
+        while C_curr_maxs and C[C_curr_maxs[-1]] < c:  # keep the idx where C[idx] == Ci
             C_curr_maxs.pop()
-        C_L_idx = C_curr_maxs[-1]+1 if C_curr_maxs else 0
+        C_L_idx = C_curr_maxs[-1]+1 if C_curr_maxs else 0  # get the leftmost idx of Ci s.t. C[idx] < Ci
         C_curr_maxs.append(i)
         while D_curr_maxs and D[D_curr_maxs[-1]] <= d:
             D_curr_maxs.pop()
@@ -54,7 +54,7 @@ def fair_fight():
 
         while C_curr_maxs and C[C_curr_maxs[-1]] <= c:
             C_curr_maxs.pop()
-        C_R_idx = C_curr_maxs[-1]-1 if C_curr_maxs else N-1
+        C_R_idx = C_curr_maxs[-1]-1 if C_curr_maxs else N-1  # get the leftmost idx of Ci s.t. Ci >= C[idx]
         C_curr_maxs.append(i)
         while D_curr_maxs and D[D_curr_maxs[-1]] <= d:
             D_curr_maxs.pop()
