@@ -46,7 +46,7 @@ def fair_fight():
         R_lookup.append((R_good, R_bad))
 
     result = 0
-    C_curr_max_idxs, D_curr_max_idxs = [], []
+    C_curr_max_idxs, D_curr_max_idxs = [], []  # descending stack
     for i in xrange(N):
         while C_curr_max_idxs and C[C_curr_max_idxs[-1]] < C[i]:  # keep the idx where C[idx] == Ci
             C_curr_max_idxs.pop()
