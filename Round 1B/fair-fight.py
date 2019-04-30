@@ -63,7 +63,7 @@ def fair_fight():
         L_bad = binary_search_left(RMQ_C, RMQ_D, L_good, i, C[i], -K-1)
         R_bad = binary_search_right(RMQ_C, RMQ_D, i, R_good, C[i], -K-1)
         result += (i-L_good+1)*(R_good-i+1)-(i-L_bad+1)*(R_bad-i+1)
-        next_to_last_seen[C[i]] = i+1
+        next_to_last_seen[C[i]] = i+1  # to avoid duplicated count
     return result
 
 for case in xrange(input()):
