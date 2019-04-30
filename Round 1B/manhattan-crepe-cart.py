@@ -28,8 +28,7 @@ def choose(lookup):
 
 def manhattan_crepe_cart():
     P, Q = map(int, raw_input().strip().split())
-    lookup_X = collections.defaultdict(int)
-    lookup_Y = collections.defaultdict(int)
+    lookup_X, lookup_Y = collections.defaultdict(int), collections.defaultdict(int)
     for _ in xrange(P):
         X, Y, D = raw_input().strip().split()
         X, Y = int(X), int(Y)
