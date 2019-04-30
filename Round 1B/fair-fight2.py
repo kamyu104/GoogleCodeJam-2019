@@ -14,18 +14,21 @@ class RangeQuery(object):
     def __init__(self, items, fn):
         self.__rq = rq = {(i, 0): item for i, item in enumerate(items)}
         self.__fn = fn
+        self.__pow = [1]
         n = len(items)
-        for step, i in itertools.product(xrange(1, n.bit_length()), xrange(n)):
-            j = i + 2 ** (step-1)
+        for i in xrange(1, n.bit_length()):
+            self.__pow.append(self.__pow[-1] * 2)
+        for step, i in itertools.product(xrange(1, n.bit_length()), xrange(n)):  # O(NlogN)
+            j = i + self.__pow[step-1]
             if j < n:
                 rq[i, step] = fn(rq[i, step-1], rq[j, step-1])
             else:
                 rq[i, step] = rq[i, step-1]
 
-    def query(self, start, stop):
+    def query(self, start, stop):  # O(1)
         j = (stop - start).bit_length() - 1
         x = self.__rq[start, j]
-        y = self.__rq[stop - 2**j, j]
+        y = self.__rq[stop - self.__pow[j], j]
         return self.__fn(x, y)
 
 def lower_bound(left, right, check):
