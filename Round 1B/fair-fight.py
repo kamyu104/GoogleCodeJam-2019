@@ -36,11 +36,11 @@ def fair_fight():
             D_curr_maxs.pop()
         D_curr_maxs.append(i)
 
-        if d-c > K:
+        if D[i]-C[i] > K:
             continue
         
-        D_L_bad = lower_bound(D, D_curr_maxs, c-K-1)
-        D_L_good = lower_bound(D, D_curr_maxs, c+K)
+        D_L_bad = lower_bound(D, D_curr_maxs, C[i]-K-1)
+        D_L_good = lower_bound(D, D_curr_maxs, C[i]+K)
         D_L_bad_idx = D_curr_maxs[D_L_bad-1]+1 if D_L_bad > 0 else 0
         D_L_good_idx = D_curr_maxs[D_L_good-1]+1 if D_L_good > 0 else 0
         L_good = max(C_L_idx, D_L_good_idx)
@@ -51,21 +51,19 @@ def fair_fight():
     result = 0
     C_curr_maxs, D_curr_maxs = [], []
     for i in reversed(xrange(N)):
-        c, d = C[i], D[i]
-
-        while C_curr_maxs and C[C_curr_maxs[-1]] <= c:
+        while C_curr_maxs and C[C_curr_maxs[-1]] <= C[i]:
             C_curr_maxs.pop()
         C_R_idx = C_curr_maxs[-1]-1 if C_curr_maxs else N-1  # get the leftmost idx of Ci s.t. Ci >= C[idx]
         C_curr_maxs.append(i)
-        while D_curr_maxs and D[D_curr_maxs[-1]] <= d:
+        while D_curr_maxs and D[D_curr_maxs[-1]] <= D[i]:
             D_curr_maxs.pop()
         D_curr_maxs.append(i)
 
-        if d-c > K:
+        if D[i]-C[i] > K:
             continue
 
-        D_R_bad = lower_bound(D, D_curr_maxs, c-K-1)
-        D_R_good = lower_bound(D, D_curr_maxs, c+K)
+        D_R_bad = lower_bound(D, D_curr_maxs, C[i]-K-1)
+        D_R_good = lower_bound(D, D_curr_maxs, C[i]+K)
         D_R_bad_idx = D_curr_maxs[D_R_bad-1]-1 if D_R_bad > 0 else N-1
         D_R_good_idx = D_curr_maxs[D_R_good-1]-1 if D_R_good > 0 else N-1
         R_good = min(C_R_idx, D_R_good_idx)
