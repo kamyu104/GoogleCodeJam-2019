@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round 1B - Problem C. Fair Fight
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/0000000000122838
 #
-# Time:  O(NlogN)
+# Time:  O(N*(logN)^2)
 # Space: O(NlogN)
 #
 
@@ -25,7 +25,7 @@ class RangeQuery(object):
             else:
                 rq[i, step] = rq[i, step-1]
 
-    def query(self, start, stop):  # O(1)
+    def query(self, start, stop):  # O(logN)
         j = (stop - start).bit_length() - 1
         x = self.__rq[start, j]
         y = self.__rq[stop - self.__pow[j], j]
