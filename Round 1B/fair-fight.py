@@ -53,15 +53,15 @@ def fair_fight():
     D = map(int, raw_input().strip().split())
     RMQ_C, RMQ_D = RMQ(C), RMQ(D)
     result, next_to_last_seen = 0, collections.defaultdict(int)
-    for i in xrange(N):
+    for i, Ci in enumerate(C):
         L_good = lower_bound(next_to_last_seen[C[i]], i,
-                             lambda x: RMQ_C.query(x, i) == C[i] and RMQ_D.query(x, i)-C[i] <= K)
+                             lambda x: RMQ_C.query(x, i) == Ci and RMQ_D.query(x, i)-Ci <= K)
         R_good = upper_bound(i, N-1,
-                             lambda x: RMQ_C.query(i, x) == C[i] and RMQ_D.query(i, x)-C[i] <= K)-1
+                             lambda x: RMQ_C.query(i, x) == Ci and RMQ_D.query(i, x)-Ci <= K)-1
         L_bad = lower_bound(L_good, i,
-                            lambda x: RMQ_C.query(x, i) == C[i] and RMQ_D.query(x, i)-C[i] <= -K-1)
+                            lambda x: RMQ_C.query(x, i) == Ci and RMQ_D.query(x, i)-Ci <= -K-1)
         R_bad = upper_bound(i, R_good,
-                            lambda x: RMQ_C.query(i, x) == C[i] and RMQ_D.query(i, x)-C[i] <= -K-1)-1
+                            lambda x: RMQ_C.query(i, x) == Ci and RMQ_D.query(i, x)-Ci <= -K-1)-1
         result += (i-L_good+1)*(R_good-i+1)-(i-L_bad+1)*(R_bad-i+1)
         next_to_last_seen[C[i]] = i+1  # to avoid duplicated count
     return result
