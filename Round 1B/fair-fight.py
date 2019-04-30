@@ -29,7 +29,7 @@ def fair_fight():
     for i in xrange(N):
         while C_curr_max_idxs and C[C_curr_max_idxs[-1]] < C[i]:  # keep the idx where C[idx] == Ci
             C_curr_max_idxs.pop()
-        C_L = C_curr_max_idxs[-1]+1 if C_curr_max_idxs else 0  # get the leftmost idx of Ci s.t. C[idx] < Ci
+        C_L_idx = C_curr_max_idxs[-1]+1 if C_curr_max_idxs else 0  # get the leftmost idx of Ci s.t. C[idx] < Ci
         C_curr_max_idxs.append(i)
         while D_curr_max_idxs and D[D_curr_max_idxs[-1]] <= D[i]:
             D_curr_max_idxs.pop()
@@ -40,19 +40,19 @@ def fair_fight():
         
         D_L_good = lower_bound(D, D_curr_max_idxs, C[i]+K)
         D_L_bad = lower_bound(D, D_curr_max_idxs, C[i]-K-1)
-        D_L_good = D_curr_max_idxs[D_L_good-1]+1 if D_L_good > 0 else 0
-        D_L_bad = D_curr_max_idxs[D_L_bad-1]+1 if D_L_bad > 0 else 0
-        L_good = max(C_L, D_L_good)
-        L_bad = max(L_good, D_L_bad)
+        D_L_good_idx = D_curr_max_idxs[D_L_good-1]+1 if D_L_good > 0 else 0
+        D_L_bad_idx = D_curr_max_idxs[D_L_bad-1]+1 if D_L_bad > 0 else 0
+        L_good_idx = max(C_L_idx, D_L_good_idx)
+        L_bad_idx = max(L_good_idx, D_L_bad_idx)
 
-        L_lookup[i] = (L_good, L_bad)
+        L_lookup[i] = (L_good_idx, L_bad_idx)
 
     result = 0
     C_curr_max_idxs, D_curr_max_idxs = [], []
     for i in reversed(xrange(N)):
         while C_curr_max_idxs and C[C_curr_max_idxs[-1]] <= C[i]:
             C_curr_max_idxs.pop()
-        C_R = C_curr_max_idxs[-1]-1 if C_curr_max_idxs else N-1  # get the rightmost idx of Ci s.t. Ci >= C[idx]
+        C_R_idx = C_curr_max_idxs[-1]-1 if C_curr_max_idxs else N-1  # get the rightmost idx of Ci s.t. Ci >= C[idx]
         C_curr_max_idxs.append(i)
         while D_curr_max_idxs and D[D_curr_max_idxs[-1]] <= D[i]:
             D_curr_max_idxs.pop()
@@ -63,14 +63,14 @@ def fair_fight():
 
         D_R_good = lower_bound(D, D_curr_max_idxs, C[i]+K)
         D_R_bad = lower_bound(D, D_curr_max_idxs, C[i]-K-1)
-        D_R_good = D_curr_max_idxs[D_R_good-1]-1 if D_R_good > 0 else N-1
-        D_R_bad = D_curr_max_idxs[D_R_bad-1]-1 if D_R_bad > 0 else N-1
-        R_good = min(C_R, D_R_good)
-        R_bad = min(R_good, D_R_bad)
+        D_R_good_idx = D_curr_max_idxs[D_R_good-1]-1 if D_R_good > 0 else N-1
+        D_R_bad_idx = D_curr_max_idxs[D_R_bad-1]-1 if D_R_bad > 0 else N-1
+        R_good_idx = min(C_R_idx, D_R_good_idx)
+        R_bad_idx = min(R_good_idx, D_R_bad_idx)
 
         assert(i in L_lookup)
-        L_good, L_bad = L_lookup[i]
-        result += (i-L_good+1)*(R_good-i+1)-(i-L_bad+1)*(R_bad-i+1)
+        L_good_idx, L_bad_idx = L_lookup[i]
+        result += (i-L_good_idx+1)*(R_good_idx-i+1)-(i-L_bad_idx+1)*(R_bad_idx-i+1)
 
     return result
 
