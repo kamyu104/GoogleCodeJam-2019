@@ -25,8 +25,8 @@ class RangeQuery(object):
             else:
                 rq[i, step] = rq[i, step-1]
 
-    def query(self, start, stop):  # O(logN)
-        j = (stop - start).bit_length() - 1
+    def query(self, start, stop):
+        j = (stop - start).bit_length() - 1  # O(logN)
         x = self.__rq[start, j]
         y = self.__rq[stop - self.__pow[j], j]
         return self.__fn(x, y)
