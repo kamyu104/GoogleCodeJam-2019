@@ -24,8 +24,7 @@ def fair_fight():
     C = map(int, raw_input().strip().split())
     D = map(int, raw_input().strip().split())
 
-    L_lookup, R_lookup = collections.defaultdict(int), collections.defaultdict(int)
-
+    L_lookup = collections.defaultdict(int)
     C_curr_maxs, D_curr_maxs = [], []
     for i in xrange(N):
         c, d = C[i], D[i]
@@ -44,10 +43,12 @@ def fair_fight():
         D_L_good = lower_bound(D, D_curr_maxs, c+K)
         D_L_bad_idx = D_curr_maxs[D_L_bad-1]+1 if D_L_bad > 0 else 0
         D_L_good_idx = D_curr_maxs[D_L_good-1]+1 if D_L_good > 0 else 0
-        L_good_idx = max(C_L_idx, D_L_good_idx)
-        L_bad_idx = max(D_L_bad_idx, L_good_idx)
-        L_lookup[i] = (L_good_idx, L_bad_idx)
+        L_good = max(C_L_idx, D_L_good_idx)
+        L_bad = max(D_L_bad_idx, L_good)
 
+        L_lookup[i] = (L_good, L_bad)
+
+    result = 0
     C_curr_maxs, D_curr_maxs = [], []
     for i in reversed(xrange(N)):
         c, d = C[i], D[i]
@@ -67,17 +68,13 @@ def fair_fight():
         D_R_good = lower_bound(D, D_curr_maxs, c+K)
         D_R_bad_idx = D_curr_maxs[D_R_bad-1]-1 if D_R_bad > 0 else N-1
         D_R_good_idx = D_curr_maxs[D_R_good-1]-1 if D_R_good > 0 else N-1
-        R_good_idx = min(C_R_idx, D_R_good_idx)
-        R_bad_idx = min(D_R_bad_idx, R_good_idx)
-        R_lookup[i] = (R_good_idx, R_bad_idx)
+        R_good = min(C_R_idx, D_R_good_idx)
+        R_bad = min(D_R_bad_idx, R_good)
 
-    result = 0
-    for i in xrange(N):
-        if i not in L_lookup or i not in R_lookup:
-            continue
+        assert(i in L_lookup)
         L_good, L_bad = L_lookup[i]
-        R_good, R_bad = R_lookup[i]
         result += (i-L_good+1)*(R_good-i+1)-(i-L_bad+1)*(R_bad-i+1)
+
     return result
 
 for case in xrange(input()):
