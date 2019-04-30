@@ -22,31 +22,8 @@ def fair_fight():
     C = map(int, raw_input().strip().split())
     D = map(int, raw_input().strip().split())
 
-    L_lookup = []
+    R_lookup = []
     C_curr_max_idxs, D_curr_max_idxs = [], []  # descending stack
-    for i in xrange(N):
-        while C_curr_max_idxs and C[C_curr_max_idxs[-1]] < C[i]:  # keep the idx where C[idx] == Ci
-            C_curr_max_idxs.pop()
-        C_curr_max_idxs.append(i)
-        while D_curr_max_idxs and D[D_curr_max_idxs[-1]] <= D[i]:
-            D_curr_max_idxs.pop()
-        D_curr_max_idxs.append(i)
-
-        if D[i]-C[i] > K:
-            continue
-        
-        C_L = C_curr_max_idxs[-2]+1 if len(C_curr_max_idxs) >= 2 else 0  # get the leftmost idx of Ci s.t. C[idx] < Ci
-        D_L_good_it = lower_bound(D, D_curr_max_idxs, C[i]+K)
-        D_L_bad_it = lower_bound(D, D_curr_max_idxs, C[i]-K-1)
-        D_L_good = D_curr_max_idxs[D_L_good_it-1]+1 if D_L_good_it > 0 else 0  # get the leftmost idx of max_D s.t. max_D-Ci <= K
-        D_L_bad = D_curr_max_idxs[D_L_bad_it-1]+1 if D_L_bad_it > 0 else 0  # get the leftmost idx of max_D s.t. max_D-Ci <= -K-1
-        L_good = max(C_L, D_L_good)
-        L_bad = max(L_good, D_L_bad)
-
-        L_lookup.append((L_good, L_bad))
-
-    result = 0
-    C_curr_max_idxs, D_curr_max_idxs = [], []
     for i in reversed(xrange(N)):
         while C_curr_max_idxs and C[C_curr_max_idxs[-1]] <= C[i]:
             C_curr_max_idxs.pop()
@@ -66,7 +43,30 @@ def fair_fight():
         R_good = min(C_R, D_R_good)
         R_bad = min(R_good, D_R_bad)
 
-        L_good, L_bad = L_lookup.pop()
+        R_lookup.append((R_good, R_bad))
+
+    result = 0
+    C_curr_max_idxs, D_curr_max_idxs = [], []
+    for i in xrange(N):
+        while C_curr_max_idxs and C[C_curr_max_idxs[-1]] < C[i]:  # keep the idx where C[idx] == Ci
+            C_curr_max_idxs.pop()
+        C_curr_max_idxs.append(i)
+        while D_curr_max_idxs and D[D_curr_max_idxs[-1]] <= D[i]:
+            D_curr_max_idxs.pop()
+        D_curr_max_idxs.append(i)
+
+        if D[i]-C[i] > K:
+            continue
+        
+        C_L = C_curr_max_idxs[-2]+1 if len(C_curr_max_idxs) >= 2 else 0  # get the leftmost idx of Ci s.t. C[idx] < Ci
+        D_L_good_it = lower_bound(D, D_curr_max_idxs, C[i]+K)
+        D_L_bad_it = lower_bound(D, D_curr_max_idxs, C[i]-K-1)
+        D_L_good = D_curr_max_idxs[D_L_good_it-1]+1 if D_L_good_it > 0 else 0  # get the leftmost idx of max_D s.t. max_D-Ci <= K
+        D_L_bad = D_curr_max_idxs[D_L_bad_it-1]+1 if D_L_bad_it > 0 else 0  # get the leftmost idx of max_D s.t. max_D-Ci <= -K-1
+        L_good = max(C_L, D_L_good)
+        L_bad = max(L_good, D_L_bad)
+
+        R_good, R_bad = R_lookup.pop()
         result += (i-L_good+1)*(R_good-i+1)-(i-L_bad+1)*(R_bad-i+1)
 
     return result
