@@ -42,8 +42,7 @@ def manhattan_crepe_cart():
         elif D in "S":
             lookup_Y[Y] -= 1
     
-    return "{} {}".format(choose(lookup_X),
-                          choose(lookup_Y))
+    return "{} {}".format(choose(lookup_X), choose(lookup_Y))
 
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, manhattan_crepe_cart())
