@@ -29,9 +29,6 @@ class RMQ(object):
         k = int(math.log(j-i+1)/math.log(2))
         return max(self.__dp[i][k], self.__dp[j-2**k+1][k])
 
-    def size(self):
-        return len(self.__dp)
-
 def binary_search_left(RMQ_C, RMQ_D, left, right, C, K):
     i = right
     while left <= right:
