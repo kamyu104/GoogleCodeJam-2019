@@ -60,17 +60,10 @@ def fair_fight():
     for i in xrange(N):
         L2 = binary_search_left(RMQ_C, RMQ_D, next_to_last_max_C[C[i]], i, C[i], K)
         R2 = binary_search_right(RMQ_C, RMQ_D, i, N-1, C[i], K)
-        if not (L2 <= i <= R2):
-            continue
-        result += (i-L2+1)*(R2-i+1)
-        next_to_last_max_C[C[i]] = i+1
-
         L3 = binary_search_left(RMQ_C, RMQ_D, L2, i, C[i], -K-1)
         R3 = binary_search_right(RMQ_C, RMQ_D, i, R2, C[i], -K-1)
-        if not (L3 <= i <= R3):
-            continue
-        result -= (i-L3+1)*(R3-i+1)
-
+        result += (i-L2+1)*(R2-i+1)-(i-L3+1)*(R3-i+1)
+        next_to_last_max_C[C[i]] = i+1
     return result
 
 for case in xrange(input()):
