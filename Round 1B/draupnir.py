@@ -42,9 +42,11 @@ P = 63
 Q1 = 3*P  # 2**(Q1//3) >= 2**P, s.t. R1, R2, R3 factors would be excluded in the first response
 while 2**(Q1//5) <= R * 2**(Q1//6):
     Q1 +=1
+assert(R * 2**(Q1//4) < 2**P)
 Q2 = 1
 while 2**(Q2//2) <= R * 2**(Q2//3):
     Q2 +=1
+assert(R * 2**(Q2//1) < 2**P)
 T, W = map(int, raw_input().strip().split())
 for case in xrange(T):
     draupnir()
