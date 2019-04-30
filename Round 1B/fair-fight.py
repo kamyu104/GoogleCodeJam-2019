@@ -29,8 +29,9 @@ def fair_fight():
     C_curr_maxs, D_curr_maxs = [], []
     for i in xrange(N):
         c, d = C[i], D[i]
-        while C_curr_maxs and C[C_curr_maxs[-1]] < c:
+        while C_curr_maxs and C[C_curr_maxs[-1]] < c:  # keep the leftmost index if with the same max c
             C_curr_maxs.pop()
+        C_L_idx = C_curr_maxs[-1]+1 if C_curr_maxs else 0
         C_curr_maxs.append(i)
         while D_curr_maxs and D[D_curr_maxs[-1]] <= d:
             D_curr_maxs.pop()
@@ -38,14 +39,13 @@ def fair_fight():
 
         if d-c > K:
             continue
-
-        C_L_idx = C_curr_maxs[-2]+1 if len(C_curr_maxs) >= 2 else 0
+        
         D_L_bad = lower_bound(D, D_curr_maxs, c-K-1)
         D_L_good = lower_bound(D, D_curr_maxs, c+K)
-        D_L_bad_idx = D_curr_maxs[D_L_bad-1] if D_L_bad > 0 else -1
+        D_L_bad_idx = D_curr_maxs[D_L_bad-1]+1 if D_L_bad > 0 else 0
         D_L_good_idx = D_curr_maxs[D_L_good-1]+1 if D_L_good > 0 else 0
         L_good_idx = max(C_L_idx, D_L_good_idx)
-        L_bad_idx = max(D_L_bad_idx+1, L_good_idx)
+        L_bad_idx = max(D_L_bad_idx, L_good_idx)
         L_lookup[i] = (L_good_idx, L_bad_idx)
 
     C_curr_maxs, D_curr_maxs = [], []
@@ -54,6 +54,7 @@ def fair_fight():
 
         while C_curr_maxs and C[C_curr_maxs[-1]] <= c:
             C_curr_maxs.pop()
+        C_R_idx = C_curr_maxs[-1]-1 if C_curr_maxs else N-1
         C_curr_maxs.append(i)
         while D_curr_maxs and D[D_curr_maxs[-1]] <= d:
             D_curr_maxs.pop()
@@ -62,13 +63,12 @@ def fair_fight():
         if d-c > K:
             continue
 
-        C_R_idx = C_curr_maxs[-2]-1 if len(C_curr_maxs) >= 2 else N-1
         D_R_bad = lower_bound(D, D_curr_maxs, c-K-1)
         D_R_good = lower_bound(D, D_curr_maxs, c+K)
-        D_R_bad_idx = D_curr_maxs[D_R_bad-1] if D_R_bad > 0 else N
+        D_R_bad_idx = D_curr_maxs[D_R_bad-1]-1 if D_R_bad > 0 else N-1
         D_R_good_idx = D_curr_maxs[D_R_good-1]-1 if D_R_good > 0 else N-1
         R_good_idx = min(C_R_idx, D_R_good_idx)
-        R_bad_idx = min(D_R_bad_idx-1, R_good_idx)
+        R_bad_idx = min(D_R_bad_idx, R_good_idx)
         R_lookup[i] = (R_good_idx, R_bad_idx)
 
     result = 0
