@@ -29,23 +29,23 @@ class RMQ(object):
         k = int(math.log(j-i+1)/math.log(2))
         return max(self.__dp[i][k], self.__dp[j-2**k+1][k])
 
-def binary_search_left(RMQ_C, RMQ_D, left, right, C, K):
+def binary_search_left(RMQ_C, RMQ_D, left, right, Ci, K):
     i = right
     while left <= right:
         mid = left + (right-left)//2
-        if RMQ_C.query(mid, i) == C and \
-           RMQ_D.query(mid, i)-C <= K:
+        if RMQ_C.query(mid, i) == Ci and \
+           RMQ_D.query(mid, i)-Ci <= K:
             right = mid-1
         else:
             left = mid+1
     return left
 
-def binary_search_right(RMQ_C, RMQ_D, left, right, C, K):
+def binary_search_right(RMQ_C, RMQ_D, left, right, Ci, K):
     i = left
     while left <= right:
         mid = left + (right-left)//2
-        if not (RMQ_C.query(i, mid) == C and \
-                RMQ_D.query(i, mid)-C <= K):
+        if not (RMQ_C.query(i, mid) == Ci and \
+                RMQ_D.query(i, mid)-Ci <= K):
             right = mid-1
         else:
             left = mid+1
