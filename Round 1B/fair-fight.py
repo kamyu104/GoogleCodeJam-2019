@@ -12,8 +12,8 @@ import itertools
 
 class RangeQuery(object):
     def __init__(self, items, fn):
-        self._rq = rq = {(i, 0): item for i, item in enumerate(items)}
-        self._fn = fn
+        self.__rq = rq = {(i, 0): item for i, item in enumerate(items)}
+        self.__fn = fn
         n = len(items)
         for step, i in itertools.product(xrange(1, n.bit_length()), xrange(n)):
             j = i + 2 ** (step-1)
@@ -24,9 +24,9 @@ class RangeQuery(object):
 
     def query(self, start, stop):
         j = (stop - start).bit_length() - 1
-        x = self._rq[start, j]
-        y = self._rq[stop - 2 ** j, j]
-        return self._fn(x, y)
+        x = self.__rq[start, j]
+        y = self.__rq[stop - 2**j, j]
+        return self.__fn(x, y)
 
 def lower_bound(left, right, check):
     while left <= right:
