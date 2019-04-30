@@ -15,8 +15,8 @@ def draupnir():
     sys.stdout.flush()
     N = input()
     R4 = (N>>(Q//4))
-    R5 = (N>>(Q//5)) & ((1<< R.bit_length()) - 1)
-    R6 = (N>>(Q//6)) & ((1<< R.bit_length()) - 1)
+    R5 = (N>>(Q//5)) & ((1<<R.bit_length())-1)
+    R6 = (N>>(Q//6)) & ((1<<R.bit_length())-1)
 
     Q = Q2  # 38
     print Q
@@ -24,8 +24,8 @@ def draupnir():
     N = input()
     N -= R4 * 2**(Q//4) + R5 * 2**(Q//5) + R6 * 2**(Q//6)
     R1 = (N>>(Q//1))
-    R2 = (N>>(Q//2)) & ((1<< R.bit_length()) - 1)
-    R3 = (N>>(Q//3)) & ((1<< R.bit_length()) - 1)
+    R2 = (N>>(Q//2)) & ((1<<R.bit_length())-1)
+    R3 = (N>>(Q//3)) & ((1<<R.bit_length())-1)
 
     print R1, R2, R3, R4, R5, R6
     sys.stdout.flush()
