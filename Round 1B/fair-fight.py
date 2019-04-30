@@ -25,19 +25,17 @@ def fair_fight():
 
     L_lookup, R_lookup = collections.defaultdict(int), collections.defaultdict(int)
     C_intervals, D_intervals = [None]*(N+1), [None]*(N+1)
-    C_intervals_valid, D_intervals_valid = -1, -1
 
+    C_intervals_valid, D_intervals_valid = -1, -1
     for i in xrange(N):
         c, d = C[i], D[i]
 
         L_C = lower_bound(C, C_intervals, 0, C_intervals_valid, c-1)
-        C_intervals[L_C] = i
-        C_intervals_valid = L_C
+        C_intervals[L_C],  C_intervals_valid = i, L_C
         C_L_idx = C_intervals[L_C-1]+1 if L_C > 0 else 0
 
         L_D = lower_bound(D, D_intervals, 0, D_intervals_valid, d)
-        D_intervals[L_D] = i
-        D_intervals_valid = L_D
+        D_intervals[L_D], D_intervals_valid = i, L_D
 
         if d-c > K:
             continue
@@ -55,13 +53,11 @@ def fair_fight():
         c, d = C[i], D[i]
 
         R_C = lower_bound(C, C_intervals, 0, C_intervals_valid, c)
-        C_intervals[R_C] = i
-        C_intervals_valid = R_C
+        C_intervals[R_C], C_intervals_valid = i, R_C
         C_R_idx = C_intervals[R_C-1]-1 if R_C > 0 else N-1
 
         R_D = lower_bound(D, D_intervals, 0, D_intervals_valid, d)
-        D_intervals[R_D] = i
-        D_intervals_valid = R_D
+        D_intervals[R_D], D_intervals_valid = i, R_D
 
         if d-c > K:
             continue
