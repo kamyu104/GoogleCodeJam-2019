@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round 1B - Problem C. Fair Fight
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/0000000000122838
 #
-# Time:  O(N*(logN)^2), if T=8, N=10^5 => 8*10^5*(log(10^5)/log2)^2 ~= 2.2e8 > 10^8, solvable by cpp
+# Time:  O(N*(logN)^2), if T=8, N=10^5 => 8*10^5*(log(10^5)/log2)^2 ~= 2.2e8 > 10^8, solvable by cpp but python
 # Space: O(NlogN)
 #
 
