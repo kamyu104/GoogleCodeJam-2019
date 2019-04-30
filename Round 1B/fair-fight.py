@@ -27,7 +27,6 @@ def fair_fight():
     L_lookup = collections.defaultdict(int)
     C_curr_maxs, D_curr_maxs = [], []
     for i in xrange(N):
-        c, d = C[i], D[i]
         while C_curr_maxs and C[C_curr_maxs[-1]] < c:  # keep the idx where C[idx] == Ci
             C_curr_maxs.pop()
         C_L_idx = C_curr_maxs[-1]+1 if C_curr_maxs else 0  # get the leftmost idx of Ci s.t. C[idx] < Ci
