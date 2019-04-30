@@ -7,8 +7,6 @@
 # Space: O(N)
 #
 
-import collections
-
 def lower_bound(A, curr_max_idxs, K):
     left, right = 0, len(curr_max_idxs)-1
     while left <= right:
@@ -24,7 +22,7 @@ def fair_fight():
     C = map(int, raw_input().strip().split())
     D = map(int, raw_input().strip().split())
 
-    L_lookup = collections.defaultdict(int)
+    L_lookup = []
     C_curr_max_idxs, D_curr_max_idxs = [], []
     for i in xrange(N):
         while C_curr_max_idxs and C[C_curr_max_idxs[-1]] < C[i]:  # keep the idx where C[idx] == Ci
@@ -45,7 +43,7 @@ def fair_fight():
         L_good = max(C_L, D_L_good)
         L_bad = max(L_good, D_L_bad)
 
-        L_lookup[i] = (L_good, L_bad)
+        L_lookup.append((L_good, L_bad))
 
     result = 0
     C_curr_max_idxs, D_curr_max_idxs = [], []
@@ -68,8 +66,7 @@ def fair_fight():
         R_good = min(C_R, D_R_good)
         R_bad = min(R_good, D_R_bad)
 
-        assert(i in L_lookup)
-        L_good, L_bad = L_lookup[i]
+        L_good, L_bad = L_lookup.pop()
         result += (i-L_good+1)*(R_good-i+1)-(i-L_bad+1)*(R_bad-i+1)
 
     return result
