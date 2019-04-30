@@ -35,11 +35,11 @@ def fair_fight():
         if D[i]-C[i] > K:
             continue
 
-        C_R = C_curr_max_idxs[-2]-1 if len(C_curr_max_idxs) >= 2 else N-1  # the rightmost idx of Ci s.t. Ci >= C[idx]
+        C_R = C_curr_max_idxs[-2]-1 if len(C_curr_max_idxs) >= 2 else N-1  # rightmost idx of Ci s.t. Ci >= C[idx]
         D_R_good_it = lower_bound(D, D_curr_max_idxs, C[i]+K)
         D_R_bad_it = lower_bound(D, D_curr_max_idxs, C[i]-K-1)
-        D_R_good = D_curr_max_idxs[D_R_good_it-1]-1 if D_R_good_it > 0 else N-1  # the rightmost idx of max_D s.t. max_D-Ci <= K
-        D_R_bad = D_curr_max_idxs[D_R_bad_it-1]-1 if D_R_bad_it > 0 else N-1  # the rightmost idx of max_D s.t. max_D-Ci <= -K-1
+        D_R_good = D_curr_max_idxs[D_R_good_it-1]-1 if D_R_good_it > 0 else N-1  # rightmost idx of max_D s.t. max_D-Ci <= K
+        D_R_bad = D_curr_max_idxs[D_R_bad_it-1]-1 if D_R_bad_it > 0 else N-1  # rightmost idx of max_D s.t. max_D-Ci <= -K-1
         R_good = min(C_R, D_R_good)
         R_bad = min(R_good, D_R_bad)
 
@@ -58,11 +58,11 @@ def fair_fight():
         if D[i]-C[i] > K:
             continue
         
-        C_L = C_curr_max_idxs[-2]+1 if len(C_curr_max_idxs) >= 2 else 0  # the leftmost idx of Ci s.t. C[idx] < Ci
+        C_L = C_curr_max_idxs[-2]+1 if len(C_curr_max_idxs) >= 2 else 0  # leftmost idx of Ci s.t. C[idx] < Ci
         D_L_good_it = lower_bound(D, D_curr_max_idxs, C[i]+K)
         D_L_bad_it = lower_bound(D, D_curr_max_idxs, C[i]-K-1)
-        D_L_good = D_curr_max_idxs[D_L_good_it-1]+1 if D_L_good_it > 0 else 0  # the leftmost idx of max_D s.t. max_D-Ci <= K
-        D_L_bad = D_curr_max_idxs[D_L_bad_it-1]+1 if D_L_bad_it > 0 else 0  # the leftmost idx of max_D s.t. max_D-Ci <= -K-1
+        D_L_good = D_curr_max_idxs[D_L_good_it-1]+1 if D_L_good_it > 0 else 0  # leftmost idx of max_D s.t. max_D-Ci <= K
+        D_L_bad = D_curr_max_idxs[D_L_bad_it-1]+1 if D_L_bad_it > 0 else 0  # leftmost idx of max_D s.t. max_D-Ci <= -K-1
         L_good = max(C_L, D_L_good)
         L_bad = max(L_good, D_L_bad)
 
