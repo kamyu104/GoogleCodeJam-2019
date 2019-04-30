@@ -8,37 +8,42 @@
 
 import collections
 
-def choose(lookup, L, R):
-    positions = []
-    for k, v in lookup.iteritems():
-        positions.append((k, v[L], v[R]))
+def choose(lookup):
+    positions = list(lookup.iteritems())
     positions.sort()
-    candidate, votes = 0, sum(v[L] for v in lookup.itervalues())
-    max_votes = votes
-    for i, (pos, left, right) in enumerate(positions):
-        votes += right
-        votes -= left if pos-1 not in lookup else 0  # to avoid subtracting twice
-        votes -= lookup[pos+1][L] if pos+1 in lookup else 0
-        if votes > max_votes:
-            candidate, max_votes = pos+1, votes
-    return candidate
+    result, max_votes = 0, float("-inf")
+    curr_pos, curr_votes = 0, 0
+    for pos, v in positions:
+        if pos > curr_pos:
+            if curr_votes > max_votes:
+                max_votes = curr_votes
+                result = curr_pos
+            curr_pos = pos
+        curr_votes += v
+
+    if curr_votes > max_votes:
+        max_votes = curr_votes
+        result = curr_pos
+    return result
 
 def manhattan_crepe_cart():
     P, Q = map(int, raw_input().strip().split())
-    lookup_X = collections.defaultdict(lambda:collections.defaultdict(int))
-    lookup_X[0]
-    lookup_Y = collections.defaultdict(lambda:collections.defaultdict(int))
-    lookup_Y[0]
+    lookup_X = collections.defaultdict(int)
+    lookup_Y = collections.defaultdict(int)
     for _ in xrange(P):
         X, Y, D = raw_input().strip().split()
         X, Y = int(X), int(Y)
-        if D in "EW":
-            lookup_X[X][D] += 1
-        elif D in "SN":
-            lookup_Y[Y][D] += 1
+        if D == "E":
+            lookup_X[X+1] += 1
+        elif D == "W":
+            lookup_X[X] -= 1
+        elif D in "N":
+            lookup_Y[Y+1] += 1
+        elif D in "S":
+            lookup_Y[Y] -= 1
     
-    return "{} {}".format(choose(lookup_X, "W", "E"),
-                          choose(lookup_Y, "S", "N"))
+    return "{} {}".format(choose(lookup_X),
+                          choose(lookup_Y))
 
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, manhattan_crepe_cart())
