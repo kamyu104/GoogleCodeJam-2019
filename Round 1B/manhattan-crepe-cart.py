@@ -20,15 +20,12 @@ def choose(lookup):
                 result = curr_pos
             curr_pos = pos
         curr_votes += v
-
-    if curr_votes > max_votes:
-        max_votes = curr_votes
-        result = curr_pos
     return result
 
 def manhattan_crepe_cart():
     P, Q = map(int, raw_input().strip().split())
     lookup_X, lookup_Y = collections.defaultdict(int), collections.defaultdict(int)
+    lookup_X[Q+1], lookup_Y[Q+1] = 0, 0
     for _ in xrange(P):
         X, Y, D = raw_input().strip().split()
         X, Y = int(X), int(Y)
