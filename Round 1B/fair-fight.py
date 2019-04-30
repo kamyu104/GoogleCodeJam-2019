@@ -58,11 +58,11 @@ def fair_fight():
     RMQ_C, RMQ_D = RMQ(C), RMQ(D)
     result, next_to_last_seen = 0, collections.defaultdict(int)
     for i in xrange(N):
-        L2 = binary_search_left(RMQ_C, RMQ_D, next_to_last_seen[C[i]], i, C[i], K)
-        R2 = binary_search_right(RMQ_C, RMQ_D, i, N-1, C[i], K)
-        L3 = binary_search_left(RMQ_C, RMQ_D, L2, i, C[i], -K-1)
-        R3 = binary_search_right(RMQ_C, RMQ_D, i, R2, C[i], -K-1)
-        result += (i-L2+1)*(R2-i+1)-(i-L3+1)*(R3-i+1)
+        L_good = binary_search_left(RMQ_C, RMQ_D, next_to_last_seen[C[i]], i, C[i], K)
+        R_good = binary_search_right(RMQ_C, RMQ_D, i, N-1, C[i], K)
+        L_bad = binary_search_left(RMQ_C, RMQ_D, L_good, i, C[i], -K-1)
+        R_bad = binary_search_right(RMQ_C, RMQ_D, i, R_good, C[i], -K-1)
+        result += (i-L_good+1)*(R_good-i+1)-(i-L_bad+1)*(R_bad-i+1)
         next_to_last_seen[C[i]] = i+1
     return result
 
