@@ -52,7 +52,7 @@ def fair_fight():
     for i in reversed(xrange(N)):
         while C_curr_maxs and C[C_curr_maxs[-1]] <= C[i]:
             C_curr_maxs.pop()
-        C_R_idx = C_curr_maxs[-1]-1 if C_curr_maxs else N-1  # get the leftmost idx of Ci s.t. Ci >= C[idx]
+        C_R_idx = C_curr_maxs[-1]-1 if C_curr_maxs else N-1  # get the rightmost idx of Ci s.t. Ci >= C[idx]
         C_curr_maxs.append(i)
         while D_curr_maxs and D[D_curr_maxs[-1]] <= D[i]:
             D_curr_maxs.pop()
