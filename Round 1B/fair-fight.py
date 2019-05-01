@@ -40,7 +40,7 @@ def fair_fight():
         D_R_good = D_curr_max_idxs[D_R_good_it-1]-1 if D_R_good_it > 0 else N-1  # rightmost idx of max_D s.t. max_D-Ci <= K
         D_R_bad = D_curr_max_idxs[D_R_bad_it-1]-1 if D_R_bad_it > 0 else N-1  # rightmost idx of max_D s.t. max_D-Ci <= -K-1
         C_R = C_curr_max_idxs[-2]-1 if len(C_curr_max_idxs) >= 2 else N-1  # rightmost idx of C s.t. Ci >= C[idx]
-        R_good, R_bad = min(C_R, D_R_good), min(C_R, D_R_bad)
+        R_good, R_bad = min(D_R_good, C_R), min(D_R_bad, C_R)
 
         R_lookup.append((R_good, R_bad))
 
@@ -62,7 +62,7 @@ def fair_fight():
         D_L_good = D_curr_max_idxs[D_L_good_it-1]+1 if D_L_good_it > 0 else 0  # leftmost idx of max_D s.t. max_D-Ci <= K
         D_L_bad = D_curr_max_idxs[D_L_bad_it-1]+1 if D_L_bad_it > 0 else 0  # leftmost idx of max_D s.t. max_D-Ci <= -K-1
         C_L = C_curr_max_idxs[-2]+1 if len(C_curr_max_idxs) >= 2 else 0  # leftmost idx of C s.t. C[idx] < Ci
-        L_good, L_bad = max(C_L, D_L_good), max(C_L, D_L_bad)
+        L_good, L_bad = max(D_L_good, C_L), max(D_L_bad, C_L)
 
         R_good, R_bad = R_lookup.pop()
         result += (i-L_good+1)*(R_good-i+1)-(i-L_bad+1)*(R_bad-i+1)
