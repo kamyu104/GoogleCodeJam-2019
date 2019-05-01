@@ -15,7 +15,7 @@ class RangeQuery(object):
         self.__rq = rq = {(i, 0): item for i, item in enumerate(items)}
         self.__fn = fn
         self.__pow = [1]
-        self.__bit_length = [0]
+        self.__bit_length = []
         n = len(items)
         count = 1
         for i in xrange(1, n.bit_length()+1):
