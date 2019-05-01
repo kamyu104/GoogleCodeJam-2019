@@ -15,12 +15,12 @@ class RangeQuery(object):
         self.__rq = rq = {(i, 0): item for i, item in enumerate(items)}
         self.__fn = fn
         self.__pow = [1]
-        self.__bit_length = []
+        self.__bit_length = [0]
         n = len(items)
         count = 1
         for i in xrange(1, n.bit_length()+1):
             self.__pow.append(self.__pow[-1] * 2)
-            self.__bit_length.extend([i]*min(count, n-len(self.__bit_length)))
+            self.__bit_length.extend([i]*min(count, n+1-len(self.__bit_length)))
             count *= 2
         for step, i in itertools.product(xrange(1, n.bit_length()), xrange(n)):  # O(NlogN)
             j = i + self.__pow[step-1]
@@ -30,7 +30,7 @@ class RangeQuery(object):
                 rq[i, step] = rq[i, step-1]
 
     def query(self, start, stop):  # O(1)
-        j = self.__bit_length[stop-start-1]-1
+        j = self.__bit_length[stop-start]-1
         x = self.__rq[start, j]
         y = self.__rq[stop - self.__pow[j], j]
         return self.__fn(x, y)
