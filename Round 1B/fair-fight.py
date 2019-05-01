@@ -32,7 +32,7 @@ def fair_fight():
             D_curr_max_idxs.pop()
         D_curr_max_idxs.append(i)
 
-        if D[i]-C[i] > K:
+        if D[i]-C[i] > K:  # skip impossible intervals to save time and space
             continue
 
         C_R = C_curr_max_idxs[-2]-1 if len(C_curr_max_idxs) >= 2 else N-1  # rightmost idx of Ci s.t. Ci >= C[idx]
@@ -55,7 +55,7 @@ def fair_fight():
             D_curr_max_idxs.pop()
         D_curr_max_idxs.append(i)
 
-        if D[i]-C[i] > K:
+        if D[i]-C[i] > K:  # skip impossible intervals to save time and space
             continue
         
         C_L = C_curr_max_idxs[-2]+1 if len(C_curr_max_idxs) >= 2 else 0  # leftmost idx of Ci s.t. C[idx] < Ci
