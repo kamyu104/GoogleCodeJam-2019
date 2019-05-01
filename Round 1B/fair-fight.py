@@ -12,7 +12,7 @@ def update_strictly_descending_stack(A, idxs, i):
         idxs.pop()
     idxs.append(i)
     
-def update_non_ascending_stack(A, idxs, i):
+def update_descending_stack(A, idxs, i):
     while idxs and A[idxs[-1]] < A[i]:
         idxs.pop()
     idxs.append(i)
@@ -37,10 +37,9 @@ def fair_fight():
     for i in reversed(xrange(N)):
         update_strictly_descending_stack(C, C_curr_max_idxs, i)
         update_strictly_descending_stack(D, D_curr_max_idxs, i)
-
+        
         if D[i]-C[i] > K:  # skip impossible intervals to save time and space
             continue
-
         D_R_good_it = lower_bound(D, D_curr_max_idxs, C[i]+K)
         D_R_bad_it = lower_bound(D, D_curr_max_idxs, C[i]-K-1)
         D_R_good = D_curr_max_idxs[D_R_good_it-1]-1 if D_R_good_it > 0 else N-1  # rightmost idx of max_D s.t. max_D-Ci <= K
@@ -53,12 +52,11 @@ def fair_fight():
     result = 0
     C_curr_max_idxs, D_curr_max_idxs = [], []  # descending stack
     for i in xrange(N):
-        update_non_ascending_stack(C, C_curr_max_idxs, i)  # keep the idx where C[idx] == Ci
+        update_descending_stack(C, C_curr_max_idxs, i)  # keep the idx where C[idx] == Ci
         update_strictly_descending_stack(D, D_curr_max_idxs, i)
         
         if D[i]-C[i] > K:  # skip impossible intervals to save time and space
             continue
-        
         D_L_good_it = lower_bound(D, D_curr_max_idxs, C[i]+K)
         D_L_bad_it = lower_bound(D, D_curr_max_idxs, C[i]-K-1)
         D_L_good = D_curr_max_idxs[D_L_good_it-1]+1 if D_L_good_it > 0 else 0  # leftmost idx of max_D s.t. max_D-Ci <= K
