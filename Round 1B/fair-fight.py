@@ -6,14 +6,9 @@
 # Time:  O(NlogN)
 # Space: O(N)
 #
-
-def update_strictly_descending_stack(A, idxs, i):
-    while idxs and A[idxs[-1]] <= A[i]:
-        idxs.pop()
-    idxs.append(i)
     
-def update_descending_stack(A, idxs, i):
-    while idxs and A[idxs[-1]] < A[i]:
+def update_descending_stack(A, idxs, i, is_not_strict=False):
+    while idxs and A[idxs[-1]] <= A[i]-int(is_not_strict):
         idxs.pop()
     idxs.append(i)
 
@@ -35,8 +30,8 @@ def fair_fight():
     R_lookup = []
     C_curr_max_idxs, D_curr_max_idxs = [], []  # descending stack
     for i in reversed(xrange(N)):
-        update_strictly_descending_stack(C, C_curr_max_idxs, i)
-        update_strictly_descending_stack(D, D_curr_max_idxs, i)
+        update_descending_stack(C, C_curr_max_idxs, i)
+        update_descending_stack(D, D_curr_max_idxs, i)
         
         if D[i]-C[i] > K:  # skip impossible intervals to save time and space
             continue
@@ -52,8 +47,8 @@ def fair_fight():
     result = 0
     C_curr_max_idxs, D_curr_max_idxs = [], []  # descending stack
     for i in xrange(N):
-        update_descending_stack(C, C_curr_max_idxs, i)  # keep the idx where C[idx] == Ci
-        update_strictly_descending_stack(D, D_curr_max_idxs, i)
+        update_descending_stack(C, C_curr_max_idxs, i, True)  # keep the idx where C[idx] == Ci
+        update_descending_stack(D, D_curr_max_idxs, i)
         
         if D[i]-C[i] > K:  # skip impossible intervals to save time and space
             continue
