@@ -10,13 +10,13 @@
 import sys
 
 def draupnir():
-    Q = Q1  # 190
+    Q = Q1  # 185
     print Q
     sys.stdout.flush()
     N = input()
     R6 = (N % 2**(Q//5)) // 2**(Q//6)
     R5 = (N % 2**(Q//4)) // 2**(Q//5)
-    R4 = N // 2**(Q//4)
+    R4 = (N % 2**(Q//3)) // 2**(Q//4)
 
     Q = Q2  # 38
     print Q
@@ -35,7 +35,7 @@ def draupnir():
 
 R = 100
 P = 63
-Q1 = 3*P  # 2**(Q1//3) >= 2**P, s.t. R1, R2, R3 factors would be excluded in the first response
+Q1 = 1
 while 2**(Q1//5) <= R * 2**(Q1//6):
     Q1 +=1
 assert(R * 2**(Q1//4) < 2**P)
