@@ -22,14 +22,14 @@ class RangeQuery(object):
             self.__pow.append(self.__pow[-1] * 2)
             self.__bit_length.extend([i]*min(count, n+1-len(self.__bit_length)))
             count *= 2
-        for step, i in itertools.product(xrange(1, n.bit_length()), xrange(n)):  # O(NlogN)
+        for step, i in itertools.product(xrange(1, n.bit_length()), xrange(n)):  # Time: O(NlogN)
             j = i + self.__pow[step-1]
             if j < n:
                 rq[i, step] = fn(rq[i, step-1], rq[j, step-1])
             else:
                 rq[i, step] = rq[i, step-1]
 
-    def query(self, start, stop):  # O(1)
+    def query(self, start, stop):  # Time: O(1)
         j = self.__bit_length[stop-start]-1
         x = self.__rq[start, j]
         y = self.__rq[stop - self.__pow[j], j]
