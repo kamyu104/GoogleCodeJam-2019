@@ -7,8 +7,8 @@
 # Space: O(N)
 #
     
-def update_descending_stack(A, idxs, i, is_not_strict=False):
-    while idxs and A[idxs[-1]] <= A[i]-int(is_not_strict):
+def update_descending_stack(A, idxs, i, keep_the_same=False):
+    while idxs and A[idxs[-1]] <= A[i]-int(keep_the_same):
         idxs.pop()
     idxs.append(i)
 
