@@ -35,14 +35,15 @@ def draupnir():
 
 R = 100
 P = 63
-Q1 = 1
-while 2**(Q1//5) <= R * 2**(Q1//6):
-    Q1 +=1
-assert(R * 2**(Q1//4) < 2**P)
-Q2 = 1
-while 2**(Q2//2) <= R * 2**(Q2//3):
-    Q2 +=1
-assert(R * 2**(Q2//1) < 2**P)
+Q = 1
+while 2**(Q//2) <= R * 2**(Q//3):
+    Q +=1
+assert(R * 2**(Q//1) < 2**P)
+Q2 = Q
+while 2**(Q//5) <= R * 2**(Q//6):
+    Q +=1
+assert(R * 2**(Q//4) < 2**P)
+Q1 = Q
 T, W = map(int, raw_input().strip().split())
 for case in xrange(T):
     draupnir()
