@@ -17,10 +17,9 @@ class RangeQuery(object):
         self.__pow = [1]
         self.__bit_length = [0]
         n = len(items)
-        for i in xrange(1, n.bit_length()):
-            self.__pow.append(self.__pow[-1] * 2)
         count = 1
-        for i in xrange(1, n.bit_length()+1):          
+        for i in xrange(1, n.bit_length()+1):
+            self.__pow.append(self.__pow[-1] * 2)
             self.__bit_length.extend([i]*min(count, n-len(self.__bit_length)))
             count *= 2
         for step, i in itertools.product(xrange(1, n.bit_length()), xrange(n)):  # O(NlogN)
