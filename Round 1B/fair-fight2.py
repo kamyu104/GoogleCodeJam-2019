@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round 1B - Problem C. Fair Fight
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/0000000000122838
 #
-# Time:  O(N*(logN)^2), if T=8, N=10^5 => 8*10^5*(log(10^5)/log2)^2 ~= 2.2e8 > 10^8, solvable by cpp (< 10^9) but python
+# Time:  O(NlogN)
 # Space: O(NlogN)
 #
 
@@ -15,9 +15,14 @@ class RangeQuery(object):
         self.__rq = rq = {(i, 0): item for i, item in enumerate(items)}
         self.__fn = fn
         self.__pow = [1]
+        self.__bit_length = []
         n = len(items)
         for i in xrange(1, n.bit_length()):
             self.__pow.append(self.__pow[-1] * 2)
+        count = 1
+        for i in xrange(1, n.bit_length()+1):          
+            self.__bit_length.extend([i]*min(count, n-len(self.__bit_length)))
+            count *= 2
         for step, i in itertools.product(xrange(1, n.bit_length()), xrange(n)):  # O(NlogN)
             j = i + self.__pow[step-1]
             if j < n:
@@ -25,8 +30,8 @@ class RangeQuery(object):
             else:
                 rq[i, step] = rq[i, step-1]
 
-    def query(self, start, stop):
-        j = (stop - start).bit_length() - 1  # O(logN)
+    def query(self, start, stop):  # O(1)
+        j = self.__bit_length[stop-start-1]-1
         x = self.__rq[start, j]
         y = self.__rq[stop - self.__pow[j], j]
         return self.__fn(x, y)
