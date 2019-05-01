@@ -7,10 +7,10 @@
 # Space: O(N)
 #
     
-def update_descending_stack(A, idxs, i, keep_the_same=False):
-    while idxs and A[idxs[-1]] <= A[i]-int(keep_the_same):
-        idxs.pop()
-    idxs.append(i)
+def update_descending_stack(A, curr_max_idxs, i, keep_the_same=False):
+    while curr_max_idxs and A[curr_max_idxs[-1]] <= A[i]-int(keep_the_same):
+        curr_max_idxs.pop()
+    curr_max_idxs.append(i)
 
 def lower_bound(A, curr_max_idxs, K):
     left, right = 0, len(curr_max_idxs)-1
