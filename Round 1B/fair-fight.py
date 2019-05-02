@@ -12,11 +12,11 @@ def update_descending_stack(A, curr_max_idxs, i, keep_the_same=False):
         curr_max_idxs.pop()
     curr_max_idxs.append(i)
 
-def lower_bound(A, curr_max_idxs, diff):
+def lower_bound(A, curr_max_idxs, target):
     left, right = 0, len(curr_max_idxs)-1
     while left <= right:
         mid = left + (right-left)//2
-        if A[curr_max_idxs[mid]] <= diff:
+        if A[curr_max_idxs[mid]] <= target:
             right = mid-1
         else:
             left = mid+1
