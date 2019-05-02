@@ -51,7 +51,7 @@ def upper_bound(left, right, check):
             right = mid-1
         else:
             left = mid+1
-    return left
+    return left  # assert(right == left-1)
 
 def fair_fight():
     N, K = map(int, raw_input().strip().split())
