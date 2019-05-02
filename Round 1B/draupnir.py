@@ -36,13 +36,16 @@ def draupnir():
 R = 100
 P = 63
 Q = 1
-while 2**(Q//2) <= R * 2**(Q//3):
+floor_log2_R = R.bit_length()-1  # ceil_log2_R = (R-1).bit_length()
+while (Q//2) <= floor_log2_R + (Q//3):  # 2**(Q//2) <= R * 2**(Q//3)
     Q +=1
-assert(R * 2**(Q//1) < 2**P)
+assert(2**(Q//2) > R * 2**(Q//3) and
+       R * 2**(Q//1) < 2**P)
 Q2 = Q
-while 2**(Q//5) <= R * 2**(Q//6):
+while (Q//5) <= floor_log2_R + (Q//6):  # 2**(Q//5) <= R * 2**(Q//6)
     Q +=1
-assert(R * 2**(Q//4) < 2**P)
+assert(2**(Q//5) > R * 2**(Q//6) and
+       R * 2**(Q//4) < 2**P)
 Q1 = Q
 T, W = map(int, raw_input().strip().split())
 for case in xrange(T):
