@@ -15,7 +15,7 @@ def dat_bae():
     # find the smallest Q s.t. 2**Q > B
     # p.s. if 2**Q <= B, when the whole 2**Q block is missing,
     #      we cannot tell which block is lost
-    Q = B.bit_length()
+    Q = B.bit_length()  # floor(log2(B))+1
     assert(2**Q > B and Q <= F)
 
     idxs = [0]*(N-B)
