@@ -64,10 +64,8 @@ def dat_bae():
     # find the smallest Q s.t. 2**Q >= B
     # p.s. if 2**Q < B, when the whole 2**Q block is missing,
     #      we cannot tell which block is lost
-    Q = 0
-    while 2**Q < B:
-        Q += 1
-    assert(Q+1<=F)
+    Q = (B-1).bit_length()  # ceil(log2(B))
+    assert(2**Q >= B and Q+1<=F)
     # if 2**Q == N, in order to save a query,
     # we can just skip init_codec and begin with block (N, N-B)
     blocks = [] if 2**Q < N else [(N, N-B)]
