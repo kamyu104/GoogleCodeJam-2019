@@ -75,6 +75,7 @@ def bacterial_tactics():
             if M[r][c] == '#':
                 radio_cell = r
             M_V_R[r][c] = radio_cell
+
     g, result = grundy(M_H_L, M_H_R, M_V_L, M_V_R, 0, 0, R, C, {})
     return result if g else 0
 
