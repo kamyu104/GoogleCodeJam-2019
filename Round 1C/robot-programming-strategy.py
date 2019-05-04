@@ -25,7 +25,7 @@ def robot_programming_strategy():
         if len(used) == 1:
             choose = WIN_TO[used.keys().pop()]
         elif len(used) == 2:
-            choose = LOSE_TO[(CHOICES-set(used.keys())).pop()]
+            choose = LOSE_TO[(CHOICES-set(used.iterkeys())).pop()]
         for i in used[LOSE_TO[choose]]:
             C_set.remove(i)
         result.append(choose)
