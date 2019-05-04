@@ -46,7 +46,7 @@ def bacterial_tactics():
     for _ in xrange(R):
         M.append(list(raw_input().strip()))
 
-    # vertical
+    # vertical nearest radioactive cell from left and right
     M_H_L = [[None for _ in xrange(C)] for _ in xrange(R)]
     M_H_R = [[None for _ in xrange(C)] for _ in xrange(R)]
     for r in xrange(R):
@@ -61,7 +61,7 @@ def bacterial_tactics():
                 radio_cell = c
             M_H_R[r][c] = radio_cell
 
-    # horizontal
+    # horizontal nearest radioactive cell from left and right
     M_V_L = [[None for _ in xrange(C)] for _ in xrange(R)]
     M_V_R = [[None for _ in xrange(C)] for _ in xrange(R)]
     for c in xrange(C):
