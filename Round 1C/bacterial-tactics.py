@@ -46,7 +46,7 @@ def bacterial_tactics():
     for _ in xrange(R):
         M.append(list(raw_input().strip()))
 
-    # horizontal
+    # vertical
     M_H_L = [[None for _ in xrange(C)] for _ in xrange(R)]
     M_H_R = [[None for _ in xrange(C)] for _ in xrange(R)]
     for r in xrange(R):
