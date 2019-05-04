@@ -3,8 +3,8 @@
 # Google Code Jam 2019 Round 1C - Problem B. Power Arrangers
 # https://codingcompetitions.withgoogle.com/codejam/round/00000000000516b9/0000000000134e91
 #
-# Time:  O(5!-1 + 4!-1 + 3!-1 + 2!-1 = 148) = O(R!)
-# Space: O(5!-1 + 4!-1 + 3!-1 + 2!-1 = 148) = O(R!)
+# Time:  O(5!-1 + 4!-1 + 3!-1 + 2!-1 = 148) = O(R * R!)
+# Space: O(5!-1 + 4!-1 + 3!-1 + 2!-1 = 148) = O(R * R!)
 #
 
 import sys
