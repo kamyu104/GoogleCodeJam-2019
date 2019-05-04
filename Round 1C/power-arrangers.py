@@ -48,6 +48,7 @@ def power_arrangers():
     verdict = raw_input()
     if verdict == "N":  # error
         exit()
+
 R = 5
 R_FAC = factorial(R)
 T, F = map(int, raw_input().strip().split())
