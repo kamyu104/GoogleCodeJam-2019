@@ -10,11 +10,6 @@
 import sys
 import collections
 
-def factorial(n):
-    for i in reversed(xrange(1, n)):
-        n *= i
-    return n
-
 def power_arrangers():
     result, cnt = [], 0
     total = R_FAC
@@ -47,6 +42,11 @@ def power_arrangers():
     verdict = raw_input()
     if verdict == "N":  # error
         exit()
+
+def factorial(n):
+    for i in reversed(xrange(1, n)):
+        n *= i
+    return n
 
 R = 5
 R_FAC = factorial(R)
