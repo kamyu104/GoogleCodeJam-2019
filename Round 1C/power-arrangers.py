@@ -20,15 +20,15 @@ def power_arrangers():
     Q = range(1, (total-1)*R, R)
     result = []
     cnt = 1
-    for n in reversed(xrange(2, R+1)):
-        total /= n
+    for i in reversed(xrange(2, R+1)):
+        total /= i
         if total > 1:
             lookup = collections.defaultdict(list)
             for q in Q:
                 print q
-                cnt += 1
                 sys.stdout.flush()
-                lookup[raw_input()].append(q+1)            
+                lookup[raw_input()].append(q+1)   
+                cnt += 1         
             Q = []
             for k, v in lookup.iteritems():
                 if len(v) != total:
@@ -36,15 +36,17 @@ def power_arrangers():
                     Q = v
                     break
         else:
-            cnt += 2
             print Q[0]+1
             sys.stdout.flush()
             result.append(raw_input())
+            cnt += 1
             print Q[0]
             sys.stdout.flush()
             result.append(raw_input())
+            cnt += 1
             break
     
+    assert(cnt <= F)
     print "".join(result)
     sys.stdout.flush()
     verdict = raw_input()
