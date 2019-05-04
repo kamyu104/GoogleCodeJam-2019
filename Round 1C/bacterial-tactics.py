@@ -17,6 +17,7 @@ def grundy(M_H, M_V, r0, c0, r1, c1, lookup):  # Time:  O(R + C)
     result = 0
     if r0 == r1 or c0 == c1:
         return 0, result
+
     if (r0, c0, r1, c1) not in lookup:
         s = set()
         # horizontal check
@@ -28,6 +29,7 @@ def grundy(M_H, M_V, r0, c0, r1, c1, lookup):  # Time:  O(R + C)
             s.add(g)
             if not g:  # if the opponent loses
                 result += c1-c0
+
         # vertical check
         for c in xrange(c0, c1):  # Time:  O(C)
             if r0 <= M_V[LEFT][r0][c] or M_V[RIGHT][r0][c] < r1:  # nearest radioactive cell in the same column
@@ -38,6 +40,7 @@ def grundy(M_H, M_V, r0, c0, r1, c1, lookup):  # Time:  O(R + C)
             if not g:  # if the opponent loses
                 result += r1-r0
         lookup[r0, c0, r1, c1] = mex(s)  # Time:  O(R + C)
+
     return lookup[r0, c0, r1, c1], result
 
 def bacterial_tactics():
