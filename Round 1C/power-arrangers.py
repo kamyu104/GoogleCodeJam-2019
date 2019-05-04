@@ -29,7 +29,6 @@ def power_arrangers():
                 sys.stdout.flush()
                 lookup[raw_input()].append(q+1)   
                 cnt += 1         
-            Q = []
             for k, v in lookup.iteritems():
                 if len(v) != total:
                     result.append(k)
