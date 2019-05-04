@@ -34,4 +34,4 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Robot Programming Strategy](https://codingcompetitions.withgoogle.com/codejam/round/00000000000516b9/0000000000134c90)| [Python](./Round%201C/robot-programming-strategy.py)| _O(A^2)_ | _O(A)_ | Easy | | Greedy |
 |B| [Power Arrangers](https://codingcompetitions.withgoogle.com/codejam/round/00000000000516b9/0000000000134e91)| [Python](./Round%201C/power-arrangers.py) | _O(1)_ | _O(1)_ | Easy | | Math |
-|C| [Bacterial Tactics](https://codingcompetitions.withgoogle.com/codejam/round/00000000000516b9/0000000000134cdf)| [Python](./Round%201C/bacterial=tactics.py) [*Python](./Round%201B/fair-fight2.py)| _O(NlogN)_ | _O(N)_ | Medium | | Sprague–Grundy Theorem |
+|C| [Bacterial Tactics](https://codingcompetitions.withgoogle.com/codejam/round/00000000000516b9/0000000000134cdf)| [Python](./Round%201C/bacterial-tactics.py) | _O(R^2 * C^2 * (R + C))_ | _O(R^2 * C^2)_ | Medium | | Sprague–Grundy Theorem |
