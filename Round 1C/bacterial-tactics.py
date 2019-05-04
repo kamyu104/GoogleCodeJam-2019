@@ -13,7 +13,7 @@ def mex(s):  # minimum excludant
         excludant += 1
     return excludant
 
-def grundy(M_H_L, M_H_R, M_V_L, M_V_R, r0, c0, r1, c1, lookup):  # Time:  O(R + C)
+def grundy(M_H, M_V, r0, c0, r1, c1, lookup):  # Time:  O(R + C)
     result = 0
     if r0 == r1 or c0 == c1:
         return 0, result
@@ -21,19 +21,19 @@ def grundy(M_H_L, M_H_R, M_V_L, M_V_R, r0, c0, r1, c1, lookup):  # Time:  O(R + 
         s = set()
         # horizontal check
         for r in xrange(r0, r1):  # Time:  O(R)
-            if c0 <= M_H_L[r][c0] or M_H_R[r][c0] < c1:  # nearest radioactive cell in the same row
+            if c0 <= M_H[LEFT][r][c0] or M_H[RIGHT][r][c0] < c1:  # nearest radioactive cell in the same row
                 continue
-            g = grundy(M_H_L, M_H_R, M_V_L, M_V_R, r0, c0, r, c1, lookup)[0] ^ \
-                grundy(M_H_L, M_H_R, M_V_L, M_V_R, r+1, c0, r1, c1, lookup)[0]
+            g = grundy(M_H, M_V, r0, c0, r, c1, lookup)[0] ^ \
+                grundy(M_H, M_V, r+1, c0, r1, c1, lookup)[0]
             s.add(g)
             if not g:  # if the opponent loses
                 result += c1-c0
         # vertical check
         for c in xrange(c0, c1):  # Time:  O(C)
-            if r0 <= M_V_L[r0][c] or M_V_R[r0][c] < r1:  # nearest radioactive cell in the same column
+            if r0 <= M_V[LEFT][r0][c] or M_V[RIGHT][r0][c] < r1:  # nearest radioactive cell in the same column
                 continue
-            g = grundy(M_H_L, M_H_R, M_V_L, M_V_R, r0, c0, r1, c, lookup)[0] ^ \
-                grundy(M_H_L, M_H_R, M_V_L, M_V_R, r0, c+1, r1, c1, lookup)[0]
+            g = grundy(M_H, M_V, r0, c0, r1, c, lookup)[0] ^ \
+                grundy(M_H, M_V, r0, c+1, r1, c1, lookup)[0]
             s.add(g)
             if not g:  # if the opponent loses
                 result += r1-r0
@@ -47,37 +47,36 @@ def bacterial_tactics():
         M.append(list(raw_input().strip()))
 
     # horizontal nearest radioactive cell from left and right
-    M_H_L = [[None for _ in xrange(C)] for _ in xrange(R)]
-    M_H_R = [[None for _ in xrange(C)] for _ in xrange(R)]
+    M_H = [[[None for _ in xrange(C)] for _ in xrange(R)] for _ in xrange(2)]
     for r in xrange(R):
         radio_cell = -1
         for c in xrange(C):
             if M[r][c] == '#':
                 radio_cell = c
-            M_H_L[r][c] = radio_cell
+            M_H[LEFT][r][c] = radio_cell
         radio_cell = C
         for c in reversed(xrange(C)):
             if M[r][c] == '#':
                 radio_cell = c
-            M_H_R[r][c] = radio_cell
+            M_H[RIGHT][r][c] = radio_cell
 
     # vertical nearest radioactive cell from left and right
-    M_V_L = [[None for _ in xrange(C)] for _ in xrange(R)]
-    M_V_R = [[None for _ in xrange(C)] for _ in xrange(R)]
+    M_V = [[[None for _ in xrange(C)] for _ in xrange(R)] for _ in xrange(2)]
     for c in xrange(C):
         radio_cell = -1
         for r in xrange(R):
             if M[r][c] == '#':
                 radio_cell = r
-            M_V_L[r][c] = radio_cell
+            M_V[LEFT][r][c] = radio_cell
         radio_cell = R
         for r in reversed(xrange(R)):
             if M[r][c] == '#':
                 radio_cell = r
-            M_V_R[r][c] = radio_cell
+            M_V[RIGHT][r][c] = radio_cell
 
-    g, result = grundy(M_H_L, M_H_R, M_V_L, M_V_R, 0, 0, R, C, {})
+    g, result = grundy(M_H, M_V, 0, 0, R, C, {})
     return result if g else 0
 
+LEFT, RIGHT = range(2)
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, bacterial_tactics())
