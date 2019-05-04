@@ -15,7 +15,7 @@ def power_arrangers():
     total = R_FAC
     Q = range(1, (total-1)*R, R)
     for i in reversed(xrange(2, R+1)):
-        total /= i
+        total //= i
         if total > 1:
             lookup = collections.defaultdict(list)
             for q in Q:
