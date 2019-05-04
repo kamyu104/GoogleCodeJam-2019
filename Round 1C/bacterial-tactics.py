@@ -13,7 +13,7 @@ def mex(s):  # minimum excludant
         excludant += 1
     return excludant
 
-def grundy(M_H, M_V, r0, c0, r1, c1, lookup):  # Time:  O(R + C)
+def grundy(M_H, M_V, r0, c0, r1, c1, lookup):  # there are O(R^2 * C^2) subproblems, each costs O(R + C) time
     result = 0
     if r0 == r1 or c0 == c1:
         return 0, result
