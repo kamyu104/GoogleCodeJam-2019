@@ -43,9 +43,10 @@ def power_arrangers():
         exit()
 
 def factorial(n):
-    for i in reversed(xrange(1, n)):
-        n *= i
-    return n
+    result = 1
+    for i in reversed(xrange(1, n+1)):
+        result *= i
+    return result
 
 R = 5
 R_FAC = factorial(R)
