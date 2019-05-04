@@ -17,16 +17,16 @@ def robot_programming_strategy():
     result = []
     C_remains = set(range(A))
     while C_remains:
-        used = collections.defaultdict(list)
+        lookup = collections.defaultdict(list)
         for i in C_remains:
-            used[C[i][len(result)%len(C[i])]].append(i)
-            if len(used) == 3:
+            lookup[C[i][len(result)%len(C[i])]].append(i)
+            if len(lookup) == 3:
                 return "IMPOSSIBLE"
-        if len(used) == 1:
-            choose = WIN_TO[used.keys().pop()]
-        elif len(used) == 2:
-            choose = LOSE_TO[(CHOICES-set(used.iterkeys())).pop()]  # choose the one which ties or beats another
-        for i in used[LOSE_TO[choose]]:  # remove defeated opponents
+        if len(lookup) == 1:
+            choose = WIN_TO[lookup.keys().pop()]
+        elif len(lookup) == 2:
+            choose = LOSE_TO[(CHOICES-set(lookup.iterkeys())).pop()]  # choose the one which ties or beats another
+        for i in lookup[LOSE_TO[choose]]:  # remove defeated opponents
             C_remains.remove(i)
         result.append(choose)
     return "".join(result)
