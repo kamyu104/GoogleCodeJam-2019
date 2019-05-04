@@ -12,11 +12,11 @@ import collections
 
 def power_arrangers():
     result, cnt = [], 0
-    total = R_FAC
-    Q = range(1, (total-1)*R, R)
+    curr_letter_permutation_cnt = R_FAC
+    Q = range(1, (curr_letter_permutation_cnt-1)*R, R)
     for i in reversed(xrange(2, R+1)):
-        total //= i
-        if total > 1:
+        curr_letter_permutation_cnt //= i
+        if curr_letter_permutation_cnt-1 > 0:
             lookup = collections.defaultdict(list)
             for q in Q:
                 print q
@@ -24,7 +24,7 @@ def power_arrangers():
                 lookup[raw_input()].append(q+1)  # inspect the next letter
                 cnt += 1         
             for k, v in lookup.iteritems():
-                if len(v) != total:  # missing letter in current position
+                if len(v) != curr_letter_permutation_cnt:  # missing letter in current position
                     result.append(k)
                     Q = v
                     break
