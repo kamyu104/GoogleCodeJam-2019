@@ -21,15 +21,15 @@ def power_arrangers():
             for q in Q:
                 print q
                 sys.stdout.flush()
-                lookup[raw_input()].append(q+1)   
+                lookup[raw_input()].append(q+1)  # inspect the next letter
                 cnt += 1         
             for k, v in lookup.iteritems():
-                if len(v) != total:
+                if len(v) != total:  # missing one
                     result.append(k)
                     Q = v
                     break
-        else:
-            print Q[0]+1
+        else:  # only the last 2 letters remain unknown
+            print Q[0]+1  # get the rightmost letter, which is the second letter from the right in the missing set
             sys.stdout.flush()
             result.append(raw_input())
             cnt += 1
