@@ -15,10 +15,10 @@ def robot_programming_strategy():
     for _ in xrange(A):
         C.append(raw_input().strip())
     result = []
-    C_set = set(range(A))
-    while C_set:
+    C_remains = set(range(A))
+    while C_remains:
         used = collections.defaultdict(list)
-        for i in C_set:
+        for i in C_remains:
             used[C[i][len(result)%len(C[i])]].append(i)
             if len(used) == 3:
                 return "IMPOSSIBLE"
@@ -26,8 +26,8 @@ def robot_programming_strategy():
             choose = WIN_TO[used.keys().pop()]
         elif len(used) == 2:
             choose = LOSE_TO[(CHOICES-set(used.iterkeys())).pop()]
-        for i in used[LOSE_TO[choose]]:
-            C_set.remove(i)
+        for i in used[LOSE_TO[choose]]:  # remove defeated oppenents
+            C_remains.remove(i)
         result.append(choose)
     return "".join(result)
 
