@@ -16,10 +16,9 @@ def factorial(n):
     return n
 
 def power_arrangers():
+    result, cnt = [], 1
     total = R_FAC
     Q = range(1, (total-1)*R, R)
-    result = []
-    cnt = 1
     for i in reversed(xrange(2, R+1)):
         total /= i
         if total > 1:
