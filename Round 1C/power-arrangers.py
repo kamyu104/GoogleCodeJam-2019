@@ -9,6 +9,7 @@
 
 import sys
 import collections
+import math
 
 def power_arrangers():
     result, cnt = [], 0
@@ -42,14 +43,8 @@ def power_arrangers():
     if verdict == "N":  # error
         exit()
 
-def factorial(n):
-    result = 1
-    for i in reversed(xrange(1, n+1)):
-        result *= i
-    return result
-
 R = 5
-R_FAC = factorial(R)
+R_FAC = math.factorial(R)
 T, F = map(int, raw_input().strip().split())
 for case in xrange(T):
     power_arrangers()
