@@ -21,7 +21,7 @@ def grundy(M_H_L, M_H_R, M_V_L, M_V_R, r0, c0, r1, c1, lookup):  # Time:  O(R + 
         s = set()
         # horizontal check
         for r in xrange(r0, r1):  # Time:  O(R)
-            if c0 <= M_H_L[r][c0] or M_H_R[r][c0] < c1:
+            if c0 <= M_H_L[r][c0] or M_H_R[r][c0] < c1:  # nearest radioactive cell in the same column
                 continue
             g = grundy(M_H_L, M_H_R, M_V_L, M_V_R, r0, c0, r, c1, lookup)[0] ^ \
                 grundy(M_H_L, M_H_R, M_V_L, M_V_R, r+1, c0, r1, c1, lookup)[0]
@@ -30,7 +30,7 @@ def grundy(M_H_L, M_H_R, M_V_L, M_V_R, r0, c0, r1, c1, lookup):  # Time:  O(R + 
                 result += c1-c0
         # vertical check
         for c in xrange(c0, c1):  # Time:  O(C)
-            if r0 <= M_V_L[r0][c] or M_V_R[r0][c] < r1:
+            if r0 <= M_V_L[r0][c] or M_V_R[r0][c] < r1:  # nearest radioactive cell in the same row
                 continue
             g = grundy(M_H_L, M_H_R, M_V_L, M_V_R, r0, c0, r1, c, lookup)[0] ^ \
                 grundy(M_H_L, M_H_R, M_V_L, M_V_R, r0, c+1, r1, c1, lookup)[0]
