@@ -29,7 +29,7 @@ def power_arrangers():
                     Q = v
                     break
         else:  # only the last 2 letters remain unknown
-            print Q[0]+1  # get the rightmost letter, which is the second letter from the right in the missing set
+            print Q[0]+1  # inspect the rightmost letter, which is the second letter from the right in the missing set
             sys.stdout.flush()
             result.append(raw_input())
             cnt += 1
