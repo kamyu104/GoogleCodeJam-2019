@@ -3,8 +3,8 @@
 # Google Code Jam 2019 Round 1C - Problem B. Power Arrangers
 # https://codingcompetitions.withgoogle.com/codejam/round/00000000000516b9/0000000000134e91
 #
-# Time:  O(5!-1 + 4!-1 + 3!-1 + 2!-1 + 2 = 150) = O(R!)
-# Space: O(5!-1 + 4!-1 + 3!-1 + 2!-1 + 2 = 150) = O(R!)
+# Time:  O(5!-1 + 4!-1 + 3!-1 + 2!-1 + 1 = 149) = O(R!)
+# Space: O(5!-1 + 4!-1 + 3!-1 + 2!-1 + 1 = 149) = O(R!)
 #
 
 import sys
@@ -39,10 +39,7 @@ def power_arrangers():
             sys.stdout.flush()
             result.append(raw_input())
             cnt += 1
-            print Q[0]
-            sys.stdout.flush()
-            result.append(raw_input())
-            cnt += 1
+            result.append((set(chr(ord('A')+i) for i in xrange(R)) - set(result)).pop())
             break
     
     assert(cnt <= F)
