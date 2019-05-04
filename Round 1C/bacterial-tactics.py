@@ -52,27 +52,27 @@ def bacterial_tactics():
     # nearest radioactive cell from left, right, up, down
     RC = [[[None for _ in xrange(C)] for _ in xrange(R)] for _ in xrange(4)]
     for r in xrange(R):
-        radio_cell = -1
+        left_radio = -1
         for c in xrange(C):
             if M[r][c] == '#':
-                radio_cell = c
-            RC[LEFT][r][c] = radio_cell
-        radio_cell = C
+                left_radio = c
+            RC[LEFT][r][c] = left_radio
+        right_radio = C
         for c in reversed(xrange(C)):
             if M[r][c] == '#':
-                radio_cell = c
-            RC[RIGHT][r][c] = radio_cell
+                right_radio = c
+            RC[RIGHT][r][c] = right_radio
     for c in xrange(C):
-        radio_cell = -1
+        up_radio = -1
         for r in xrange(R):
             if M[r][c] == '#':
-                radio_cell = r
-            RC[UP][r][c] = radio_cell
-        radio_cell = R
+                up_radio = r
+            RC[UP][r][c] = up_radio
+        down_radio = R
         for r in reversed(xrange(R)):
             if M[r][c] == '#':
-                radio_cell = r
-            RC[DOWN][r][c] = radio_cell
+                down_radio = r
+            RC[DOWN][r][c] = down_radio
 
     g, result = grundy(RC, 0, 0, R, C, {})
     return result if g else 0
