@@ -24,7 +24,7 @@ def power_arrangers():
                 lookup[raw_input()].append(q+1)  # inspect the next letter
                 cnt += 1         
             for k, v in lookup.iteritems():
-                if len(v) != total:  # missing one
+                if len(v) != total:  # missing letter in current position
                     result.append(k)
                     Q = v
                     break
