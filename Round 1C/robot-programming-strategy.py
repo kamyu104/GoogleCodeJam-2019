@@ -12,10 +12,10 @@ import collections
 def robot_programming_strategy():
     A = input()
     C = []
-    C_set = set(range(A))
     for _ in xrange(A):
         C.append(raw_input().strip())
     result = []
+    C_set = set(range(A))
     while C_set:
         used = collections.defaultdict(list)
         for i in C_set:
