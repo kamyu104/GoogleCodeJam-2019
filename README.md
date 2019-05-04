@@ -1,10 +1,11 @@
-# [GoogleCodeJam 2019](https://codingcompetitions.withgoogle.com/codejam/archive/2019) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-10%20%2F%2010-ff69b4.svg)
+# [GoogleCodeJam 2019](https://codingcompetitions.withgoogle.com/codejam/archive/2019) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-13%20%2F%2013-ff69b4.svg)
 
 Python solutions of Google Code Jam 2019. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds).
 
 * [Qualification Round](https://github.com/kamyu104/GoogleCodeJam-2019#qualification-round)
 * [Round 1A](https://github.com/kamyu104/GoogleCodeJam-2019#round-1a)
 * [Round 1B](https://github.com/kamyu104/GoogleCodeJam-2019#round-1b)
+* [Round 1C](https://github.com/kamyu104/GoogleCodeJam-2019#round-1c)
 
 ## Qualification Round
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
@@ -27,3 +28,10 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 |A| [Manhattan Crepe Cart](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/000000000012295c)| [Python](./Round%201B/manhattan-crepe-cart.py)| _O(PlogP)_ | _O(P)_ | Easy | | Sweep Line |
 |B| [Draupnir](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/0000000000122837)| [Python](./Round%201B/draupnir.py) | _O(1)_ | _O(1)_ | Medium | | Math |
 |C| [Fair Fight](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/0000000000122838)| [Python](./Round%201B/fair-fight.py) [*Python](./Round%201B/fair-fight2.py)| _O(NlogN)_ | _O(N)_ | Hard | | Mono Stack, Binary Search, RMQ |
+
+## Round 1C
+| # | Title | Solution | Time | Space | Difficulty | Tag | Note |
+|---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
+|A| [Robot Programming Strategy](https://codingcompetitions.withgoogle.com/codejam/round/00000000000516b9/0000000000134c90)| [Python](./Round%201C/robot-programming-strategy.py)| _O(A^2)_ | _O(A)_ | Easy | | Greedy |
+|B| [Power Arrangers](https://codingcompetitions.withgoogle.com/codejam/round/00000000000516b9/0000000000134e91)| [Python](./Round%201C/power-arrangers.py) | _O(1)_ | _O(1)_ | Easy | | Math |
+|C| [Bacterial Tactics](https://codingcompetitions.withgoogle.com/codejam/round/00000000000516b9/0000000000134cdf)| [Python](./Round%201C/bacterial=tactics.py) [*Python](./Round%201B/fair-fight2.py)| _O(NlogN)_ | _O(N)_ | Medium | | Sprague–Grundy Theorem |
