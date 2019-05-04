@@ -26,7 +26,7 @@ def robot_programming_strategy():
             choose = WIN_TO[lookup.keys().pop()]
         elif len(lookup) == 2:
             choose = LOSE_TO[(CHOICES-set(lookup.iterkeys())).pop()]  # choose the one which ties or beats another
-        for i in lookup[LOSE_TO[choose]]:  # remove defeated opponents
+        for i in lookup[LOSE_TO[choose]]:  # remove defeated opponents, otherwise, we may get a wrong result
             C_remains.remove(i)
         result.append(choose)
     return "".join(result)
