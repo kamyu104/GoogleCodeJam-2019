@@ -26,7 +26,7 @@ def robot_programming_strategy():
             choose = WIN_TO[used.keys().pop()]
         elif len(used) == 2:
             choose = LOSE_TO[(CHOICES-set(used.iterkeys())).pop()]  # choose the one which ties or beats another
-        for i in used[LOSE_TO[choose]]:  # remove defeated oppenents
+        for i in used[LOSE_TO[choose]]:  # remove defeated opponents
             C_remains.remove(i)
         result.append(choose)
     return "".join(result)
