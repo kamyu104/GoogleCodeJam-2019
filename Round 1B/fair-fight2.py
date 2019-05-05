@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round 1B - Problem C. Fair Fight
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/0000000000122838
 #
-# Time:  O(NlogN), pass in PyPy2
+# Time:  O(NlogN), pass in PyPy2 but Python2
 # Space: O(NlogN)
 #
 
