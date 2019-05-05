@@ -25,7 +25,7 @@ def power_arrangers():
                 cnt += 1
             expected_permutation_cnt //= len(lookup)
             for k, v in lookup.iteritems():
-                if len(v) != expected_permutation_cnt:  # missing letter in current position
+                if len(v) == expected_permutation_cnt-1:  # missing this letter in current position
                     result.append(k)
                     Q = v
                     break
