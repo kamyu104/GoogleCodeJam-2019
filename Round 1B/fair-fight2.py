@@ -23,7 +23,7 @@ class RangeQuery(object):
         self.__rq = rq = [[0 for _ in xrange(n.bit_length())] for _ in xrange(n)]
         for i in xrange(n):
             self.__rq[i][0] = items[i]
-        for step in xrange(1, n.bit_length()):
+        for step in xrange(1, n.bit_length()):  # Time: O(NlogN)
             for i in xrange(n+1-self.__pow[step]):
                 self.__rq[i][step] = fn(self.__rq[i][step-1],
                                         self.__rq[i+self.__pow[step-1]][step-1])
