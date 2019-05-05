@@ -58,6 +58,7 @@ def fair_fight():
     N, K = map(int, raw_input().strip().split())
     C = map(int, raw_input().strip().split())
     D = map(int, raw_input().strip().split())
+    
     C_RMQ, D_RMQ = RangeQuery(C, max), RangeQuery(D, max)
     result, next_to_last_seen = 0, collections.defaultdict(int)
     for i, (Ci, Di) in enumerate(itertools.izip(C, D)):
@@ -73,6 +74,7 @@ def fair_fight():
                             lambda x: C_RMQ.query(i, x+1) == Ci and D_RMQ.query(i, x+1)-Ci <= -K-1)-1
         result += (i-L_good+1)*(R_good-i+1)-(i-L_bad+1)*(R_bad-i+1)
         next_to_last_seen[Ci] = i+1  # to avoid duplicated count
+        
     return result
 
 for case in xrange(input()):
