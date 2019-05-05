@@ -20,7 +20,7 @@ class RangeQuery(object):
             self.__pow.append(self.__pow[-1] * 2)
             self.__bit_length.extend([i]*min(count, n+1-len(self.__bit_length)))
             count *= 2
-        self.__rq = rq = [[0 for _ in xrange(n.bit_length())]for _ in xrange(n)]
+        self.__rq = rq = [[0 for _ in xrange(n.bit_length())] for _ in xrange(n)]
         for i in xrange(n):
             self.__rq[i][0] = items[i]
         for step, i in itertools.product(xrange(1, n.bit_length()), xrange(n)):  # Time: O(NlogN)
