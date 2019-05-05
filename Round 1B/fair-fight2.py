@@ -23,12 +23,10 @@ class RangeQuery(object):
         self.__rq = rq = [[0 for _ in xrange(n.bit_length())] for _ in xrange(n)]
         for i in xrange(n):
             self.__rq[i][0] = items[i]
-        for step, i in itertools.product(xrange(1, n.bit_length()), xrange(n)):  # Time: O(NlogN)
-            j = i + self.__pow[step-1]
-            if j < n:
-                rq[i][step] = fn(rq[i][step-1], rq[j][step-1])
-            else:
-                rq[i][step] = rq[i][step-1]
+        for step in xrange(1, n.bit_length()):
+            for i in xrange(n+1-self.__pow[step]):
+                self.__rq[i][step] = fn(self.__rq[i][step-1],
+                                        self.__rq[i+self.__pow[step-1]][step-1])
 
     def query(self, start, stop):  # Time: O(1)
         j = self.__bit_length[stop-start]-1
