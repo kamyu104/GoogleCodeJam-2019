@@ -42,7 +42,7 @@ def pottery_lottery():
     min_heap = []
     for i in candidates:  # inspect
         put(i, 0, D)
-        heappush(min_heap, (len(raw_input().strip().split()), i))
+        heappush(min_heap, (len(raw_input().strip().split()), -i))
 
     # day N1+V+N2+C+1 ~ P-1
     candidate = -heappop(min_heap)[1]
