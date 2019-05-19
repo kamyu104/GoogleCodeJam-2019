@@ -52,7 +52,7 @@ def contransmutation():
         return 0
 
     # check if any trouble
-    if len(R[0]) > 0:
+    if R[0]:
         curr = 0
         if len(R[curr]) > 1:
             return "UNBOUNDED"
