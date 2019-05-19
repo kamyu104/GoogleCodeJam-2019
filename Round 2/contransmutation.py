@@ -64,20 +64,20 @@ def contransmutation():
         R_reach_lead[curr] = []
 
     # Kahn's algorithm
-    indegrees = [0 for i in xrange(M)]
+    indegree = defaultdict(int)
     for i in xrange(M):
         for j in R_reach_lead[i]:
-            indegrees[j] += 1
+            indegree[j] += 1
     totals = list(G)
-    q = deque([i for i in xrange(M) if indegrees[i] == 0])
+    q = deque([i for i in xrange(M) if i not in indegree])
     while q:
         i = q.popleft()
         for j in R_reach_lead[i]:
             totals[j] += totals[i]
-            indegrees[j] -= 1
-            if indegrees[j] == 0:
+            indegree[j] -= 1
+            if indegree[j] == 0:
                 q.append(j)
-    return "UNBOUNDED" if any(indegrees) else totals[LEAD] % MOD
+    return "UNBOUNDED" if any(indegree.itervalues()) else totals[LEAD] % MOD
 
 
 MOD = 10**9+7
