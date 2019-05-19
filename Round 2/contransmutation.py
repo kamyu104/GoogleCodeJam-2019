@@ -69,16 +69,14 @@ def contransmutation():
         for j in R[parent]:
             numParents[j] += 1
     q = deque([i for i in xrange(M) if numParents[i] == 0])
-    cnt = 0
     while q:
         i = q.popleft()
-        cnt += 1
         for j in R[i]:
             G[j] += G[i]
             numParents[j] -= 1
             if numParents[j] == 0:
                 q.append(j)
-    return G[0] % MOD if cnt == M else "UNBOUNDED"
+    return "UNBOUNDED" if any(numParents) else G[0] % MOD
 
 MOD = 10**9+7
 for case in xrange(input()):
