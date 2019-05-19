@@ -11,7 +11,7 @@ from fractions import Fraction
 
 def find_fraction_with_min_denominator_between(a, b, D=0):
     assert(a < b)
-    assert(D < 10)
+    assert(D < 9)
     if b-int(a) > 1:
         return Fraction(int(a)+1, 1)
     if a == int(a):
