@@ -38,7 +38,7 @@ def contransmutation():
     for i in xrange(M):
         if G[i] > 0:
             isReachable[i] = True
-            q .append(i)
+            q.append(i)
     while q:
         i = q.popleft()
         for j in R[i]:
