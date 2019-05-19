@@ -24,7 +24,7 @@ def new_elements_part_2():
     for _ in xrange(N):
         molecules.append(map(int, raw_input().strip().split()))
 
-    lowers, uppers = set(), set()
+    lowers, uppers = set([Fraction(0, 1)]), set([Fraction(MAX_C_J, 1)])
     for b in xrange(1, N):
         (Cb, Jb) = molecules[b]
         for a in xrange(b):
@@ -35,19 +35,13 @@ def new_elements_part_2():
                 lowers.add(Fraction(Ca-Cb, Jb-Ja))
             elif (Ca >= Cb) and (Ja >= Jb):
                 return "IMPOSSIBLE"
-    if lowers and uppers:
-        lower, upper = max(lowers), min(uppers)
-        if lower >= upper:
-            return "IMPOSSIBLE"
-        cf = find_fraction_with_min_denominator_between(lower, upper)
-        return "{} {}".format(cf.denominator, cf.numerator)
-    if lowers:
-        lower = max(lowers)
-        return "{} {}".format(1, int(lower)+1)
-    if uppers:
-        upper = min(uppers)
-        return "{} {}".format(int(1/upper)+1, 1)
-    return "1 1"       
 
+    lower, upper = max(lowers), min(uppers)
+    if lower >= upper:
+        return "IMPOSSIBLE"
+    cf = find_fraction_with_min_denominator_between(lower, upper)
+    return "{} {}".format(cf.denominator, cf.numerator)
+
+MAX_C_J = 10**9
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, new_elements_part_2())
