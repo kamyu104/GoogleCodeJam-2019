@@ -55,11 +55,11 @@ def contransmutation():
     # check if it is bounded for making leads
     if R_reach_lead[LEAD]:
         curr = LEAD
-        if len(R_reach_lead[curr]) > 1:
+        if len(R_reach_lead[curr])-1 > 0:
             return "UNBOUNDED"
         curr = R_reach_lead[curr][0]
         while curr != LEAD:
-            if len(R_reach_lead[curr]) > 1:
+            if len(R_reach_lead[curr])-1 > 0:
                 return "UNBOUNDED"
             curr = R_reach_lead[curr][0]
         R_reach_lead[curr] = []
