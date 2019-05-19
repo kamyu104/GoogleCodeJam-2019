@@ -35,9 +35,9 @@ def new_elements_part_2():
                 L = max(L, Fraction(Ca-Cb, Jb-Ja))
             elif (Ca >= Cb) and (Ja >= Jb):
                 return "IMPOSSIBLE"
-
     if L >= U:
         return "IMPOSSIBLE"
+
     frac = find_fraction_with_min_denominator_between(L, U)
     return "{} {}".format(frac.denominator, frac.numerator)
 
