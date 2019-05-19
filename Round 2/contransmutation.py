@@ -80,7 +80,6 @@ def contransmutation():
                 q.append(j)
     return "UNBOUNDED" if indegree else totals[LEAD] % MOD
 
-
 MOD = 10**9+7
 LEAD = 0
 for case in xrange(input()):
