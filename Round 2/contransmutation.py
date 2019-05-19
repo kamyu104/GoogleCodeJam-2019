@@ -16,7 +16,7 @@ def contransmutation():
         R.append(map(lambda x: int(x)-1, raw_input().strip().split()))
     G = map(int, raw_input().strip().split())
 
-    # check if can_make_lead
+    # pre-compute can_make_lead
     parents = [[] for _ in xrange(M)]
     for i in xrange(M):
         for child in R[i]:
@@ -31,7 +31,7 @@ def contransmutation():
                 can_make_lead[j] = True
                 q.append(j)
 
-    # check if is_reachable
+    # check if lead is reachable
     R_reach_lead = [[] for _ in R]
     is_reachable = [False]*M
     q = deque()
@@ -52,7 +52,7 @@ def contransmutation():
     if not is_reachable[0]:
         return 0
 
-    # check if bounded
+    # check if it is bounded for making leads
     if R_reach_lead[0]:
         curr = 0
         if len(R_reach_lead[curr]) > 1:
@@ -69,15 +69,16 @@ def contransmutation():
     for i in xrange(M):
         for j in R_reach_lead[i]:
             indegrees[j] += 1
+    totals = list(G)
     q = deque([i for i in xrange(M) if indegrees[i] == 0])
     while q:
         i = q.popleft()
         for j in R_reach_lead[i]:
-            G[j] += G[i]
+            totals[j] += totals[i]
             indegrees[j] -= 1
             if indegrees[j] == 0:
                 q.append(j)
-    return "UNBOUNDED" if any(indegrees) else G[0] % MOD
+    return "UNBOUNDED" if any(indegrees) else totals[0] % MOD
 
 MOD = 10**9+7
 for case in xrange(input()):
