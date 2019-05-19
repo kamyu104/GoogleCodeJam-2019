@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round 2 - Problem C. New Elements: Part 2
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679/0000000000146184
 #
-# Time:  O(N * log(max(C, J)))
+# Time:  O(N^2 * log(max(C, J)))
 # Space: O(log(max(C, J)))
 #
 
