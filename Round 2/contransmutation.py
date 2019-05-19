@@ -16,22 +16,22 @@ def contransmutation():
         R.append(map(lambda x: int(x)-1, raw_input().strip().split()))
     G = map(int, raw_input().strip().split())
 
-    # pre-compute can_make_lead
+    # pre-compute metals which can reach lead
     parents = defaultdict(list)
     for i in xrange(M):
         for child in R[i]:
             parents[child].append(i)
-    can_make_lead = set([LEAD])
+    M_reach_lead = set([LEAD])
     q = deque([LEAD])
     while q:
         i = q.popleft()
         for j in parents[i]:
-            if j in can_make_lead:
+            if j in M_reach_lead:
                 continue
-            can_make_lead.add(j)
+            M_reach_lead.add(j)
             q.append(j)
 
-    # check if lead is reachable
+    # check if lead is reachable by initial G
     R_reach_lead = defaultdict(list)
     is_reachable = set()
     q = deque()
@@ -39,7 +39,7 @@ def contransmutation():
         if not G[i]:
             continue
         is_reachable.add(i)
-        R_reach_lead[i] = [child for child in R[i] if child in can_make_lead]
+        R_reach_lead[i] = [child for child in R[i] if child in M_reach_lead]
         q.append(i)
     while q:
         i = q.popleft()
@@ -47,7 +47,7 @@ def contransmutation():
             if j in is_reachable:
                 continue
             is_reachable.add(j)
-            R_reach_lead[j] = [child for child in R[j] if child in can_make_lead]
+            R_reach_lead[j] = [child for child in R[j] if child in M_reach_lead]
             q.append(j)
     if LEAD not in is_reachable:
         return 0
