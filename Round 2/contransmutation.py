@@ -80,7 +80,7 @@ def contransmutation():
                 q.append(j)
     return "UNBOUNDED" if any(indegrees) else totals[LEAD] % MOD
 
-LEAD = 0
 MOD = 10**9+7
+LEAD = 0
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, contransmutation())
