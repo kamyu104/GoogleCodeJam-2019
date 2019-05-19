@@ -16,9 +16,9 @@ def new_elements_part_1():
         molecules.append(map(int, raw_input().strip().split()))
 
     fractions_set = set()
-    for a in xrange(N-1):
+    for a in xrange(N):
         (Ca, Ja) = molecules[a]
-        for b in xrange(a+1, N):
+        for b in xrange(a):
             (Cb, Jb) = molecules[b]
             # let R = wJ/wC
             # => Ca * wC + Ja * R * wC < Cb * wC + Jb * R * wC
