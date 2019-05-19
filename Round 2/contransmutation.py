@@ -76,8 +76,9 @@ def contransmutation():
             totals[j] += totals[i]
             indegree[j] -= 1
             if indegree[j] == 0:
+                indegree.pop(j)
                 q.append(j)
-    return "UNBOUNDED" if any(indegree.itervalues()) else totals[LEAD] % MOD
+    return "UNBOUNDED" if indegree else totals[LEAD] % MOD
 
 
 MOD = 10**9+7
