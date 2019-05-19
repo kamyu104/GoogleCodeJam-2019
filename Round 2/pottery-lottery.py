@@ -27,7 +27,7 @@ def pottery_lottery():
         D -= 1
         print i+1, 0
         sys.stdout.flush()
-        heapq.heappush(heap, (len(raw_input().strip().split()), i))
+        heapq.heappush(heap, (len(raw_input().strip().split()), -i))
     
     # day N+V+1 ~ N+V+S-1
     _, candidate = heapq.heappop(heap)
@@ -36,7 +36,7 @@ def pottery_lottery():
         _ = input()
         D -= 1
         count, i = heapq.heappop(heap)
-        print i+1, 1
+        print -i+1, 1
         sys.stdout.flush()
         heapq.heappush(heap, (count+1, i))
 
@@ -45,7 +45,7 @@ def pottery_lottery():
     for i in (candidate, sabotage):
         _ = input()
         D -= 1
-        print i+1, 0
+        print -i+1, 0
         sys.stdout.flush()
         heapq.heappush(heap, (len(raw_input().strip().split()), i))
 
@@ -55,12 +55,12 @@ def pottery_lottery():
     while D:
         _ = input()
         D -= 1
-        print sabotage+1, 1
+        print -sabotage+1, 1
         sys.stdout.flush()
  
     # day N
     _ = input()
-    print candidate+1, P
+    print -candidate+1, P
     sys.stdout.flush()
 
 P, V = 100, 20
