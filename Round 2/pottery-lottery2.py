@@ -31,7 +31,7 @@ def pottery_lottery():
     
     # day N+V+1 ~ P-1
     _, candidate = heapq.heappop(heap)
-    while D:
+    while D:  # sabotage
         _ = input()
         D -= 1
         count, i = heapq.heappop(heap)
