@@ -16,10 +16,10 @@ def new_elements_part_1():
         molecules.append(map(int, raw_input().strip().split()))
 
     fractions_set = set()
-    for i in xrange(N-1):
-        (Ca, Ja) = molecules[i]
-        for j in xrange(i+1, N):
-            (Cb, Jb) = molecules[j]
+    for a in xrange(N-1):
+        (Ca, Ja) = molecules[a]
+        for b in xrange(a+1, N):
+            (Cb, Jb) = molecules[b]
             # let R = wJ/wC
             # => Ca * wC + Ja * R * wC < Cb * wC + Jb * R * wC
             # => Ca + Ja * R < Cb + Jb * R
@@ -27,7 +27,8 @@ def new_elements_part_1():
             # for each pair if 0 < (Ca-Cb)/(Jb-Ja) < inf
             #     if we let R = (Ca-Cb)/(Jb-Ja),
             #     it will decide a unique ordering
-            if Ca < Cb and Ja > Jb:
+            if (Ca < Cb and Ja > Jb) or \
+               (Ca > Cb and Ja < Jb):
                 fractions_set.add(Fraction(Ca-Cb, Jb-Ja))
     return len(fractions_set)+1
 
