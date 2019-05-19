@@ -64,7 +64,7 @@ def pottery_lottery():
     sys.stdout.flush()
 
 P, V = 100, 20
-N, S = 60, 14 # tuned by testing_tool.py (247/250)
+N, S = 60, 14  # tuned by testing_tool.py (247/250)
 assert(N + V + S + 2 < P)
 for case in xrange(input()):
     pottery_lottery()
