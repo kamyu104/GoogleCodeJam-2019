@@ -29,9 +29,9 @@ def pottery_lottery():
         sys.stdout.flush()
         heapq.heappush(heap, (len(raw_input().strip().split()), i))
     
+    # day N+V+1 ~ N+V+S-1
     _, candidate = heapq.heappop(heap)
     _, sabotage = heapq.heappop(heap)
-    # day N+V+1 ~ N+V+S-1
     for _ in xrange(S-1):  # sabotage
         _ = input()
         D -= 1
