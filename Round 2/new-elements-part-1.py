@@ -26,7 +26,7 @@ def new_elements_part_1():
             # => (Ca-Cb) < (Jb-Ja) * R
             # for each pair if 0 < (Ca-Cb)/(Jb-Ja) < inf
             #     if we let R = (Ca-Cb)/(Jb-Ja),
-            #     it will decide a unique ordering
+            #     it will map into a unique ordering
             if (Ca < Cb and Ja > Jb) or \
                (Ca > Cb and Ja < Jb):
                 fractions_set.add(Fraction(Ca-Cb, Jb-Ja))
