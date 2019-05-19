@@ -43,7 +43,7 @@ def pottery_lottery():
 
     # day N+V+S+1 ~ N+V+S+C
     heap = []
-    for i in candidates:
+    for i in candidates:  # inspect
         _ = input()
         D -= 1
         print -i+1, 0
