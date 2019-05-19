@@ -26,9 +26,10 @@ def contransmutation():
     while q:
         i = q.popleft()
         for j in parents[i]:
-            if j not in can_make_lead:
-                can_make_lead.add(j)
-                q.append(j)
+            if j in can_make_lead:
+                continue
+            can_make_lead.add(j)
+            q.append(j)
 
     # check if lead is reachable
     R_reach_lead = defaultdict(list)
