@@ -3,8 +3,8 @@
 # Google Code Jam 2019 Round 2 - Problem B. Pottery Lottery
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679/00000000001461c8
 #
-# Time:  O(1)
-# Space: O(1)
+# Time:  O(PlogV)
+# Space: O(V)
 #
 
 from sys import stdout
