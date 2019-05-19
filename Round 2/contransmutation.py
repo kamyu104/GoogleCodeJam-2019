@@ -7,7 +7,7 @@
 # Space: O(M)
 #
 
-from collections import deque
+from collections import deque, defaultdict
 
 def contransmutation():
     M = input()
@@ -17,39 +17,38 @@ def contransmutation():
     G = map(int, raw_input().strip().split())
 
     # pre-compute can_make_lead
-    parents = [[] for _ in xrange(M)]
+    parents = defaultdict(list)
     for i in xrange(M):
         for child in R[i]:
             parents[child].append(i)
-    can_make_lead = [False]*M
-    can_make_lead[LEAD] = True
+    can_make_lead = set([LEAD])
     q = deque([LEAD])
     while q:
         i = q.popleft()
         for j in parents[i]:
-            if not can_make_lead[j]:
-                can_make_lead[j] = True
+            if j not in can_make_lead:
+                can_make_lead.add(j)
                 q.append(j)
 
     # check if lead is reachable
-    R_reach_lead = [[] for _ in R]
-    is_reachable = [False]*M
+    R_reach_lead = defaultdict(list)
+    is_reachable = set()
     q = deque()
     for i in xrange(M):
         if not G[i]:
             continue
-        is_reachable[i] = True
-        R_reach_lead[i] = [child for child in R[i] if can_make_lead[child]]
+        is_reachable.add(i)
+        R_reach_lead[i] = [child for child in R[i] if child in can_make_lead]
         q.append(i)
     while q:
         i = q.popleft()
         for j in R_reach_lead[i]:
-            if is_reachable[j]:
+            if j in is_reachable:
                 continue
-            is_reachable[j] = True
-            R_reach_lead[j] = [child for child in R[j] if can_make_lead[child]]
+            is_reachable.add(j)
+            R_reach_lead[j] = [child for child in R[j] if child in can_make_lead]
             q.append(j)
-    if not is_reachable[LEAD]:
+    if LEAD not in is_reachable:
         return 0
 
     # check if it is bounded for making leads
@@ -79,6 +78,7 @@ def contransmutation():
             if indegrees[j] == 0:
                 q.append(j)
     return "UNBOUNDED" if any(indegrees) else totals[LEAD] % MOD
+
 
 MOD = 10**9+7
 LEAD = 0
