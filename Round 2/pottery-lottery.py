@@ -30,8 +30,9 @@ def pottery_lottery():
         heapq.heappush(heap, (len(raw_input().strip().split()), -i))
     
     # day N+V+1 ~ N+V+S
-    _, candidate = heapq.heappop(heap)
-    _, sabotage = heapq.heappop(heap)
+    candidates = []
+    for _ in xrange(C):
+        candidates.append(heapq.heappop(heap)[1])
     for _ in xrange(S):  # sabotage
         _ = input()
         D -= 1
@@ -40,17 +41,17 @@ def pottery_lottery():
         sys.stdout.flush()
         heapq.heappush(heap, (count+1, i))
 
-    # day N+V+S+1 ~ N+V+S+2
+    # day N+V+S+1 ~ N+V+S+C
     heap = []
-    for i in (candidate, sabotage):
+    for i in candidates:
         _ = input()
         D -= 1
         print -i+1, 0
         sys.stdout.flush()
         heapq.heappush(heap, (len(raw_input().strip().split()), i))
 
-    # day N+V+S+3 ~ P-1
-    _, candidate = heapq.heappop(heap)
+    # day N+V+S+C+1 ~ P-1
+    candidate = heapq.heappop(heap)[1]
     while D:  # sabotage
         _ = input()
         D -= 1
@@ -66,6 +67,7 @@ def pottery_lottery():
 
 P, V = 100, 20
 N, S = 60, 14  # tuned by testing_tool.py (247/250)
-assert(N + V + S + 2 < P)
+C = 2
+assert(N + V + S + C < P)
 for case in xrange(input()):
     pottery_lottery()
