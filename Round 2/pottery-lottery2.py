@@ -46,6 +46,6 @@ def pottery_lottery():
 
 P, V = 100, 20
 N, S = 60, 14  # tuned by testing_tool.py (243/250)
-assert(N + S < P)
+assert(N + V < P)
 for case in xrange(input()):
     pottery_lottery()
