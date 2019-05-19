@@ -32,7 +32,7 @@ def contransmutation():
                 q.append(j)
 
     # check if isReachable
-    R = [tuple(child for child in children if canMakeLead[child]) for children in R]
+    MakeLead = [[child for child in children if canMakeLead[child]] for children in R]
     isReachable = [False]*M
     q = deque()
     for i in xrange(M):
@@ -41,42 +41,43 @@ def contransmutation():
             q.append(i)
     while q:
         i = q.popleft()
-        for j in R[i]:
+        for j in MakeLead[i]:
             if not isReachable[j]:
                 isReachable[j] = True
                 q.append(j)
     for i in xrange(M):
         if not isReachable[i]:
-            R[i] = tuple()
+            MakeLead[i] = []
     if not isReachable[0]:
         return 0
 
     # check if any trouble
-    if R[0]:
+    if MakeLead[0]:
         curr = 0
-        if len(R[curr]) > 1:
+        if len(MakeLead[curr]) > 1:
             return "UNBOUNDED"
-        curr = R[curr][0]
+        curr = MakeLead[curr][0]
         while curr != 0:
-            if len(R[curr]) > 1:
+            if len(MakeLead[curr]) > 1:
                 return "UNBOUNDED"
-            curr = R[curr][0]
-        R[curr] = tuple()
+            curr = MakeLead[curr][0]
+        MakeLead[curr] = []
 
     # Kahn's algorithm
+    total = list(G)
     numParents = [0 for i in xrange(M)]
     for parent in xrange(M):
-        for j in R[parent]:
+        for j in MakeLead[parent]:
             numParents[j] += 1
     q = deque([i for i in xrange(M) if numParents[i] == 0])
     while q:
         i = q.popleft()
-        for j in R[i]:
-            G[j] += G[i]
+        for j in MakeLead[i]:
+            total[j] += total[i]
             numParents[j] -= 1
             if numParents[j] == 0:
                 q.append(j)
-    return "UNBOUNDED" if any(numParents) else G[0] % MOD
+    return "UNBOUNDED" if any(numParents) else total[0] % MOD
 
 MOD = 10**9+7
 for case in xrange(input()):
