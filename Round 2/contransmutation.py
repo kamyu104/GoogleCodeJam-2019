@@ -32,7 +32,7 @@ def contransmutation():
             q.append(j)
 
     # check if lead is reachable by initial G
-    R_reach_lead = defaultdict(list)
+    R_reach_lead = [[] for _ in xrange(M)]
     is_reachable = set()
     q = deque()
     for i in xrange(M):
