@@ -17,7 +17,7 @@ def contransmutation():
     G = map(int, raw_input().strip().split())
 
     # check if can_make_lead
-    parents = [[] for i in xrange(M)]
+    parents = [[] for _ in xrange(M)]
     for i in xrange(M):
         for child in R[i]:
             parents[child].append(i)
@@ -32,47 +32,47 @@ def contransmutation():
                 q.append(j)
 
     # check if is_reachable
-    reach_lead_children = [[] for _ in R]
+    R_reach_lead = [[] for _ in R]
     is_reachable = [False]*M
     q = deque()
     for i in xrange(M):
         if not G[i]:
             continue
         is_reachable[i] = True
-        reach_lead_children[i] = [child for child in R[i] if can_make_lead[child]]
+        R_reach_lead[i] = [child for child in R[i] if can_make_lead[child]]
         q.append(i)
     while q:
         i = q.popleft()
-        for j in reach_lead_children[i]:
+        for j in R_reach_lead[i]:
             if is_reachable[j]:
                 continue
             is_reachable[j] = True
-            reach_lead_children[j] = [child for child in R[j] if can_make_lead[child]]
+            R_reach_lead[j] = [child for child in R[j] if can_make_lead[child]]
             q.append(j)
     if not is_reachable[0]:
         return 0
 
     # check if bounded
-    if reach_lead_children[0]:
+    if R_reach_lead[0]:
         curr = 0
-        if len(reach_lead_children[curr]) > 1:
+        if len(R_reach_lead[curr]) > 1:
             return "UNBOUNDED"
-        curr = reach_lead_children[curr][0]
+        curr = R_reach_lead[curr][0]
         while curr != 0:
-            if len(reach_lead_children[curr]) > 1:
+            if len(R_reach_lead[curr]) > 1:
                 return "UNBOUNDED"
-            curr = reach_lead_children[curr][0]
-        reach_lead_children[curr] = []
+            curr = R_reach_lead[curr][0]
+        R_reach_lead[curr] = []
 
     # Kahn's algorithm
     indegrees = [0 for i in xrange(M)]
     for i in xrange(M):
-        for j in reach_lead_children[i]:
+        for j in R_reach_lead[i]:
             indegrees[j] += 1
     q = deque([i for i in xrange(M) if indegrees[i] == 0])
     while q:
         i = q.popleft()
-        for j in reach_lead_children[i]:
+        for j in R_reach_lead[i]:
             G[j] += G[i]
             indegrees[j] -= 1
             if indegrees[j] == 0:
