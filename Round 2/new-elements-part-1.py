@@ -3,8 +3,8 @@
 # Google Code Jam 2019 Round 2 - Problem A. New Elements: Part 1
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679/0000000000146183
 #
-# Time:  O(N^2)
-# Space: O(N^2)
+# Time:  O(N^2 * log(max(C, J)))
+# Space: O(N^2 * log(max(C, J)))
 #
 
 from fractions import Fraction
