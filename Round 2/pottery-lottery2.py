@@ -21,23 +21,23 @@ def pottery_lottery():
         stdout.flush()
 
     # day N+1 ~ N+V
-    heap = []
+    min_heap = []
     for i in xrange(V):  # inspect
         _ = input()
         D -= 1
         print i+1, 0
         stdout.flush()
-        heappush(heap, (len(raw_input().strip().split()), -i))
+        heappush(min_heap, (len(raw_input().strip().split()), -i))
     
     # day N+V+1 ~ P-1
-    candidate = heappop(heap)[1]
+    candidate = heappop(min_heap)[1]
     while D:  # sabotage
         _ = input()
         D -= 1
-        count, i = heappop(heap)
+        count, i = heappop(min_heap)
         print -i+1, 1
         stdout.flush()
-        heappush(heap, (count+1, i))
+        heappush(min_heap, (count+1, i))
  
     # day P
     _ = input()
