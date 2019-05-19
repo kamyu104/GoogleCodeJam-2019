@@ -22,8 +22,8 @@ def contransmutation():
         for child in R[i]:
             parents[child].append(i)
     can_make_lead = [False]*M
-    can_make_lead[0] = True
-    q = deque([0])
+    can_make_lead[LEAD] = True
+    q = deque([LEAD])
     while q:
         i = q.popleft()
         for j in parents[i]:
@@ -49,16 +49,16 @@ def contransmutation():
             is_reachable[j] = True
             R_reach_lead[j] = [child for child in R[j] if can_make_lead[child]]
             q.append(j)
-    if not is_reachable[0]:
+    if not is_reachable[LEAD]:
         return 0
 
     # check if it is bounded for making leads
-    if R_reach_lead[0]:
-        curr = 0
+    if R_reach_lead[LEAD]:
+        curr = LEAD
         if len(R_reach_lead[curr]) > 1:
             return "UNBOUNDED"
         curr = R_reach_lead[curr][0]
-        while curr != 0:
+        while curr != LEAD:
             if len(R_reach_lead[curr]) > 1:
                 return "UNBOUNDED"
             curr = R_reach_lead[curr][0]
@@ -78,8 +78,9 @@ def contransmutation():
             indegrees[j] -= 1
             if indegrees[j] == 0:
                 q.append(j)
-    return "UNBOUNDED" if any(indegrees) else totals[0] % MOD
+    return "UNBOUNDED" if any(indegrees) else totals[LEAD] % MOD
 
+LEAD = 0
 MOD = 10**9+7
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, contransmutation())
