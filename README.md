@@ -43,4 +43,4 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 |A| [New Elements: Part 1](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679/0000000000146183)| [Python](./Round%202/new-elements-part-1.py)| _O(N^2)_ | _O(N^2)_ | Easy | | Math |
 |B| [Pottery Lottery](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679/00000000001461c8)| [Python](./Round%202/pottery-lottery.py) [Python](./Round%202/pottery-lottery2.py) | _O(1)_ | _O(1)_ | Medium | | Math, Greedy |
 |C| [New Elements: Part 2](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679/0000000000146184)| [Python](./Round%202/new-elements-part-2.py)| _O(N^2)_ | _O(N^2)_ | Medium | | Math |
-|D| [Contransmutation](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679/0000000000146185)| [Python](./Round%202/bacterial-tactics.py) | _O(M)_ | _O(M)_ | Hard | | Graph |
+|D| [Contransmutation](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679/0000000000146185)| [Python](./Round%202/contransmutation.py) | _O(M)_ | _O(M)_ | Hard | | Graph |
