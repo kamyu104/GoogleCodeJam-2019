@@ -62,7 +62,7 @@ def contransmutation():
             if len(R_reach_lead[curr])-1 > 0:
                 return "UNBOUNDED"
             curr = R_reach_lead[curr][0]
-        R_reach_lead[curr] = []
+        R_reach_lead[curr] = []  # exclude lead to try topological sort
 
     # Kahn's algorithm (topological sort)
     indegree = defaultdict(int)
