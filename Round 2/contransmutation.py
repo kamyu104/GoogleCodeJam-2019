@@ -49,8 +49,8 @@ def contransmutation():
             is_reachable.add(j)
             R_reach_lead[j] = [child for child in R[j] if child in M_reach_lead]
             q.append(j)
-    if LEAD not in is_reachable:
-        return 0
+    if LEAD not in is_reachable:  # early return if not reachable (optional)
+       return 0
 
     # check if lead is bounded for making leads
     if R_reach_lead[LEAD]:
