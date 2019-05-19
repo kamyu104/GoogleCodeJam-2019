@@ -16,7 +16,7 @@ def contransmutation():
         R.append(map(lambda x: int(x)-1, raw_input().strip().split()))
     G = map(int, raw_input().strip().split())
 
-    # check if it is lead
+    # check if canMakeLead
     parents = [[] for i in xrange(M)]
     for parent in xrange(M):
         for child in R[parent]:
@@ -31,7 +31,7 @@ def contransmutation():
                 canMakeLead[j] = True
                 q.append(j)
 
-    # check if reachable
+    # check if isReachable
     R = [tuple(child for child in children if canMakeLead[child]) for children in R]
     isReachable = [False]*M
     q = deque()
