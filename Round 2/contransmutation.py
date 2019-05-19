@@ -16,68 +16,68 @@ def contransmutation():
         R.append(map(lambda x: int(x)-1, raw_input().strip().split()))
     G = map(int, raw_input().strip().split())
 
-    # check if canMakeLead
+    # check if can_make_lead
     parents = [[] for i in xrange(M)]
-    for parent in xrange(M):
-        for child in R[parent]:
-            parents[child].append(parent)
-    canMakeLead = [False]*M
-    canMakeLead[0] = True
+    for i in xrange(M):
+        for child in R[i]:
+            parents[child].append(i)
+    can_make_lead = [False]*M
+    can_make_lead[0] = True
     q = deque([0])
     while q:
         i = q.popleft()
         for j in parents[i]:
-            if not canMakeLead[j]:
-                canMakeLead[j] = True
+            if not can_make_lead[j]:
+                can_make_lead[j] = True
                 q.append(j)
 
-    # check if isReachable
-    MakeLead = [[child for child in children if canMakeLead[child]] for children in R]
-    isReachable = [False]*M
+    # check if is_reachable
+    reach_lead_children = [[] for _ in R]
+    is_reachable = [False]*M
     q = deque()
     for i in xrange(M):
-        if G[i] > 0:
-            isReachable[i] = True
-            q.append(i)
+        if not G[i]:
+            continue
+        is_reachable[i] = True
+        reach_lead_children[i] = [child for child in R[i] if can_make_lead[child]]
+        q.append(i)
     while q:
         i = q.popleft()
-        for j in MakeLead[i]:
-            if not isReachable[j]:
-                isReachable[j] = True
-                q.append(j)
-    for i in xrange(M):
-        if not isReachable[i]:
-            MakeLead[i] = []
-    if not isReachable[0]:
+        for j in reach_lead_children[i]:
+            if is_reachable[j]:
+                continue
+            is_reachable[j] = True
+            reach_lead_children[j] = [child for child in R[j] if can_make_lead[child]]
+            q.append(j)
+    if not is_reachable[0]:
         return 0
 
-    # check if any trouble
-    if MakeLead[0]:
+    # check if bounded
+    if reach_lead_children[0]:
         curr = 0
-        if len(MakeLead[curr]) > 1:
+        if len(reach_lead_children[curr]) > 1:
             return "UNBOUNDED"
-        curr = MakeLead[curr][0]
+        curr = reach_lead_children[curr][0]
         while curr != 0:
-            if len(MakeLead[curr]) > 1:
+            if len(reach_lead_children[curr]) > 1:
                 return "UNBOUNDED"
-            curr = MakeLead[curr][0]
-        MakeLead[curr] = []
+            curr = reach_lead_children[curr][0]
+        reach_lead_children[curr] = []
 
     # Kahn's algorithm
-    total = list(G)
-    numParents = [0 for i in xrange(M)]
-    for parent in xrange(M):
-        for j in MakeLead[parent]:
-            numParents[j] += 1
-    q = deque([i for i in xrange(M) if numParents[i] == 0])
+    indegrees = [0 for i in xrange(M)]
+    for i in xrange(M):
+        for j in reach_lead_children[i]:
+            indegrees[j] += 1
+    q = deque([i for i in xrange(M) if indegrees[i] == 0])
     while q:
         i = q.popleft()
-        for j in MakeLead[i]:
-            total[j] += total[i]
-            numParents[j] -= 1
-            if numParents[j] == 0:
+        for j in reach_lead_children[i]:
+            G[j] += G[i]
+            indegrees[j] -= 1
+            if indegrees[j] == 0:
                 q.append(j)
-    return "UNBOUNDED" if any(numParents) else total[0] % MOD
+    return "UNBOUNDED" if any(indegrees) else G[0] % MOD
 
 MOD = 10**9+7
 for case in xrange(input()):
