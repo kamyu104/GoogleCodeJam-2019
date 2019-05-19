@@ -52,7 +52,7 @@ def contransmutation():
     if LEAD not in is_reachable:
         return 0
 
-    # check if it is bounded for making leads
+    # check if lead is bounded for making leads
     if R_reach_lead[LEAD]:
         curr = LEAD
         if len(R_reach_lead[curr])-1 > 0:
