@@ -64,22 +64,22 @@ def contransmutation():
             curr = R_reach_lead[curr][0]
         R_reach_lead[curr] = []
 
-    # Kahn's algorithm
+    # Kahn's algorithm (topological sort)
     indegree = defaultdict(int)
     for i in xrange(M):
         for j in R_reach_lead[i]:
             indegree[j] += 1
-    totals = list(G)
+    dp = list(G)
     q = deque([i for i in xrange(M) if i not in indegree])
     while q:
         i = q.popleft()
         for j in R_reach_lead[i]:
-            totals[j] += totals[i]
+            dp[j] += dp[i]
             indegree[j] -= 1
             if indegree[j] == 0:
                 indegree.pop(j)
                 q.append(j)
-    return "UNBOUNDED" if indegree else totals[LEAD] % MOD
+    return "UNBOUNDED" if indegree else dp[LEAD] % MOD
 
 MOD = 10**9+7
 LEAD = 0
