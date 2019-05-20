@@ -9,14 +9,14 @@
 
 from fractions import Fraction
 
-def find_fraction_with_min_denominator_between(a, b, d=0):
+def find_min_fraction_with_min_denominator_between(a, b, d=0):
     assert(a < b)
     assert(d < 9)
     if b-int(a) > 1:
         return Fraction(int(a)+1, 1)
     if a-int(a) == 0:
         return int(a) + Fraction(1, int(1/(b-int(a)))+1)
-    return int(a) + 1/find_fraction_with_min_denominator_between(1/(b-int(a)), 1/(a-int(a)), d+1)
+    return int(a) + 1/find_min_fraction_with_min_denominator_between(1/(b-int(a)), 1/(a-int(a)), d+1)
 
 def new_elements_part_2():
     N = input()
@@ -38,7 +38,7 @@ def new_elements_part_2():
     if L >= U:
         return "IMPOSSIBLE"
 
-    frac = find_fraction_with_min_denominator_between(L, U)
+    frac = find_min_fraction_with_min_denominator_between(L, U)
     return "{} {}".format(frac.denominator, frac.numerator)
 
 MAX_C_J = 10**9
