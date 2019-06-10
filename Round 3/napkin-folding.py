@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round C - Problem D. Napkin Folding
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170
 #
-# Time:  O(N^2 * K^4) ~ O(N^3 * K^5), TLE in set2
+# Time:  O(N^2 * K^4) ~ O(N^3 * K^5), PyPy2 TLE in set 2
 # Space: O(N * K^2)
 #
 
