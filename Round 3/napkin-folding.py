@@ -135,7 +135,7 @@ def napkin_folding():
     for k, v in enumerate(endpoints):
         endpoints_idx[v] = k
     for pair in find_possible_pairs(polygon, K, endpoints):  # Time: O(N^2*K^4)
-        # number of possible pairs is around O(N*K^3) or less, checked by assertion
+        # possible pairs should be much less than O(N^2*K^4)
         pairs = find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair)  # Time: O(N*K)
         if not pairs:
             continue
