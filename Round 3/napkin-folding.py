@@ -121,7 +121,8 @@ def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
                     new_pair = normalize(new_pattern[-1], p_idx)
                     if new_pair not in pairs:
                         new_pairs.append(new_pair)
-            new_pattern.append(p_idx)
+            if len(new_pattern) != len(pattern):
+                new_pattern.append(p_idx)
 
         for new_pair in new_pairs:
             q.append((new_pair, new_pattern))
