@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round C - Problem D. Napkin Folding
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170
 #
-# Time:  O(N^2 * K^4) ~ O(N^3 * K^5), PyPy2 TLE in set 2
+# Time:  O(N^2 * K^4), PyPy2 TLE in set 2
 # Space: O(N * K^2)
 #
 
@@ -134,7 +134,7 @@ def napkin_folding():
     endpoints_idx = {}
     for k, v in enumerate(endpoints):
         endpoints_idx[v] = k
-    for pair in find_possible_pairs(polygon, K, endpoints):  # Time: O(N^2*K^4)
+    for pair in find_possible_pairs(polygon, K, endpoints):  # Time: O(N^2*K^4), TLE in find_possible_pairs of set 2
         # possible pairs should be much less than O(N^2*K^4)
         pairs = find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair)  # Time: O(N*K)
         if not pairs:
