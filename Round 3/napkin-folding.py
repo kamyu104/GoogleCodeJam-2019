@@ -103,6 +103,7 @@ def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
     pattern = find_pattern(pair[0], pair[1], len(endpoints), C)
     for p in pattern:
         polygon_set.discard(endpoints[p])
+
     pairs = set()
     q = deque([(pair, pattern)])
     while len(pairs) != K-1 and q:
