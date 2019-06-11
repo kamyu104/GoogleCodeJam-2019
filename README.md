@@ -7,6 +7,7 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 * [Round 1B](https://github.com/kamyu104/GoogleCodeJam-2019#round-1b)
 * [Round 1C](https://github.com/kamyu104/GoogleCodeJam-2019#round-1c)
 * [Round 2](https://github.com/kamyu104/GoogleCodeJam-2019#round-2)
+* [Round 3](https://github.com/kamyu104/GoogleCodeJam-2019#round-3)
 
 ## Qualification Round
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
