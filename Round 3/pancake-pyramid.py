@@ -1,13 +1,13 @@
 # Copyright (c) 2019 kamyu. All rights reserved.
 #
-# Google Code Jam 2019 Round 3 - Problem B. Pancke Pyramid
+# Google Code Jam 2019 Round 3 - Problem B. Pancake Pyramid
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/00000000001591be
 #
 # Time:  O(S)
 # Space: O(S)
 #
 
-def pancke_pyramid():
+def pancake_pyramid():
     S = input()
     P = map(int, raw_input().strip().split())
 
@@ -26,4 +26,4 @@ def pancke_pyramid():
 
 MOD = 10**9+7
 for case in xrange(input()):
-    print 'Case #%d: %s' % (case+1, pancke_pyramid())
+    print 'Case #%d: %s' % (case+1, pancake_pyramid())
