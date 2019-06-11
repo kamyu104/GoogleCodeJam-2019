@@ -96,18 +96,13 @@ def find_pattern(begin, end, length, C):
     return pattern
 
 def is_on_polygon_edge(A, B, length, C):
-    def left_right(A, length, C):
-        if A % C == 0:
-            return (A, A)
-        return (A//C*C, ((A-1)//C+1)*C%length)
-
-    A_left, A_right = left_right(A, length, C)
-    B_left, B_right = left_right(B, length, C)
-    if A_left == A_right and B_left == B_right:
-        return not (C < abs(A_left-B_left) < length-C)
-    if A_left != A_right:
-        return B_left in (A_left, A_right)
-    return A_left in (B_left, B_right)
+    if A%C == B%C == 0:
+        return abs(A-B) in (C, length-C)
+    if A%C == 0:
+        return A in (B//C*C, (B//C+1)*C)
+    if B%C == 0:
+        return B in (A//C*C, (A//C+1)*C)
+    return A//C == B//C
 
 def normalize(a, b):
     return (a, b) if a <= b else (b, a)
