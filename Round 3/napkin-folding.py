@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round C - Problem D. Napkin Folding
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170
 #
-# Time:  O(N^2 * K^4), PyPy2 pass by Python in set 2
+# Time:  O(N^2 * K^4), PyPy2 pass but Python in set 2
 # Space: O(N * K^2)
 #
 
@@ -128,9 +128,6 @@ def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
     if not is_valid_pattern(polygon, endpoints, pattern):
         return None
     assert(polygon_area(map(lambda x : endpoints[x], pattern)) * K == area)
-    polygon_set = set(polygon)
-    for p in pattern:
-        polygon_set.discard(endpoints[p])
     pairs = set()
     q = deque([(pair, pattern)])
     while len(pairs) != K-1 and q:
@@ -154,12 +151,10 @@ def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
         if not is_valid_pattern(polygon, endpoints, new_pattern):
             return None
         assert(polygon_area(map(lambda x : endpoints[x], new_pattern)) * K == area)
-        for p in new_pattern:
-            polygon_set.discard(endpoints[p])
         for new_pair in new_pairs:
             q.append((new_pair, new_pattern))
 
-    return pairs if not polygon_set and len(pairs) == K-1 and not q else None
+    return pairs if len(pairs) == K-1 and not q else None
 
 def output1(p, lcm):
     common = gcd(p, lcm)
