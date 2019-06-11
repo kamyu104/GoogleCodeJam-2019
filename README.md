@@ -50,4 +50,4 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |B| [Pancake Pyramid](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/00000000001591be)| [Python](./Round%203/pancake-pyramid.py) | _O(S)_ | _O(S)_ | Medium | | Mono Stack |
-|D| [Napkin Folding](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170)| [Python](./Round%203/napkin-folding.py) | _O(N^2 * K^4)_ | _O(N * K^2)_ | Hard | | Geometry, BFS |
+|D| [Napkin Folding](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170)| [Python](./Round%203/napkin-folding.py) | _O(N^2 * K^4)_ | _O(N * K^2)_ | Hard | | Geometry, BFS, DFS |
