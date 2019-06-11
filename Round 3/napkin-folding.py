@@ -23,6 +23,18 @@ def polygon_area(polygon):
         area += advance_polygon_area(polygon[i-1], polygon[i])
     return abs(area)
 
+# Return true if line segments AB and CD are crossed
+def is_crossed(A, B, C, D):
+    def orientation(A, B, C):
+        area = (C[1]-A[1]) * (B[0]-A[0]) - (B[1]-A[1]) * (C[0]-A[0])
+        return 1 if area > 0 else -1 if area < 0 else 0
+        
+    o1 = orientation(A, C, D)
+    o2 = orientation(B, C, D)
+    o3 = orientation(A, B, C)
+    o4 = orientation(A, B, D)
+    return o1 != o2 and o3 != o4 and all((o1, o2, o3, o4))
+
 # Return Q which is the reflection of P over line (A, B)
 def reflect(P, A, B):
     a, b, c = A[1]-B[1], -(A[0]-B[0]), (A[1]-B[1])*(-A[0])-(A[0]-B[0])*(-A[1])
@@ -96,13 +108,25 @@ def is_on_polygon_edge(A, B, length, C):
 def normalize(a, b):
     return (a, b) if a <= b else (b, a)
 
+def is_valid_pattern(polygon, endpoints, pattern):  # Time:  O(N^2)
+    for i in xrange(len(pattern)-1):
+        for j in xrange(i+1, len(pattern)):
+            if is_crossed(endpoints[pattern[i-1]], endpoints[pattern[i]],
+                          endpoints[pattern[j-1]], endpoints[pattern[j]]):
+                return False
+    for i in xrange(len(polygon)):
+        for j in xrange(len(pattern)):
+            if is_crossed(polygon[i-1], polygon[i],
+                          endpoints[pattern[j-1]], endpoints[pattern[j]]):
+                return False
+    return True
+            
 def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
     C = len(endpoints)//len(polygon)  # count of polygon and non-polygon vertex on an edge
 
-    polygon_set = set(polygon)
     pattern = find_pattern(pair[0], pair[1], len(endpoints), C)
-    for p in pattern:
-        polygon_set.discard(endpoints[p])
+    if not is_valid_pattern(polygon, endpoints, pattern):
+        return None
 
     pairs = set()
     q = deque([(pair, pattern)])
@@ -115,7 +139,6 @@ def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
             p = reflect(endpoints[pattern[i]], endpoints[pair[0]], endpoints[pair[1]])
             if not p or p not in endpoints_idx:  # not on polygon
                 return None
-            polygon_set.discard(p)
             p_idx = endpoints_idx[p]  
             if new_pattern:
                 if not is_on_polygon_edge(new_pattern[-1], p_idx, len(endpoints), C):  # not on polygon edge
@@ -125,10 +148,12 @@ def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
             if len(new_pattern) != len(pattern):
                 new_pattern.append(p_idx)
 
+        if not is_valid_pattern(polygon, endpoints, new_pattern):
+            return None
         for new_pair in new_pairs:
             q.append((new_pair, new_pattern))
 
-    return pairs if not polygon_set and len(pairs) == K-1 and not q else None
+    return pairs if len(pairs) == K-1 and not q else None
 
 def output1(p, lcm):
     common = gcd(p, lcm)
@@ -153,7 +178,7 @@ def napkin_folding():
         endpoints_idx[v] = k
     for pair in find_possible_pairs(polygon, K, endpoints):  # Time: O(N^2*K^4)
         # possible pairs should be much less than O(N^2*K^4)
-        pairs = find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair)  # Time: O(N*K)
+        pairs = find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair)  # Time: O(N*K^2)
         if not pairs:
             continue
         result = ["POSSIBLE"]
