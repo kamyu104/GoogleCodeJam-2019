@@ -23,18 +23,6 @@ def polygon_area(polygon):
         area += advance_polygon_area(polygon[i-1], polygon[i])
     return abs(area)
 
-# Return true if line segments AB and CD are crossed
-def is_crossed(A, B, C, D):
-    def orientation(A, B, C):
-        area = (C[1]-A[1]) * (B[0]-A[0]) - (B[1]-A[1]) * (C[0]-A[0])
-        return 1 if area > 0 else -1 if area < 0 else 0
-        
-    o1 = orientation(A, C, D)
-    o2 = orientation(B, C, D)
-    o3 = orientation(A, B, C)
-    o4 = orientation(A, B, D)
-    return o1 != o2 and o3 != o4 and all((o1, o2, o3, o4))
-
 # Return Q which is the reflection of P over line (A, B)
 def reflect(P, A, B):
     a, b, c = A[1]-B[1], -(A[0]-B[0]), (A[1]-B[1])*(-A[0])-(A[0]-B[0])*(-A[1])
