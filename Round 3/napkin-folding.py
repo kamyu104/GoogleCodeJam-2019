@@ -7,8 +7,6 @@
 # Space: O(N * K^2)
 #
 
-from collections import deque
-
 def gcd(a, b):  # Time: O((logn)^2)
     while b:
         a, b = b, a % b
@@ -100,9 +98,9 @@ def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
 
     pattern = find_pattern(pair[0], pair[1], len(endpoints), C)
     pairs = set()
-    q = deque([(pair, pattern)])
-    while len(pairs) != K-1 and q:
-        (pair, pattern) = q.popleft()
+    stk = [(pair, pattern)]  # using queue is also fine (BFS), here we use stack (DFS)
+    while len(pairs) != K-1 and stk:
+        (pair, pattern) = stk.pop()
         pairs.add(normalize(pair[0], pair[1]))
 
         new_pairs, new_pattern = [], []
@@ -120,9 +118,9 @@ def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
                 new_pattern.append(p_idx)
 
         for new_pair in new_pairs:
-            q.append((new_pair, new_pattern))
+            stk.append((new_pair, new_pattern))
 
-    return pairs if len(pairs) == K-1 and not q else None
+    return pairs if len(pairs) == K-1 and not stk else None
 
 def output1(p, lcm):
     common = gcd(p, lcm)
