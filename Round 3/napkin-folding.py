@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round C - Problem D. Napkin Folding
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170
 #
-# Time:  O(N^2 * K^4), PyPy2 WA in set 2
+# Time:  O(N^2 * K^4), PyPy2 pass by Python in set 2
 # Space: O(N * K^2)
 #
 
