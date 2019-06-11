@@ -86,9 +86,13 @@ def find_possible_pairs(polygon, K, endpoints):
 
 def find_pattern(begin, end, length, C):
     pattern = [begin]
-    while C < abs(pattern[-1]-end) < length-C:
-        pattern.append(((pattern[-1]+C)%length)//C*C)
-    pattern.append(end)
+    if end < begin:
+        end += length
+    curr = begin//C*C + C
+    while end-curr > 0:
+        pattern.append(curr%length)
+        curr += C
+    pattern.append(end%length)
     return pattern
 
 def is_on_polygon_edge(A, B, length, C):
@@ -120,14 +124,18 @@ def is_valid_pattern(polygon, endpoints, pattern):  # Time:  O(N^2)
                           endpoints[pattern[j-1]], endpoints[pattern[j]]):
                 return False
     return True
-            
+
 def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
     C = len(endpoints)//len(polygon)  # count of polygon and non-polygon vertex on an edge
 
+    area = polygon_area(polygon)
     pattern = find_pattern(pair[0], pair[1], len(endpoints), C)
     if not is_valid_pattern(polygon, endpoints, pattern):
         return None
-
+    assert(polygon_area(map(lambda x : endpoints[x], pattern)) * K == area)
+    polygon_set = set(polygon)
+    for p in pattern:
+        polygon_set.discard(endpoints[p])
     pairs = set()
     q = deque([(pair, pattern)])
     while len(pairs) != K-1 and q:
@@ -150,10 +158,13 @@ def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
 
         if not is_valid_pattern(polygon, endpoints, new_pattern):
             return None
+        assert(polygon_area(map(lambda x : endpoints[x], new_pattern)) * K == area)
+        for p in new_pattern:
+            polygon_set.discard(endpoints[p])
         for new_pair in new_pairs:
             q.append((new_pair, new_pattern))
 
-    return pairs if len(pairs) == K-1 and not q else None
+    return pairs if not polygon_set and len(pairs) == K-1 and not q else None
 
 def output1(p, lcm):
     common = gcd(p, lcm)
