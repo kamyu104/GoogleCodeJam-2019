@@ -115,9 +115,9 @@ def is_on_polygon_edge(A, B, length, C):
     if A%C == B%C == 0:
         return abs(A-B) in (C, length-C)
     if A%C == 0:
-        return A in (B//C*C, (B//C+1)*C)
+        return A in (B//C*C, (B//C+1)*C%length)
     if B%C == 0:
-        return B in (A//C*C, (A//C+1)*C)
+        return B in (A//C*C, (A//C+1)*C%length)
     return A//C == B//C
 
 def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
