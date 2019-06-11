@@ -18,8 +18,8 @@ def pancake_pyramid():
             _, h = stk.pop()
             if not stk:
                 continue
-            fill = (i-stk[-1][0]-1) * (min(stk[-1][1], p)-h)
-            left, right = stk[-1][0]+1, S-i
+            fill = ((i-1)-stk[-1][0]) * (min(stk[-1][1], p)-h)
+            left, right = stk[-1][0]+1, (S-1)-(i-1)
             total += fill * left * right
         stk.append((i, p))
     return total % MOD
