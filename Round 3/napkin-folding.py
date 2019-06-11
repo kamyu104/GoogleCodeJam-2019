@@ -95,15 +95,6 @@ def find_pattern(begin, end, length, C):
     pattern.append(end%length)
     return pattern
 
-def is_on_polygon_edge(A, B, length, C):
-    if A%C == B%C == 0:
-        return abs(A-B) in (C, length-C)
-    if A%C == 0:
-        return A in (B//C*C, (B//C+1)*C)
-    if B%C == 0:
-        return B in (A//C*C, (A//C+1)*C)
-    return A//C == B//C
-
 def normalize(a, b):
     return (a, b) if a <= b else (b, a)
 
@@ -119,6 +110,15 @@ def is_valid_pattern(polygon, endpoints, pattern):  # Time:  O(N^2)
                           endpoints[pattern[j-1]], endpoints[pattern[j]]):
                 return False
     return True
+
+def is_on_polygon_edge(A, B, length, C):
+    if A%C == B%C == 0:
+        return abs(A-B) in (C, length-C)
+    if A%C == 0:
+        return A in (B//C*C, (B//C+1)*C)
+    if B%C == 0:
+        return B in (A//C*C, (A//C+1)*C)
+    return A//C == B//C
 
 def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
     C = len(endpoints)//len(polygon)  # count of polygon and non-polygon vertex on an edge
