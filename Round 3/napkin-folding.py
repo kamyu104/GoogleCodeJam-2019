@@ -105,12 +105,12 @@ def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
 
     pairs = set()
     stk = [(pair, pattern)]  # using queue is also fine (BFS), here we use stack (DFS)
-    while len(pairs) != K-1 and stk:  # K times
+    while len(pairs) != K-1 and stk:  # Time:  O(N + K)
         (pair, pattern) = stk.pop()
         pairs.add(normalize(pair[0], pair[1]))
 
         new_pairs, new_pattern = [], []
-        for i in xrange(-1, len(pattern)):  # N times
+        for i in xrange(-1, len(pattern)):
             p = reflect(endpoints[pattern[i]], endpoints[pair[0]], endpoints[pair[1]])
             if not p or p not in endpoints_idx:  # not on polygon
                 return None
@@ -151,7 +151,7 @@ def napkin_folding():
         endpoints_idx[v] = k
     for pair in find_possible_pairs(polygon, K, endpoints):  # Time: O(N^2*K^4)
         # possible pairs should be much less than O(N^2*K^4)
-        pairs = find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair)  # Time: O(N*K)
+        pairs = find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair)  # Time: O(N)
         if not pairs:
             continue
         result = ["POSSIBLE"]
