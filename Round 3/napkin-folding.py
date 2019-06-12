@@ -19,7 +19,7 @@ def polygon_area(polygon):
     area = 0
     for i in xrange(len(polygon)):
         area += advance_polygon_area(polygon[i-1], polygon[i])
-    return abs(area)
+    return abs(area)  # in this problem, we don't divide the area by 2 to keep it an integer
 
 # Return Q which is the reflection of P over line (A, B)
 def reflect(P, A, B):
