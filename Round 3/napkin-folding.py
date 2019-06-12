@@ -123,7 +123,7 @@ def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
 
 def output1(p, lcm):
     common = gcd(p, lcm)
-    return "{}/{}".format(p//common, lcm//common)
+    return "{}/{}".format(p//common, lcm//common)  # restore the numbers
 
 def output2(p, lcm):
     return "{} {}".format(output1(p[0], lcm), output1(p[1], lcm))
@@ -134,7 +134,7 @@ def napkin_folding():
     for i in xrange(2, K+1):
         lcm = lcm * i // gcd(lcm, i)
     polygon = []
-    for _ in xrange(N):
+    for _ in xrange(N):  # scale the number by lcm to make sure candidates are also integers
         polygon.append(tuple(map(lambda x: int(x)*lcm, raw_input().strip().split())))
     candidates = find_candidates(K)  # Time: O(K^2)
     endpoints = find_possible_endpoints(polygon, candidates)  # Time: O(N*K^2)
