@@ -97,15 +97,20 @@ def is_on_polygon_edge(a, b, length, C):
 def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
     C = len(endpoints)//len(polygon)  # count of polygon and non-polygon vertex on an edge
 
-    pattern = find_pattern(pair[0], pair[1], len(endpoints), C)
+    pattern = find_pattern(pair[0], pair[1], len(endpoints), C)  # Time:  O(N)
+    other = find_pattern(pair[1], pair[0], len(endpoints), C)
+    if polygon_area(polygon) != polygon_area(map(lambda x : endpoints[x], pattern)) + \
+                                polygon_area(map(lambda x : endpoints[x], other)):
+        return None  # pattern is a crossed polygon
+
     pairs = set()
     stk = [(pair, pattern)]  # using queue is also fine (BFS), here we use stack (DFS)
-    while len(pairs) != K-1 and stk:
+    while len(pairs) != K-1 and stk:  # K times
         (pair, pattern) = stk.pop()
         pairs.add(normalize(pair[0], pair[1]))
 
         new_pairs, new_pattern = [], []
-        for i in xrange(-1, len(pattern)):
+        for i in xrange(-1, len(pattern)):  # N times
             p = reflect(endpoints[pattern[i]], endpoints[pair[0]], endpoints[pair[1]])
             if not p or p not in endpoints_idx:  # not on polygon
                 return None
