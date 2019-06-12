@@ -64,8 +64,6 @@ def find_possible_segments(polygon, K, endpoints):
             area += advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[j]) + \
                     advance_polygon_area(endpoints[j], endpoints[i]) - \
                     advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[i])
-            if area >= 0:  # polygon area computed in clockwise should be negative
-                continue
             # the current / remaining regions may be crossed polygons with incorrect areas,
             # but neither of them can pass the later check
             if abs(area) * K == total_area:
@@ -100,11 +98,6 @@ def find_valid_segments(polygon, K, endpoints, endpoints_idx, segment):
     C = len(endpoints)//len(polygon)  # count of polygon and non-polygon vertex on an edge
 
     pattern = find_pattern(segment[0], segment[1], len(endpoints), C)  # Time:  O(N)
-    other = find_pattern(segment[1], segment[0], len(endpoints), C)
-    if polygon_area(polygon) != polygon_area(map(lambda x : endpoints[x], pattern)) + \
-                                polygon_area(map(lambda x : endpoints[x], other)):
-        return None  # pattern is a crossed polygon
-
     segments = set()
     stk = [(segment, pattern)]  # using queue is also fine (BFS), here we use stack (DFS)
     while stk:  # Time:  O(N + K)
