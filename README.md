@@ -1,6 +1,6 @@
 # [GoogleCodeJam 2019](https://codingcompetitions.withgoogle.com/codejam/archive/2019) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-19%20%2F%2021-ff69b4.svg)
 
-Python solutions of Google Code Jam 2019. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8` in Python2 but may pass in PyPy2, which is not friendly for Python to solve in 5 ~ 15 seconds).
+Python solutions of Google Code Jam 2019. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds). But it may get Accept in PyPy2.
 
 * [Qualification Round](https://github.com/kamyu104/GoogleCodeJam-2019#qualification-round)
 * [Round 1A](https://github.com/kamyu104/GoogleCodeJam-2019#round-1a)
