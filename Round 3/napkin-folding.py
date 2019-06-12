@@ -57,18 +57,17 @@ def find_possible_endpoints(polygon, candidates):
     return endpoints
 
 def find_possible_pairs(polygon, K, endpoints):
-    expected_area = polygon_area(polygon)
-    expected_area //= K
-    for start in xrange(len(endpoints)):
+    total_area = polygon_area(polygon)
+    for i in xrange(len(endpoints)-1):
         area = 0
-        i = (start+1)%len(endpoints)
-        while i != start:
-            area += advance_polygon_area(endpoints[(i-1)%len(endpoints)], endpoints[i]) + \
-                    advance_polygon_area(endpoints[i], endpoints[start]) - \
-                    advance_polygon_area(endpoints[(i-1)%len(endpoints)], endpoints[start])
-            if abs(area)== expected_area:
-                yield (start, i)
-            i = (i+1)%len(endpoints)
+        for j in xrange(i+1, len(endpoints)):
+            area += advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[j]) + \
+                    advance_polygon_area(endpoints[j], endpoints[i]) - \
+                    advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[i])
+            if abs(area) * K == total_area:
+                yield (i, j)
+            elif abs(area) * K == total_area * (K-1):
+                yield (j, i)
 
 def find_pattern(begin, end, length, C):
     pattern = [begin]
