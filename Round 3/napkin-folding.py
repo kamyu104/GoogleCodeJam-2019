@@ -64,10 +64,12 @@ def find_possible_pairs(polygon, K, endpoints):
             area += advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[j]) + \
                     advance_polygon_area(endpoints[j], endpoints[i]) - \
                     advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[i])
+            # the current / remaining regions may be crossed polygons with incorrect areas,
+            # but neither of them can pass the later check
             if abs(area) * K == total_area:
-                yield (i, j)
+                yield (i, j)  # current region
             elif abs(area) * K == total_area * (K-1):
-                yield (j, i)
+                yield (j, i)  # remaining region
 
 def find_pattern(begin, end, length, C):
     pattern = [begin]
