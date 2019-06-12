@@ -1,6 +1,6 @@
 # [GoogleCodeJam 2019](https://codingcompetitions.withgoogle.com/codejam/archive/2019) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-19%20%2F%2021-ff69b4.svg)
 
-Python solutions of Google Code Jam 2019. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds). But it may get Accept in PyPy2.
+Python solutions of Google Code Jam 2019. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds).
 
 * [Qualification Round](https://github.com/kamyu104/GoogleCodeJam-2019#qualification-round)
 * [Round 1A](https://github.com/kamyu104/GoogleCodeJam-2019#round-1a)
@@ -29,7 +29,7 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Manhattan Crepe Cart](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/000000000012295c)| [Python](./Round%201B/manhattan-crepe-cart.py)| _O(PlogP)_ | _O(P)_ | Easy | | Sweep Line |
 |B| [Draupnir](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/0000000000122837)| [Python](./Round%201B/draupnir.py) | _O(1)_ | _O(1)_ | Medium | | Math |
-|C| [Fair Fight](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/0000000000122838)| [Python](./Round%201B/fair-fight.py) [*Python](./Round%201B/fair-fight2.py)| _O(NlogN)_ | _O(N)_ | Hard | | Mono Stack, Binary Search, RMQ |
+|C| [Fair Fight](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/0000000000122838)| [Python](./Round%201B/fair-fight.py) [PyPy2](./Round%201B/fair-fight2.py)| _O(NlogN)_ | _O(N)_ | Hard | | Mono Stack, Binary Search, RMQ |
 
 ## Round 1C
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
@@ -50,4 +50,4 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |B| [Pancake Pyramid](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/00000000001591be)| [Python](./Round%203/pancake-pyramid.py) | _O(S)_ | _O(S)_ | Medium | | Mono Stack |
-|D| [Napkin Folding](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170)| [*Python](./Round%203/napkin-folding.py) | _O(N^2 * K^4)_ | _O(N * K^2)_ | Hard | | Geometry, BFS, DFS |
+|D| [Napkin Folding](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170)| [PyPy2](./Round%203/napkin-folding.py) | _O(N^2 * K^4)_ | _O(N * K^2)_ | Hard | | Geometry, BFS, DFS |
