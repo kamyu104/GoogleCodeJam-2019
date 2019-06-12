@@ -56,7 +56,7 @@ def find_possible_endpoints(polygon, candidates):
     endpoints.extend(split(polygon[-1], polygon[0], candidates))
     return endpoints
 
-def find_possible_pairs(polygon, K, endpoints):
+def find_possible_segments(polygon, K, endpoints):
     total_area = polygon_area(polygon)
     for i in xrange(len(endpoints)-1):
         area = 0
@@ -94,39 +94,39 @@ def is_on_polygon_edge(a, b, length, C):
         return b in (a//C*C, (a//C+1)*C%length)
     return a//C == b//C
 
-def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
+def find_valid_segments(polygon, K, endpoints, endpoints_idx, segment):
     C = len(endpoints)//len(polygon)  # count of polygon and non-polygon vertex on an edge
 
-    pattern = find_pattern(pair[0], pair[1], len(endpoints), C)  # Time:  O(N)
-    other = find_pattern(pair[1], pair[0], len(endpoints), C)
+    pattern = find_pattern(segment[0], segment[1], len(endpoints), C)  # Time:  O(N)
+    other = find_pattern(segment[1], segment[0], len(endpoints), C)
     if polygon_area(polygon) != polygon_area(map(lambda x : endpoints[x], pattern)) + \
                                 polygon_area(map(lambda x : endpoints[x], other)):
         return None  # pattern is a crossed polygon
 
-    pairs = set()
-    stk = [(pair, pattern)]  # using queue is also fine (BFS), here we use stack (DFS)
+    segments = set()
+    stk = [(segment, pattern)]  # using queue is also fine (BFS), here we use stack (DFS)
     while stk:  # Time:  O(N + K)
-        (pair, pattern) = stk.pop()
-        pairs.add(normalize(pair[0], pair[1]))
+        (segment, pattern) = stk.pop()
+        segments.add(normalize(segment[0], segment[1]))
 
-        new_pairs, new_pattern = [], []
+        new_segments, new_pattern = [], []
         for i in xrange(-1, len(pattern)):
-            p = reflect(endpoints[pattern[i]], endpoints[pair[0]], endpoints[pair[1]])
+            p = reflect(endpoints[pattern[i]], endpoints[segment[0]], endpoints[segment[1]])
             if not p or p not in endpoints_idx:  # not on polygon
                 return None
             p_idx = endpoints_idx[p]  
             if new_pattern:
                 if not is_on_polygon_edge(new_pattern[-1], p_idx, len(endpoints), C):  # not on polygon edge
-                    new_pair = normalize(new_pattern[-1], p_idx)
-                    if new_pair not in pairs:
-                        new_pairs.append(new_pair)
+                    new_segment = normalize(new_pattern[-1], p_idx)
+                    if new_segment not in segments:
+                        new_segments.append(new_segment)
             if len(new_pattern) != len(pattern):
                 new_pattern.append(p_idx)
 
-        for new_pair in new_pairs:
-            stk.append((new_pair, new_pattern))
+        for new_segment in new_segments:
+            stk.append((new_segment, new_pattern))
 
-    return pairs if len(pairs) == K-1 else None
+    return segments if len(segments) == K-1 else None
 
 def output1(p, lcm):
     common = gcd(p, lcm)
@@ -149,13 +149,13 @@ def napkin_folding():
     endpoints_idx = {}
     for k, v in enumerate(endpoints):
         endpoints_idx[v] = k
-    for pair in find_possible_pairs(polygon, K, endpoints):  # Time: O(N^2 * K^4)
-        # possible pairs should be much less than O(N^2 * K^4)
-        pairs = find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair)  # Time: O(N + K)
-        if not pairs:
+    for segment in find_possible_segments(polygon, K, endpoints):  # Time: O(N^2 * K^4)
+        # number of possible segments should be much less than O(N^2 * K^4)
+        segments = find_valid_segments(polygon, K, endpoints, endpoints_idx, segment)  # Time: O(N + K)
+        if not segments:
             continue
         result = ["POSSIBLE"]
-        for a, b in pairs:
+        for a, b in segments:
             result.append("{} {}".format(output2(endpoints[a], lcm), output2(endpoints[b], lcm)))
         return "\n".join(result)
     return "IMPOSSIBLE"
