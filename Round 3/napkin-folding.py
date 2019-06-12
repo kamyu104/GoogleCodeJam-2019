@@ -105,7 +105,7 @@ def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
 
     pairs = set()
     stk = [(pair, pattern)]  # using queue is also fine (BFS), here we use stack (DFS)
-    while len(pairs) != K-1 and stk:  # Time:  O(N + K)
+    while stk:  # Time:  O(N + K)
         (pair, pattern) = stk.pop()
         pairs.add(normalize(pair[0], pair[1]))
 
@@ -126,7 +126,7 @@ def find_valid_pairs(polygon, K, endpoints, endpoints_idx, pair):
         for new_pair in new_pairs:
             stk.append((new_pair, new_pattern))
 
-    return pairs if len(pairs) == K-1 and not stk else None
+    return pairs if len(pairs) == K-1 else None
 
 def output1(p, lcm):
     common = gcd(p, lcm)
