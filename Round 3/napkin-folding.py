@@ -21,7 +21,7 @@ def polygon_area(polygon):
         area += advance_polygon_area(polygon[i-1], polygon[i])
     return abs(area)  # in this problem, we don't divide the area by 2 to keep it an integer
 
-# Return Q which is the reflection of P over line (A, B)
+# return Q which is the reflection of P over line (A, B)
 def reflect(P, A, B):
     a, b, c = A[1]-B[1], -(A[0]-B[0]), (A[1]-B[1])*(-A[0])-(A[0]-B[0])*(-A[1])
     if -2 * a * (a * P[0] + b * P[1] + c) % (a * a + b * b) or \
