@@ -105,7 +105,7 @@ def find_valid_segments(polygon, K, endpoints, endpoints_idx, segment):
     while stk:  # Time:  O(N + K)
         if len(segments) >= K:  # only invalid pattern makes more than K-1 segments
             return None
-        (segment, pattern) = stk.pop()
+        segment, pattern = stk.pop()
         segments.add(normalize(segment[0], segment[1]))
 
         new_segments, new_pattern = [], []
