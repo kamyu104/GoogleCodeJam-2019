@@ -124,7 +124,8 @@ def find_valid_segments(polygon, K, endpoints, endpoints_idx, segment):
         for new_segment in new_segments:
             stk.append((new_segment, new_pattern))
 
-    assert(len(segments) == K-1)  # if pattern is a crossed polygon, it can't reach here
+    assert(len(segments) == K-1)  # only simple polygon pattern can reach here (no crossed polygon pattern),
+                                  # and it must be the answer
     return segments
 
 def to_fraction(p, lcm):
