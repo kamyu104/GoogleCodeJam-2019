@@ -32,6 +32,9 @@ def reflect(P, A, B):
 
 def find_candidates(K):
     fractions_set = set()
+    # 1. a folding point only has 1 or 3 folding segments, there must be a vertical folding segment,
+    #    so folding points on an edge would equaully split the edge
+    # 2. there may be 1 ~ K-1 non-vertex folding points on an edge
     for y in xrange(2, K+1):
         for x in xrange(1, y):
             common = gcd(x, y)
