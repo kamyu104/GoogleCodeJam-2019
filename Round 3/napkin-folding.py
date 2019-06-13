@@ -127,12 +127,12 @@ def find_valid_segments(polygon, K, endpoints, endpoints_idx, segment):
     assert(len(segments) == K-1)  # if pattern is a crossed polygon, it can't reach here
     return segments
 
-def output1(p, lcm):
+def to_fraction(p, lcm):
     common = gcd(p, lcm)
     return "{}/{}".format(p//common, lcm//common)  # restore the numbers
 
-def output2(p, lcm):
-    return "{} {}".format(output1(p[0], lcm), output1(p[1], lcm))
+def to_str(p, lcm):
+    return "{} {}".format(to_fraction(p[0], lcm), to_fraction(p[1], lcm))
 
 def napkin_folding():
     N, K = map(int, raw_input().strip().split())
@@ -155,7 +155,7 @@ def napkin_folding():
             continue
         result = ["POSSIBLE"]
         for a, b in segments:
-            result.append("{} {}".format(output2(endpoints[a], lcm), output2(endpoints[b], lcm)))
+            result.append("{} {}".format(to_str(endpoints[a], lcm), to_str(endpoints[b], lcm)))
         return "\n".join(result)
     return "IMPOSSIBLE"
 
