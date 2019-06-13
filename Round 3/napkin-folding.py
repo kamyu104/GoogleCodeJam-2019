@@ -103,7 +103,7 @@ def find_valid_segments(polygon, K, endpoints, endpoints_idx, segment):
     segments = set()
     stk = [(segment, pattern)]  # using queue is also fine (BFS), here we use stack (DFS)
     while stk:  # Time:  O(N + K)
-        if len(segments) >= K:  # if it is a crossed polygon pattern, it may exceeds K-1 segments
+        if len(segments) >= K:  # only invalid pattern exceeds K-1 segments
             return None
         (segment, pattern) = stk.pop()
         segments.add(normalize(segment[0], segment[1]))
