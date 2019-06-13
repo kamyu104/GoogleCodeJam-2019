@@ -121,7 +121,8 @@ def find_valid_segments(polygon, K, endpoints, endpoints_idx, segment):
         for new_segment in new_segments:
             stk.append((new_segment, new_pattern))
 
-    return segments if len(segments) == K-1 else None
+    assert(len(segments) == K-1)
+    return segments
 
 def output1(p, lcm):
     common = gcd(p, lcm)
