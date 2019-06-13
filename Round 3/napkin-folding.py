@@ -121,7 +121,7 @@ def find_valid_segments(polygon, K, endpoints, endpoints_idx, segment):
         for new_segment in new_segments:
             stk.append((new_segment, new_pattern))
 
-    assert(len(segments) == K-1)
+    assert(len(segments) == K-1)  # if pattern is a crossed polygon, it can't reach here
     return segments
 
 def output1(p, lcm):
