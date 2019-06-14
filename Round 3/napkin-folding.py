@@ -144,12 +144,13 @@ def napkin_folding():
     polygon = []
     for _ in xrange(N):  # scale the number by lcm to make sure candidates are also integers
         polygon.append(tuple(map(lambda x: int(x)*lcm, raw_input().strip().split())))
+
     candidates = find_candidates(K)  # Time: O(K^2)
     endpoints = find_possible_endpoints(polygon, candidates)  # Time: O(N * K^2)
-
     endpoints_idx = {}
     for k, v in enumerate(endpoints):
         endpoints_idx[v] = k
+
     for segment in find_possible_segments(polygon, K, endpoints):  # Time: O(N^2 * K^4)
         # number of possible segments should be much less than O(N^2 * K^4), ~= O(N * K^3) by assertion check
         segments = find_valid_segments(polygon, K, endpoints, endpoints_idx, segment)  # Time: O(N + K)
