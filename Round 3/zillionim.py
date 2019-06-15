@@ -13,10 +13,10 @@ def insert_segment(segments, p):
     for i in xrange(len(segments)):
         x, y = segments[i]
         if x <= p <= y:
-            segments[i] = x, p - 1
-            segments.append((p + L, y))
+            segments[i] = x, p-1
+            segments.append((p+L, y))
             break
-    return [(x, y) for x, y in segments if y - x + 1 >= L]
+    return [(x, y) for x, y in segments if y-x+1 >= L]
 
 def zillionim():
     segments = [(1, R*L)]
