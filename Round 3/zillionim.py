@@ -10,7 +10,6 @@
 # perfect solution by Sprague–Grundy theorem, although it is less efficient than 2*10^10 strategy 
 
 from sys import stdout
-from random import shuffle, seed
 
 def mex(s):  # minimum excludant
     excludant = 0
