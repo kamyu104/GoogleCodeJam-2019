@@ -43,7 +43,9 @@ def find_grundy(segments):  # Time: O(R^2)
                     return start + i*L
             for i in xrange(count-1):
                 if g ^ grundy[count] ^ grundy[i] ^ grundy[count-2-i] == 0:
-                    return start + i*L + (length%L + L)//2
+                    l = length%L
+                    mid_length = l + (L-l)//2
+                    return start + i*L + mid_length
     return segments[0][0]
 
 def insert_segment(segments, p):
