@@ -6,8 +6,11 @@
 # Time:  O(R^2), R is the max number of rounds
 # Space: O(R)
 #
+# python interactive_runner.py python testing_tool.py 2 -- python zillionim.py
+#
 
-import sys
+from sys import stdout
+from random import shuffle, seed
 
 def insert_segment(segments, p):
     for i in xrange(len(segments)):
@@ -38,6 +41,8 @@ def zillionim():
             else:
                 others.append((x, y))
 
+        seed(4)
+        map(shuffle, [three_or_ups, twos, others])
         if three_or_ups:
             x, y = three_or_ups[0]
             c = x + 2*L  # make more segments in length 2*L as possible
@@ -50,7 +55,7 @@ def zillionim():
 
         segments = insert_segment(segments, c)
         print c
-        sys.stdout.flush()
+        stdout.flush()
 
 R, L = 100, 10**10
 T, W = map(int, raw_input().strip().split())
