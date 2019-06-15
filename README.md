@@ -49,7 +49,7 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 ## Round 3
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
-|A| [Zillionim](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000158f1a)| [Python](./Round%203/zillionim.py) | _O(R^2)_ | _O(R)_ | Easy | | Sprague–Grundy Theorem, Nim |
+|A| [Zillionim](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000158f1a)| [Python](./Round%203/zillionim.py) [Python](./Round%203/zillionim2.py) | _O(R^2)_ | _O(R)_ | Easy | | Sprague–Grundy Theorem, Nim |
 |B| [Pancake Pyramid](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/00000000001591be)| [Python](./Round%203/pancake-pyramid.py) | _O(S)_ | _O(S)_ | Medium | | Mono Stack |
 |C| [Datacenter Duplex](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000158f1c)| [Python](./Round%203/datacenter-duplex.py) | _O(R * C)_ | _O(R * C)_ | Medium | | Union Find |
 |D| [Napkin Folding](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170)| [PyPy](./Round%203/napkin-folding.py) | _O(N^2 * K^4)_ | _O(N * K^2)_ | Hard | | Geometry, BFS, DFS |
