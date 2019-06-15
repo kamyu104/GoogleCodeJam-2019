@@ -14,12 +14,12 @@ from random import shuffle, seed
 
 def insert_segment(segments, p):
     for i in xrange(len(segments)):
-        x, y = segments[i]
-        if x <= p <= y:
-            segments[i] = x, p-1
-            segments.append((p+L, y))
+        start, length = segments[i]
+        if start <= p <= start+length-1:
+            segments[i] = start, p-start
+            segments.append((p+L, start+length-(p+L)))
             break
-    return [(x, y) for x, y in segments if y-x+1 >= L]
+    return [(start, length) for start, length in segments if length >= L]
 
 def zillionim():
     segments = [(1, R*L)]
@@ -32,26 +32,24 @@ def zillionim():
 
         segments = insert_segment(segments, P)
         three_or_ups, twos, others = [], [], []
-        for x, y in segments:
-            d = y - x + 1
-            if d >= 3*L:
-                three_or_ups.append((x, y))
-            elif d == 2*L:
-                twos.append((x, y))
+        for p, length in segments:
+            if length >= 3*L:
+                three_or_ups.append(p)
+            elif length == 2*L:
+                twos.append(p)
             else:
-                others.append((x, y))
+                others.append(p)
 
         seed(4)  # tuned by testing_tool.py, and it also passed the online judge
         map(shuffle, [three_or_ups, twos, others])
         if three_or_ups:
-            x, y = three_or_ups[0]
-            c = x + 2*L  # make more segments in length 2*L as possible
+            p = three_or_ups[0]
+            c = p + 2*L  # make more segments in length 2*L as possible
         elif others:
-            x, y = others[0]  # break the segments in other lengths to make all segments are in length 2*L
-            c = x
+            c = others[0]  # break the segments in other lengths to make all segments are in length 2*L
         else:
-            x, y = twos[0]
-            c = x + len(twos)%2  # keep ai in bad even number of segments in length 2*L
+            p = twos[0]
+            c = p + len(twos)%2  # keep ai in bad even number of segments in length 2*L
 
         segments = insert_segment(segments, c)
         print c
