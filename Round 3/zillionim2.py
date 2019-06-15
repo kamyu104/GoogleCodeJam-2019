@@ -6,8 +6,6 @@
 # Time:  O(R^2), R is the max number of rounds
 # Space: O(R)
 #
-# python interactive_runner.py python testing_tool.py 2 -- python zillionim2.py
-#
 
 # 2*10^10 strategy solution
 
