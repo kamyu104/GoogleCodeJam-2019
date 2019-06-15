@@ -56,7 +56,7 @@ def find_segment(segments):  # Time: O(R^2)
         assert(False)  # impossible to reach here
 
     return segments[0][0]  # if we don't have 100% win rate,
-                               # return a default segment and wait until ai makes any mistake
+                           # return a default segment and wait until ai makes any mistake
 
 def zillionim():
     segments = [(1, R*L)]
