@@ -4,7 +4,7 @@
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000158f1a
 #
 # Time:  O(R^3), R is the max number of rounds
-# Space: O(R^2)
+# Space: O(R)
 #
 # python interactive_runner.py python testing_tool.py 2 -- python zillionim.py
 #
@@ -59,7 +59,7 @@ def find_segment(segments):  # Time: O(R^2)
 
 def zillionim():
     segments = [(1, R*L)]
-    while True:
+    while True:  # at most R times
         P = input()
         if P == -2 or P == -3:
             break
