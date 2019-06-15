@@ -9,7 +9,7 @@
 # python interactive_runner.py python testing_tool.py 2 -- python zillionim.py
 #
 
-# perfect solution by Sprague–Grundy theorem, although it is less efficient thant 2*10^10 strategy 
+# perfect solution by Sprague–Grundy theorem, although it is less efficient than 2*10^10 strategy 
 
 from sys import stdout
 from random import shuffle, seed
