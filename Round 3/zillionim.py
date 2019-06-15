@@ -44,7 +44,7 @@ def find_segment(segments):  # Time: O(R^2)
         g ^= grundy[length//L]
     if not g:
         return segments[0][0]  # if we don't have 100% win rate,
-                               # return a default segment and wait until ai makes mistakes
+                               # return a default segment and wait until ai makes any mistake
     for start, length in segments:
         count = length//L
         for i in xrange(count):
