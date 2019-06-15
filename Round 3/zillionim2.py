@@ -50,9 +50,9 @@ def zillionim():
 
         segments = insert_segment(segments, P)
         c = find_segment(segments)  # Time: O(R)
-        segments = insert_segment(segments, c)
         print c
         stdout.flush()
+        segments = insert_segment(segments, c)
 
 R, L = 100, 10**10
 T, W = map(int, raw_input().strip().split())
