@@ -43,13 +43,11 @@ def zillionim():
         seed(4)  # tuned by testing_tool.py, and it also passed the online judge
         map(shuffle, [three_or_ups, twos, others])
         if three_or_ups:
-            p = three_or_ups[0]
-            c = p + 2*L  # make more segments in length 2*L as possible
+            c = three_or_ups[0] + 2*L  # make more segments in length 2*L as possible
         elif others:
             c = others[0]  # break the segments in other lengths to make all segments are in length 2*L
         else:
-            p = twos[0]
-            c = p + len(twos)%2  # keep ai in bad even number of segments in length 2*L
+            c = twos[0] + len(twos)%2  # keep ai in bad even number of segments in length 2*L
 
         segments = insert_segment(segments, c)
         print c
