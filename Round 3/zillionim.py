@@ -55,7 +55,7 @@ def find_segment(segments):  # Time: O(R^2)
                 l = length%L
                 mid_length = l + (L-l)//2
                 return start + i*L + mid_length
-    assert(False)  # it's impossible to reach here
+    assert(False)  # impossible to reach here
 
 def zillionim():
     segments = [(1, R*L)]
