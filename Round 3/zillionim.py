@@ -3,14 +3,46 @@
 # Google Code Jam 2019 Round 3 - Problem A. Zillionim
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000158f1a
 #
-# Time:  O(R^2), R is the max number of rounds
-# Space: O(R)
+# Time:  O(R^3), R is the max number of rounds
+# Space: O(R^2)
 #
 # python interactive_runner.py python testing_tool.py 2 -- python zillionim.py
 #
 
 from sys import stdout
 from random import shuffle, seed
+
+def mex(s):  # minimum excludant
+    excludant = 0
+    while excludant in s:
+        excludant += 1
+    return excludant
+
+def init_grundy():  # Time: O(R^2)
+    grundy = [0]
+    for count in xrange(1, R+1):
+        s = set()
+        for i in xrange(count):
+            s.add(grundy[i] ^ grundy[count-1-i])
+        for i in xrange(count-1):
+            s.add(grundy[i] ^ grundy[count-2-i])
+        grundy.append(mex(s))
+    return grundy
+
+def find_grundy(segments):  # Time: O(R^2)
+    g = 0
+    for _, length in segments:
+        g ^= grundy[length//L]
+    if g:
+        for start, length in segments:
+            count = length//L
+            for i in xrange(count):
+                if g ^ grundy[count] ^ grundy[i] ^ grundy[count-1-i] == 0:
+                    return start + i*L
+            for i in xrange(count-1):
+                if g ^ grundy[count] ^ grundy[i] ^ grundy[count-2-i] == 0:
+                    return start + i*L + (length%L + L)//2
+    return segments[0][0]
 
 def insert_segment(segments, p):
     for i in xrange(len(segments)):
@@ -31,29 +63,13 @@ def zillionim():
             exit()
 
         segments = insert_segment(segments, P)
-        three_or_ups, twos, others = [], [], []
-        for p, length in segments:
-            if length >= 3*L:
-                three_or_ups.append(p)
-            elif length == 2*L:
-                twos.append(p)
-            else:
-                others.append(p)
-
-        seed(4)  # tuned by testing_tool.py, and it also passed the online judge
-        map(shuffle, [three_or_ups, twos, others])
-        if three_or_ups:
-            c = three_or_ups[0] + 2*L  # make more segments in length 2*L as possible
-        elif others:
-            c = others[0]  # break the segments in other lengths to make all segments are in length 2*L
-        else:
-            c = twos[0] + len(twos)%2  # keep ai in bad even number of segments in length 2*L
-
+        c = find_grundy(segments)  # Time:  O(R^2)
         segments = insert_segment(segments, c)
         print c
         stdout.flush()
 
 R, L = 100, 10**10
+grundy = init_grundy()
 T, W = map(int, raw_input().strip().split())
 for case in xrange(T):
     zillionim()
