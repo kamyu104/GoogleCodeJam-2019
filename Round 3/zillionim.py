@@ -67,7 +67,7 @@ def zillionim():
             exit()
 
         segments = insert_segment(segments, P)
-        c = find_grundy(segments)  # Time:  O(R^2)
+        c = find_grundy(segments)  # Time: O(R^2)
         segments = insert_segment(segments, c)
         print c
         stdout.flush()
