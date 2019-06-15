@@ -16,7 +16,7 @@ def insert_segment(segments, p):
     for i in xrange(len(segments)):
         start, length = segments[i]
         if start <= p <= start+length-1:
-            segments[i] = start, p-start
+            segments[i] = (start, p-start)
             segments.append((p+L, start+length-(p+L)))
             break
     return [(start, length) for start, length in segments if length >= L]
