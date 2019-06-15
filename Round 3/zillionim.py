@@ -41,18 +41,20 @@ def find_segment(segments):  # Time: O(R^2)
     g = 0
     for _, length in segments:
         g ^= grundy[length//L]
-    if g:
-        for start, length in segments:
-            count = length//L
-            for i in xrange(count):
-                if g ^ grundy[count] ^ grundy[i] ^ grundy[count-1-i] == 0:
-                    return start + i*L
-            for i in xrange(count-1):
-                if g ^ grundy[count] ^ grundy[i] ^ grundy[count-2-i] == 0:
-                    l = length%L
-                    mid_length = l + (L-l)//2
-                    return start + i*L + mid_length
-    return segments[0][0]
+    if not g:
+        return segments[0][0]  # if we don't have 100% win rate,
+                               # return a default segment and wait until ai makes mistakes
+    for start, length in segments:
+        count = length//L
+        for i in xrange(count):
+            if g ^ grundy[count] ^ grundy[i] ^ grundy[count-1-i] == 0:
+                return start + i*L
+        for i in xrange(count-1):
+            if g ^ grundy[count] ^ grundy[i] ^ grundy[count-2-i] == 0:
+                l = length%L
+                mid_length = l + (L-l)//2
+                return start + i*L + mid_length
+    assert(False)  # it's impossible to reach here
 
 def zillionim():
     segments = [(1, R*L)]
