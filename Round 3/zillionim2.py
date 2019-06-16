@@ -19,7 +19,7 @@ def insert_segment(segments, p):
             segments[i] = (start, p-start)
             segments.append((p+L, start+length-(p+L)))
             break
-    return [(start, length) for start, length in segments if length >= L]
+    segments[:] = [(start, length) for start, length in segments if length >= L]
 
 def find_segment(segments):  # Time: O(R)
     three_or_ups, twos, others = [], [], []
@@ -48,11 +48,11 @@ def zillionim():
         if P == -1:
             exit()
 
-        segments = insert_segment(segments, P)
+        insert_segment(segments, P)
         c = find_segment(segments)  # Time: O(R)
         print c
         stdout.flush()
-        segments = insert_segment(segments, c)
+        insert_segment(segments, c)
 
 R, L = 100, 10**10
 T, W = map(int, raw_input().strip().split())
