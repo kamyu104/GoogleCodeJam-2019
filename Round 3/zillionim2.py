@@ -41,7 +41,7 @@ def find_segment(segments):  # Time: O(R)
 
 def zillionim():
     segments = [(1, R*L)]
-    while True:  # at most R times
+    while True:  # at most R/2 times
         P = input()
         if P == -2 or P == -3:
             break
