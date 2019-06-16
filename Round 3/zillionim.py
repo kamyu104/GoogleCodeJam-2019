@@ -7,7 +7,8 @@
 # Space: O(R)
 #
 
-# perfect solution by Sprague-Grundy theorem (assumed that ai makes a mistake at least once),
+# perfect solution by Sprague-Grundy theorem
+# (assumed that ai makes a mistake at least once, with at least 1/6 chance by experiments),
 # although it is less efficient than 2*10^10 strategy
 
 from sys import stdout
