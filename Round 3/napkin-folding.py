@@ -147,9 +147,7 @@ def napkin_folding():
 
     candidates = find_candidates(K)  # Time: O(K^2)
     endpoints = find_possible_endpoints(polygon, candidates)  # Time: O(N * K^2)
-    endpoints_idx = {}
-    for k, v in enumerate(endpoints):
-        endpoints_idx[v] = k
+    endpoints_idx = {v:k for k, v in enumerate(endpoints)}
 
     for segment in find_possible_segments(polygon, K, endpoints):  # Time: O(N^2 * K^4)
         # number of possible segments should be much less than O(N^2 * K^4), ~= O(N * K^3) by assertion check
