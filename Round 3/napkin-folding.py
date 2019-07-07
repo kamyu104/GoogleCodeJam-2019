@@ -145,7 +145,7 @@ def napkin_folding():
     for _ in xrange(N):  # scale the number by lcm to make sure candidates are also integers
         polygon.append(tuple(map(lambda x: int(x)*lcm, raw_input().strip().split())))
 
-    candidates = find_candidates(K, lcm)  # Time: O(K^2)
+    candidates = find_candidates(K, lcm)  # Time: O(K^2 * logK)
     endpoints = find_possible_endpoints(polygon, candidates)  # Time: O(N * K^2)
     endpoints_idx = {v:k for k, v in enumerate(endpoints)}
 
