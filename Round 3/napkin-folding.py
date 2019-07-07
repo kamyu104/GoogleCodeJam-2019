@@ -63,7 +63,7 @@ def find_possible_endpoints(polygon, candidates):
 
 def find_possible_segments(polygon, K, endpoints):
     total_area = polygon_area(polygon)
-    for i in xrange(len(endpoints)-1):
+    for i in xrange(len(endpoints)):
         area = 0
         for j in chain(xrange(i+1, len(endpoints)), xrange(0, i)):
             area += advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[j]) + \
