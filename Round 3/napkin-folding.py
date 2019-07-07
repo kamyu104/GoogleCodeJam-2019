@@ -39,7 +39,8 @@ def find_candidates(K, lcm):
             common = gcd(x, y)
             fractions_set.add((x//common, y//common))
     candidates = list(fractions_set)
-    candidates.sort(key=lambda x : lcm*x[0]//x[1])
+    candidates.sort(key=lambda x : lcm*x[0]//x[1])  # it can even work without sorting,
+                                                    # because it doesn't matter area calculation
     return candidates
 
 def split(A, B, candidates):
