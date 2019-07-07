@@ -29,7 +29,7 @@ def reflect(P, A, B):  # return Q which is the reflection of P over line (A, B)
     return (-2 * a * (a * P[0] + b * P[1] + c) // (a * a + b * b) + P[0],
             -2 * b * (a * P[0] + b * P[1] + c) // (a * a + b * b) + P[1])
 
-def find_candidates(K):
+def find_candidates(K, lcm):
     fractions_set = set()
     # 1. a folding point with rational coordinates only has 1 or 3 folding segments (see appendix in official analysis),
     #    there must be a vertical folding segment, so folding points on an edge would equaully split the edge
@@ -39,7 +39,7 @@ def find_candidates(K):
             common = gcd(x, y)
             fractions_set.add((x//common, y//common))
     candidates = list(fractions_set)
-    candidates.sort()
+    candidates.sort(key=lambda x : lcm*x[0]//x[1])
     return candidates
 
 def split(A, B, candidates):
@@ -145,7 +145,7 @@ def napkin_folding():
     for _ in xrange(N):  # scale the number by lcm to make sure candidates are also integers
         polygon.append(tuple(map(lambda x: int(x)*lcm, raw_input().strip().split())))
 
-    candidates = find_candidates(K)  # Time: O(K^2)
+    candidates = find_candidates(K, lcm)  # Time: O(K^2)
     endpoints = find_possible_endpoints(polygon, candidates)  # Time: O(N * K^2)
     endpoints_idx = {v:k for k, v in enumerate(endpoints)}
 
