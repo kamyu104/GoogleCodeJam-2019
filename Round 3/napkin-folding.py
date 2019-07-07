@@ -72,7 +72,7 @@ def find_possible_segments(polygon, K, endpoints):
             if area*K == total_area:
                 yield (i, j)
                 break  # each endpoint has at most one ordered pair to create a line segment,
-                       # yield the nearest one is always the candidate by experiment
+                       # and the nearest one is always the candidate by experiment
 
 def find_pattern(begin, end, length, C):
     pattern = [begin]
