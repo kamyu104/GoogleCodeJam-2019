@@ -7,6 +7,8 @@
 # Space: O(N * K^2)
 #
 
+from itertools import chain
+
 def gcd(a, b):  # Time: O((logn)^2)
     while b:
         a, b = b, a % b
@@ -63,16 +65,13 @@ def find_possible_segments(polygon, K, endpoints):
     total_area = polygon_area(polygon)
     for i in xrange(len(endpoints)-1):
         area = 0
-        for j in xrange(i+1, len(endpoints)):
+        for j in chain(xrange(i+1, len(endpoints)), xrange(0, i)):
             area += advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[j]) + \
                     advance_polygon_area(endpoints[j], endpoints[i]) - \
                     advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[i])
-            # the current / remaining regions may be crossed polygons with incorrect areas,
-            # but neither of them can pass the later check
-            if abs(area) * K == total_area:
-                yield (i, j)  # current region
-            elif abs(area) * K == total_area * (K-1):
-                yield (j, i)  # remaining region
+            if (-area) * K == total_area:
+                yield (i, j)
+                break  # each endpoint has at most one ordered pair to create a line segment
 
 def find_pattern(begin, end, length, C):
     pattern = [begin]
@@ -151,7 +150,7 @@ def napkin_folding():
     endpoints_idx = {v:k for k, v in enumerate(endpoints)}
 
     for segment in find_possible_segments(polygon, K, endpoints):  # Time: O(N^2 * K^4)
-        # number of possible segments should be much less than O(N^2 * K^4), ~= O(N * K^3) by assertion check
+        # number of possible segments are at most O(N * K^2)
         segments = find_valid_segments(polygon, K, endpoints, endpoints_idx, segment)  # Time: O(N + K)
         if not segments:
             continue
