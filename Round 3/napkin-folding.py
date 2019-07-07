@@ -21,7 +21,7 @@ def polygon_area(polygon):
     area = 0
     for i in xrange(len(polygon)):
         area += advance_polygon_area(polygon[i-1], polygon[i])
-    return area  # in this problem, we don't divide the area by 2 to keep it a negative integer
+    return area  # in this problem, we don't divide the area by 2 and keep it a signed area
 
 def reflect(P, A, B):  # return Q which is the reflection of P over line (A, B)
     a, b, c = A[1]-B[1], -(A[0]-B[0]), (A[1]-B[1])*(-A[0])-(A[0]-B[0])*(-A[1])
