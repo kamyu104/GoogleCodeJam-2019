@@ -21,7 +21,7 @@ def polygon_area(polygon):
     area = 0
     for i in xrange(len(polygon)):
         area += advance_polygon_area(polygon[i-1], polygon[i])
-    return abs(area)  # in this problem, we don't divide the area by 2 to keep it an integer
+    return area  # in this problem, we don't divide the area by 2 to keep it a negative integer
 
 def reflect(P, A, B):  # return Q which is the reflection of P over line (A, B)
     a, b, c = A[1]-B[1], -(A[0]-B[0]), (A[1]-B[1])*(-A[0])-(A[0]-B[0])*(-A[1])
@@ -69,7 +69,7 @@ def find_possible_segments(polygon, K, endpoints):
             area += advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[j]) + \
                     advance_polygon_area(endpoints[j], endpoints[i]) - \
                     advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[i])
-            if (-area) * K == total_area:
+            if area*K == total_area:
                 yield (i, j)
                 break  # each endpoint has at most one ordered pair to create a line segment
 
