@@ -65,10 +65,10 @@ def find_possible_segments(polygon, K, endpoints):
     C = len(endpoints)//len(polygon)  # count of polygon and non-polygon vertex on an edge
 
     total_area = polygon_area(polygon)
-    for i in xrange(len(endpoints)):
+    for i in xrange(len(endpoints)):  # O(N * K^2) times
         area = 0
         count = int(i%C != 0)
-        for j in chain(xrange(i+1, len(endpoints)), xrange(0, i)):
+        for j in chain(xrange(i+1, len(endpoints)), xrange(0, i)):  # O(N * K^2 / K) times
             area += advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[j]) + \
                     advance_polygon_area(endpoints[j], endpoints[i]) - \
                     advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[i])
