@@ -101,15 +101,15 @@ def find_valid_segments(polygon, K, endpoints, endpoints_idx, segment):
     C = len(endpoints)//len(polygon)  # count of polygon and non-polygon vertex on an edge
 
     pattern = find_pattern(segment[0], segment[1], len(endpoints), C)  # Time:  O(N)
+    if len(pattern)*K > len(polygon) + 2*2*(K-1):  # at most N + 2*2*(K-1) endpoints required to check
+        return None
     segments = set()
     stk = [(segment, pattern)]  # using queue is also fine (BFS), here we use stack (DFS)
-    count = len(pattern)
     segments.add(normalize(segment[0], segment[1]))
     while stk:  # Time: O(N + K)
-        if count > len(polygon) + 2*2*(K-1):
+        if len(segments) >= K:  # only invalid pattern makes more than K-1 segments
             return None
         segment, pattern = stk.pop()
-        count += len(pattern)
 
         new_segments, new_pattern = [], []
         for i in xrange(-1, len(pattern)):
