@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round C - Problem D. Napkin Folding
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170
 #
-# Time:  O(N^2 * K^3)
+# Time:  O(N^2 * K^3), better than official analysis
 # Space: O(N * K^2)
 #
 
