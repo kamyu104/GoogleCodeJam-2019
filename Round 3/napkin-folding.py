@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round C - Problem D. Napkin Folding
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170
 #
-# Time:  O(N^2 * K^4), pass in PyPy2 but Python2 for set 2
+# Time:  O(N^2 * K^3), pass in PyPy2 but Python2 for set 2
 # Space: O(N * K^2)
 #
 
@@ -62,13 +62,19 @@ def find_possible_endpoints(polygon, candidates):
     return endpoints
 
 def find_possible_segments(polygon, K, endpoints):
+    C = len(endpoints)//len(polygon)  # count of polygon and non-polygon vertex on an edge
+
     total_area = polygon_area(polygon)
     for i in xrange(len(endpoints)):
         area = 0
+        count = int(i%C != 0)
         for j in chain(xrange(i+1, len(endpoints)), xrange(0, i)):
             area += advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[j]) + \
                     advance_polygon_area(endpoints[j], endpoints[i]) - \
                     advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[i])
+            count += int(((j-1)%len(endpoints))%C == 0)
+            if (count+1)*K > len(polygon) + 2*2*(K-1):  # at most N + 2*2*(K-1) endpoints required to check
+                break
             if area*K == total_area:
                 yield (i, j)
                 break  # each endpoint has at most one ordered pair to create a line segment,
@@ -101,8 +107,6 @@ def find_valid_segments(polygon, K, endpoints, endpoints_idx, segment):
     C = len(endpoints)//len(polygon)  # count of polygon and non-polygon vertex on an edge
 
     pattern = find_pattern(segment[0], segment[1], len(endpoints), C)  # Time:  O(N)
-    if len(pattern)*K > len(polygon) + 2*2*(K-1):  # at most N + 2*2*(K-1) endpoints required to check
-        return None
     segments = set()
     stk = [(segment, pattern)]  # using queue is also fine (BFS), here we use stack (DFS)
     segments.add(normalize(segment[0], segment[1]))
@@ -153,7 +157,7 @@ def napkin_folding():
     endpoints = find_possible_endpoints(polygon, candidates)  # Time: O(N * K^2)
     endpoints_idx = {v:k for k, v in enumerate(endpoints)}
 
-    for segment in find_possible_segments(polygon, K, endpoints):  # Time: O(N^2 * K^4)
+    for segment in find_possible_segments(polygon, K, endpoints):  # Time: O(N^2 * K^3)
         # number of possible segments is at most O(N * K^2)
         segments = find_valid_segments(polygon, K, endpoints, endpoints_idx, segment)  # Time: O(N + K)
         if not segments:
