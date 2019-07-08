@@ -73,7 +73,7 @@ def find_possible_segments(polygon, K, endpoints):
                     advance_polygon_area(endpoints[j], endpoints[i]) - \
                     advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[i])
             count += int(((j-1)%len(endpoints))%C == 0)
-            if (count+1)*K > len(polygon) + 2*2*(K-1):  # at most N + 2*2*(K-1) endpoints required to check
+            if (count+1)*K > len(polygon) + 2*2*(K-1):  # valid pattern has at most N + 2*2*(K-1) endpoints required to check
                 break
             if area*K == total_area:
                 yield (i, j)
