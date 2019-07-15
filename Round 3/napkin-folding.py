@@ -92,7 +92,7 @@ def find_possible_segments(polygon, K, endpoints):
     begin, end = 0, 0
     area = 0
     while K*edge_num(begin, end, len(endpoints), C) < len(polygon) + 2*(K-1):
-        # at most N/K + 2 times, valid pattern has at least N + 2*(K-1) endpoints required to check
+        # at most N/K + 2 times becuase a valid pattern forms at least N + 2*(K-1) endpoints
         end = (end+C)%len(endpoints)
         area += delta_area(endpoints[(end-C)%len(endpoints)], endpoints[end], endpoints[begin])
 
@@ -104,13 +104,13 @@ def find_possible_segments(polygon, K, endpoints):
             area -= delta_area(endpoints[prev_right], endpoints[end], endpoints[begin])
             end = prev_right
         while K*(edge_num(begin, end, len(endpoints), C)+int(end%C == 0)) <= len(polygon) + 2*2*(K-1):
-            # at most 2 times, valid pattern has at most N + 2*2*(K-1) endpoints required to check
+            # at most 2 edges to check becuase a valid pattern forms at most N + 2*2*(K-1) endpoints
             next_right = binary_search(begin, end, C, K, endpoints, total_area, area)  # O(log(K^2))
             if next_right == -1:
                 next_right = (end//C*C+C)%len(endpoints)
             area += delta_area(endpoints[end], endpoints[next_right], endpoints[begin])
             end = next_right
-            if K*area == total_area:
+            if K*area == total_area:  # found a candidate end endpoint on the same edge
                 yield (begin, end)
                 break  # each endpoint has at most one ordered pair to create a line segment,
                        # and the nearest one is always the only candidate.
