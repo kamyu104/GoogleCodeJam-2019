@@ -104,7 +104,7 @@ def find_possible_segments(polygon, K, endpoints):
             area -= delta_area(endpoints[prev_right], endpoints[right], endpoints[left])
             right = prev_right
         while K*(edge_num(len(endpoints), C, left, right)+int(right%C == 0)) <= len(polygon) + 2*2*(K-1):
-            # valid pattern has at most N + 2*2*(K-1) endpoints required to check, at most O(3*K^2) time
+            # valid pattern has at most N + 2*2*(K-1) endpoints required to check, at most O(2*K^2) time
             prev_right = right
             next_right = binary_search(C, K, endpoints, total_area, area, left, right)  # O(log(K^2))
             right = next_right if next_right != -1 else (right//C*C+C)%len(endpoints)
