@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round C - Problem D. Napkin Folding
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170
 #
-# Time:  O(N^2 * K^3), better than official analysis
+# Time:  O(N * K^2 * (K^2+N)), N > K^2 => O(N^2 * K^2), better than official analysis
 # Space: O(N * K^2)
 #
 
@@ -61,24 +61,38 @@ def find_possible_endpoints(polygon, candidates):
     endpoints.extend(split(polygon[-1], polygon[0], candidates))
     return endpoints
 
+def delta_area(a, b, c):
+    return advance_polygon_area(a, b) + \
+           advance_polygon_area(b, c) - \
+           advance_polygon_area(a, c)
+
 def find_possible_segments(polygon, K, endpoints):
     C = len(endpoints)//len(polygon)  # count of polygon and non-polygon vertex on an edge
 
     total_area = polygon_area(polygon)
-    for i in xrange(len(endpoints)):  # O(N * K^2) times
-        area = 0
-        count = int(i%C != 0)
-        for j in chain(xrange(i+1, len(endpoints)), xrange(0, i)):  # O(N * K^2 / K) times
-            area += advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[j]) + \
-                    advance_polygon_area(endpoints[j], endpoints[i]) - \
-                    advance_polygon_area(endpoints[(j-1)%len(endpoints)], endpoints[i])
-            count += int(((j-1)%len(endpoints))%C == 0)
+    area = 0
+    right = 1
+    count = 0
+    for left in xrange(len(endpoints)):  # O(N*K^2) times
+        right = (right-1)%len(endpoints)
+        while (count+1)*K >= len(polygon) + 2*(K-1):  # valid pattern has at least N + 2*(K-1) endpoints required to check
+            prev_right = (right-1)%len(endpoints)
+            area -= delta_area(endpoints[prev_right], endpoints[right], endpoints[left])
+            count -= int((prev_right)%C == 0)
+            right = prev_right
+        right = (right+1)%len(endpoints)
+        while right != left:  # at most O(K^2) times
+            area += delta_area(endpoints[(right-1)%len(endpoints)], endpoints[right], endpoints[left])
+            count += int(((right-1)%len(endpoints))%C == 0)
+            right = (right+1)%len(endpoints)
             if (count+1)*K > len(polygon) + 2*2*(K-1):  # valid pattern has at most N + 2*2*(K-1) endpoints required to check
                 break
             if area*K == total_area:
-                yield (i, j)
+                yield (left, (right-1)%len(endpoints))
                 break  # each endpoint has at most one ordered pair to create a line segment,
                        # and the nearest one is always the candidate by experiment
+        area -= delta_area(endpoints[(right-1)%len(endpoints)], endpoints[left], endpoints[(left+1)%len(endpoints)])
+        count -= int((left+1)%len(endpoints)%C == 0)
 
 def find_pattern(begin, end, length, C):
     pattern = [begin]
@@ -157,7 +171,7 @@ def napkin_folding():
     endpoints = find_possible_endpoints(polygon, candidates)  # Time: O(N * K^2)
     endpoints_idx = {v:k for k, v in enumerate(endpoints)}
 
-    for segment in find_possible_segments(polygon, K, endpoints):  # Time: O(N^2 * K^3)
+    for segment in find_possible_segments(polygon, K, endpoints):  # Time: O(N * K^4)
         # number of possible segments is at most O(N * K^2)
         segments = find_valid_segments(polygon, K, endpoints, endpoints_idx, segment)  # Time: O(N + K)
         if not segments:
