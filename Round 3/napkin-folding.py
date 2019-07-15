@@ -17,6 +17,11 @@ def gcd(a, b):  # Time: O((logn)^2)
 def advance_polygon_area(p1, p2):
     return p1[0]*p2[1]-p1[1]*p2[0]
 
+def delta_area(a, b, c):
+    return advance_polygon_area(a, b) + \
+           advance_polygon_area(b, c) - \
+           advance_polygon_area(a, c)
+
 def polygon_area(polygon):
     area = 0
     for i in xrange(len(polygon)):
@@ -60,11 +65,6 @@ def find_possible_endpoints(polygon, candidates):
         endpoints.append(polygon[i])
     endpoints.extend(split(polygon[-1], polygon[0], candidates))
     return endpoints
-
-def delta_area(a, b, c):
-    return advance_polygon_area(a, b) + \
-           advance_polygon_area(b, c) - \
-           advance_polygon_area(a, c)
 
 def find_possible_segments(polygon, K, endpoints):
     C = len(endpoints)//len(polygon)  # count of polygon and non-polygon vertex on an edge
