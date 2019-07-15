@@ -68,16 +68,16 @@ def find_possible_endpoints(polygon, candidates):
 
 def find_possible_segments(polygon, K, endpoints):
     C = len(endpoints)//len(polygon)  # count of polygon and non-polygon vertex on an edge
-
     total_area = polygon_area(polygon)
-    area = 0
+
+    left, right = 0, 0
     count = 0
-    left, right = 0, C
+    area = 0
     while (count+1)*K < len(polygon) + 2*(K-1):  # Time: O(N/K), valid pattern has at least N + 2*(K-1) endpoints required to check
-        area += delta_area(endpoints[(right-C)%len(endpoints)], endpoints[right], endpoints[left])
-        count += 1
         right = (right+C)%len(endpoints)
-    right = (right-C)%len(endpoints)
+        count += 1
+        area += delta_area(endpoints[(right-C)%len(endpoints)], endpoints[right], endpoints[left])
+
     # use sliding window to find the target area
     for left in xrange(len(endpoints)):  # O(N*K^2) times
         while (count+1)*K >= len(polygon) + 2*(K-1):  # at most 3 times to restore possible right
@@ -87,8 +87,8 @@ def find_possible_segments(polygon, K, endpoints):
             right = prev_right
         while True:  # at most O(3*K^2) times
             right = (right+1)%len(endpoints)
-            area += delta_area(endpoints[(right-1)%len(endpoints)], endpoints[right], endpoints[left])
             count += int(((right-1)%len(endpoints))%C == 0)
+            area += delta_area(endpoints[(right-1)%len(endpoints)], endpoints[right], endpoints[left])
             if (count+1)*K > len(polygon) + 2*2*(K-1):  # valid pattern has at most N + 2*2*(K-1) endpoints required to check
                 break
             if area*K == total_area:
