@@ -65,6 +65,13 @@ def find_possible_endpoints(polygon, candidates):
     endpoints.extend(split(polygon[-1], polygon[0], candidates))
     return endpoints
 
+def edge_num(length, C, left, right):
+    if right < left:
+        right += length
+    left = left//C
+    right = (right-1)//C+1
+    return (right-left)+1
+
 def binary_search(C, K, endpoints, total_area, area, left, right):
     low, high = right+1, right//C*C+C
     while low <= high:
@@ -77,13 +84,6 @@ def binary_search(C, K, endpoints, total_area, area, left, right):
         else:
             low = mid+1
     return -1
-
-def edge_num(length, C, left, right):
-    if right < left:
-        right += length
-    left = left//C
-    right = (right-1)//C+1
-    return (right-left)+1
 
 def find_possible_segments(polygon, K, endpoints):
     C = len(endpoints)//len(polygon)  # count of polygon and non-polygon vertex on an edge
