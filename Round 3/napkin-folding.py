@@ -85,8 +85,8 @@ def find_possible_segments(polygon, K, endpoints):
             area -= delta_area(endpoints[prev_right], endpoints[right], endpoints[left])
             count -= 1
             right = prev_right
-        right = (right+1)%len(endpoints)
         while True:  # at most O(3*K^2) times
+            right = (right+1)%len(endpoints)
             area += delta_area(endpoints[(right-1)%len(endpoints)], endpoints[right], endpoints[left])
             count += int(((right-1)%len(endpoints))%C == 0)
             if (count+1)*K > len(polygon) + 2*2*(K-1):  # valid pattern has at most N + 2*2*(K-1) endpoints required to check
@@ -95,7 +95,6 @@ def find_possible_segments(polygon, K, endpoints):
                 yield (left, right)
                 break  # each endpoint has at most one ordered pair to create a line segment,
                        # and the nearest one is always the candidate by experiment
-            right = (right+1)%len(endpoints)
         area -= delta_area(endpoints[right], endpoints[left], endpoints[(left+1)%len(endpoints)])
         count -= int((left+1)%len(endpoints)%C == 0)
 
