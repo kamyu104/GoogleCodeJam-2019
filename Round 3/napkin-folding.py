@@ -71,12 +71,13 @@ def find_possible_segments(polygon, K, endpoints):
 
     total_area = polygon_area(polygon)
     area = 0
-    left, right = 0, 1
+    left, right = 0, C
     count = 0
-    while (count+1)*K < len(polygon) + 2*(K-1):  # Time: O(N*K), valid pattern has at least N + 2*(K-1) endpoints required to check
-        area += delta_area(endpoints[(right-1)%len(endpoints)], endpoints[right], endpoints[left])
-        count += int(((right-1)%len(endpoints))%C == 0)
-        right = (right+1)%len(endpoints)
+    while (count+1)*K < len(polygon) + 2*(K-1):  # Time: O(N/K), valid pattern has at least N + 2*(K-1) endpoints required to check
+        area += delta_area(endpoints[(right-C)%len(endpoints)], endpoints[right], endpoints[left])
+        count += 1
+        right = (right+C)%len(endpoints)
+    right = (right-C+1)%len(endpoints)
     # use sliding window to find the target area
     for left in xrange(len(endpoints)):  # O(N*K^2) times
         right = (right-1)%len(endpoints)
