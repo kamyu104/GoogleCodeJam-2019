@@ -3,7 +3,7 @@
 # Google Code Jam 2019 Round C - Problem D. Napkin Folding
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170
 #
-# Time:  O(N * K^2 * (K^2+N)), N > K^2 => O(N^2 * K^2), much better than official analysis
+# Time:  O(N^2 * K^2), much better than official analysis
 # Space: O(N * K^2)
 #
 
@@ -66,6 +66,19 @@ def find_possible_endpoints(polygon, candidates):
     endpoints.extend(split(polygon[-1], polygon[0], candidates))
     return endpoints
 
+def binary_search(C, K, endpoints, total_area, area, left, right):
+    low, high = right+1, right//C*C+C
+    while low <= high:
+        mid = low + (high-low)//2
+        curr_area = area + delta_area(endpoints[right], endpoints[mid%len(endpoints)], endpoints[left])
+        if total_area == K * curr_area:
+            return mid%len(endpoints)
+        elif total_area > K * curr_area: 
+            high = mid-1
+        else:
+            low = mid+1
+    return -1
+
 def edge_num(length, C, left, right):
     if right < left:
         right += length
@@ -93,8 +106,10 @@ def find_possible_segments(polygon, K, endpoints):
             right = prev_right
         while K*(edge_num(len(endpoints), C, left, right)+int(right%C == 0)) <= len(polygon) + 2*2*(K-1):
             # valid pattern has at most N + 2*2*(K-1) endpoints required to check, at most O(3*K^2) time
-            right = (right+1)%len(endpoints)
-            area += delta_area(endpoints[(right-1)%len(endpoints)], endpoints[right], endpoints[left])
+            prev_right = right
+            next_right = binary_search(C, K, endpoints, total_area, area, left, right)  # O(log(K^2))
+            right = next_right if next_right != -1 else (right//C*C+C)%len(endpoints)
+            area += delta_area(endpoints[prev_right], endpoints[right], endpoints[left])
             if K*area == total_area:
                 yield (left, right)
                 break  # each endpoint has at most one ordered pair to create a line segment,
@@ -180,7 +195,7 @@ def napkin_folding():
     endpoints = find_possible_endpoints(polygon, candidates)  # Time: O(N * K^2)
     endpoints_idx = {v:k for k, v in enumerate(endpoints)}
 
-    for segment in find_possible_segments(polygon, K, endpoints):  # Time: O(N * K^4)
+    for segment in find_possible_segments(polygon, K, endpoints):  # Time: O(N * K^2 * logK)
         # number of possible segments is at most O(N * K^2)
         segments = find_valid_segments(polygon, K, endpoints, endpoints_idx, segment)  # Time: O(N + K)
         if not segments:
