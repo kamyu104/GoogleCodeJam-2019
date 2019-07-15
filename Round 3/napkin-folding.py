@@ -79,22 +79,23 @@ def find_possible_segments(polygon, K, endpoints):
 
     left, right = 0, 0
     area = 0
-    while K*edge_num(len(endpoints), C, left, right) < len(polygon) + 2*(K-1):  # Time: O(N/K), valid pattern has at least N + 2*(K-1) endpoints required to check
+    while K*edge_num(len(endpoints), C, left, right) < len(polygon) + 2*(K-1):
+        # Time: O(N/K), valid pattern has at least N + 2*(K-1) endpoints required to check
         right = (right+C)%len(endpoints)
         area += delta_area(endpoints[(right-C)%len(endpoints)], endpoints[right], endpoints[left])
 
     # use sliding window to find the target area
     for left in xrange(len(endpoints)):  # O(N*K^2) times
-        while K*edge_num(len(endpoints), C, left, right) >= len(polygon) + 2*(K-1):  # at most 3 times to restore possible right
+        while K*edge_num(len(endpoints), C, left, right) >= len(polygon) + 2*(K-1):
+            # at most 3 times to restore possible right
             prev_right = right//C*C if right%C != 0 else (right-C)%len(endpoints)
             area -= delta_area(endpoints[prev_right], endpoints[right], endpoints[left])
             right = prev_right
-        while True:  # at most O(3*K^2) times
+        while K*(edge_num(len(endpoints), C, left, right)+int(right%C == 0)) <= len(polygon) + 2*2*(K-1):
+            # valid pattern has at most N + 2*2*(K-1) endpoints required to check, at most O(3*K^2) time
             right = (right+1)%len(endpoints)
             area += delta_area(endpoints[(right-1)%len(endpoints)], endpoints[right], endpoints[left])
-            if K*edge_num(len(endpoints), C, left, right) > len(polygon) + 2*2*(K-1):  # valid pattern has at most N + 2*2*(K-1) endpoints required to check
-                break
-            if area*K == total_area:
+            if K*area == total_area:
                 yield (left, right)
                 break  # each endpoint has at most one ordered pair to create a line segment,
                        # and the nearest one is always the only candidate.
