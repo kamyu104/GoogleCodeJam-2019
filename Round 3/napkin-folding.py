@@ -103,7 +103,7 @@ def find_possible_segments(polygon, K, endpoints):
             prev_right = end//C*C if end%C != 0 else (end-C)%len(endpoints)
             area -= delta_area(endpoints[prev_right], endpoints[end], endpoints[begin])
             end = prev_right
-        while K*(edge_num(begin, end, len(endpoints), C)+int(end%C == 0)) <= len(polygon) + 2*2*(K-1):
+        while K*(edge_num(begin, (end+1)%len(endpoints), len(endpoints), C)) <= len(polygon) + 2*2*(K-1):
             # at most 2 edges to check becuase a valid pattern forms at most N + 2*2*(K-1) endpoints
             next_right = binary_search(begin, end, C, K, endpoints, total_area, area)  # O(log(K^2))
             if next_right == -1:
