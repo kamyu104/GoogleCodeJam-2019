@@ -96,7 +96,7 @@ def find_possible_segments(polygon, K, endpoints):
                 break  # each endpoint has at most one ordered pair to create a line segment,
                        # and the nearest one is always the only candidate.
                        # because if this pair is invalid, all other pairs with same left
-                       # and with at most one more endpoints are all invalid either.
+                       # and right with at most one more endpoints are all invalid either.
         area -= delta_area(endpoints[right], endpoints[left], endpoints[(left+1)%len(endpoints)])
         count -= int((left+1)%len(endpoints)%C == 0)
 
