@@ -77,10 +77,9 @@ def find_possible_segments(polygon, K, endpoints):
         area += delta_area(endpoints[(right-C)%len(endpoints)], endpoints[right], endpoints[left])
         count += 1
         right = (right+C)%len(endpoints)
-    right = (right-C+1)%len(endpoints)
+    right = (right-C)%len(endpoints)
     # use sliding window to find the target area
     for left in xrange(len(endpoints)):  # O(N*K^2) times
-        right = (right-1)%len(endpoints)
         while (count+1)*K >= len(polygon) + 2*(K-1):  # at most 3 times to restore possible right
             prev_right = right//C*C if right%C != 0 else (right-C)%len(endpoints)
             area -= delta_area(endpoints[prev_right], endpoints[right], endpoints[left])
@@ -90,14 +89,14 @@ def find_possible_segments(polygon, K, endpoints):
         while True:  # at most O(3*K^2) times
             area += delta_area(endpoints[(right-1)%len(endpoints)], endpoints[right], endpoints[left])
             count += int(((right-1)%len(endpoints))%C == 0)
-            right = (right+1)%len(endpoints)
             if (count+1)*K > len(polygon) + 2*2*(K-1):  # valid pattern has at most N + 2*2*(K-1) endpoints required to check
                 break
             if area*K == total_area:
-                yield (left, (right-1)%len(endpoints))
+                yield (left, right)
                 break  # each endpoint has at most one ordered pair to create a line segment,
                        # and the nearest one is always the candidate by experiment
-        area -= delta_area(endpoints[(right-1)%len(endpoints)], endpoints[left], endpoints[(left+1)%len(endpoints)])
+            right = (right+1)%len(endpoints)
+        area -= delta_area(endpoints[right], endpoints[left], endpoints[(left+1)%len(endpoints)])
         count -= int((left+1)%len(endpoints)%C == 0)
 
 def find_pattern(begin, end, length, C):
