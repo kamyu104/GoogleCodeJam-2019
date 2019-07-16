@@ -32,7 +32,7 @@ def reflect(P, A, B):  # return Q which is the reflection of P over line (A, B)
     a, b, c = A[1]-B[1], -(A[0]-B[0]), (A[1]-B[1])*(-A[0])-(A[0]-B[0])*(-A[1])
     if -2 * a * (a * P[0] + b * P[1] + c) % (a * a + b * b) or \
        -2 * b * (a * P[0] + b * P[1] + c) % (a * a + b * b):
-       return None  # in this problem, Q should be integers too
+       return None  # in this problem, Q should be integers too, otherwise it won't be on polygon
     return (-2 * a * (a * P[0] + b * P[1] + c) // (a * a + b * b) + P[0],
             -2 * b * (a * P[0] + b * P[1] + c) // (a * a + b * b) + P[1])
 
