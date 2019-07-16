@@ -7,8 +7,6 @@
 # Space: O(N * K^2)
 #
 
-from itertools import chain
-
 def gcd(a, b):  # Time: O((logn)^2)
     while b:
         a, b = b, a % b
