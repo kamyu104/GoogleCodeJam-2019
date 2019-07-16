@@ -97,12 +97,13 @@ def find_possible_segments(polygon, K, endpoints):
     # use sliding window to find the target area
     for begin in xrange(len(endpoints)):  # O(N*K^2) times
         while K*edge_num(begin, end, len(endpoints), C) >= len(polygon) + 2*(K-1):
-            # at most 3 times to restore possible end
+            # at most 3 times (1 invalid + 2 candidate edges) to restore possible end
             prev_end = end//C*C if end%C != 0 else (end-C)%len(endpoints)
             area -= delta_area(endpoints[prev_end], endpoints[end], endpoints[begin])
             end = prev_end
         while K*(edge_num(begin, (end+1)%len(endpoints), len(endpoints), C)) <= len(polygon) + 2*2*(K-1):
-            # at most 3 edges to check becuase a valid pattern forms at most N + 2*2*(K-1) endpoints
+            # at most 3 times (1 invalid + 2 candidate edges)
+            # to check becuase a valid pattern forms at most N + 2*2*(K-1) endpoints
             next_end = binary_search(begin, end, C, K, endpoints, total_area, area)  # O(log(K^2))
             if next_end == -1:
                 next_end = (end//C*C+C)%len(endpoints)
