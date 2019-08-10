@@ -115,6 +115,7 @@ def find_possible_segments(polygon, K, endpoints):
                        # and the nearest one is always the only candidate.
                        # because if this pair is invalid, all other pairs with same begin
                        # and end with at most one more endpoints are all invalid either.
+                       # this "break" is an optional optimization (doesn't change time complexity).
         area -= delta_area(endpoints[end], endpoints[begin], endpoints[(begin+1)%len(endpoints)])
 
 def find_pattern(begin, end, length, C):
