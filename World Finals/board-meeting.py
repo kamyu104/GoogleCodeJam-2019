@@ -58,5 +58,6 @@ def board_meeting():
         print_line(result)
 
 T, MAX_N, M, R = map(int, raw_input().strip().split())
+assert(2 + 2 * MAX_N * M.bit_length() * 2 <= R)
 for case in xrange(T):
     board_meeting()
