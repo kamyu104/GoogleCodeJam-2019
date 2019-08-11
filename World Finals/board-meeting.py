@@ -38,11 +38,11 @@ def board_meeting():
         for i in xrange(N):
             left, right = -2*M, 2*M
             while left <= right:
-				mid = left + (right-left)//2
-				if query_U(N, mid+1, swap) - query_U(N, mid, swap) >= N-i*2:
-					right = mid-1
-				else:
-					left = mid+1
+                mid = left + (right-left)//2
+                if query_U(N, mid+1, swap) - query_U(N, mid, swap) >= N-i*2:
+                    right = mid-1
+                else:
+                    left = mid+1
             axis.append(left)
     
     print_line("READY")
