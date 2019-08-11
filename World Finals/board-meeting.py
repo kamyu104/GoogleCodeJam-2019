@@ -26,10 +26,10 @@ def query_diff(u, v):
 
 def query_U(N, u, swap=False):
     v = 2*M + u%2
-    count = N if u%2 else 0
+    extra_diff = N if u%2 else 0  # there will be extra diff if v has been adjusted for query
     if swap:
         u, v = v, u
-    return query_diff(u, v) - count
+    return query_diff(u, v) - extra_diff  # minus extra diff due to adjustment
 
 def board_meeting():
     N = (query_diff(2*M+1, 2*M+1) - query_diff(2*M, 2*M)) // 2
@@ -39,7 +39,7 @@ def board_meeting():
             left, right = -2*M, 2*M
             while left <= right:
                 mid = left + (right-left)//2
-                if query_U(N, mid+1, swap) - query_U(N, mid, swap) > -N + i*2:
+                if query_U(N, mid+1, swap) - query_U(N, mid, swap) > -N + i*2:  # if diff is greater than expected one
                     right = mid-1
                 else:
                     left = mid+1
