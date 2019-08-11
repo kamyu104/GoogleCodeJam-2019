@@ -1,4 +1,4 @@
-# [GoogleCodeJam 2019](https://codingcompetitions.withgoogle.com/codejam/archive/2019) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-21%20%2F%2021-ff69b4.svg)
+# [GoogleCodeJam 2019](https://codingcompetitions.withgoogle.com/codejam/archive/2019) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-22%20%2F%2027-ff69b4.svg)
 
 Python solutions of Google Code Jam 2019. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds).
 
@@ -8,6 +8,7 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 * [Round 1C](https://github.com/kamyu104/GoogleCodeJam-2019#round-1c)
 * [Round 2](https://github.com/kamyu104/GoogleCodeJam-2019#round-2)
 * [Round 3](https://github.com/kamyu104/GoogleCodeJam-2019#round-3)
+* [Round 3](https://github.com/kamyu104/GoogleCodeJam-2019#world-finals)
 
 ## Qualification Round
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
@@ -53,3 +54,15 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 |B| [Pancake Pyramid](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/00000000001591be)| [Python](./Round%203/pancake-pyramid.py) | _O(S)_ | _O(S)_ | Medium | | Mono Stack |
 |C| [Datacenter Duplex](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000158f1c)| [Python](./Round%203/datacenter-duplex.py) | _O(R * C)_ | _O(R * C)_ | Medium | | Union Find |
 |D| [Napkin Folding](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170)| [Python](./Round%203/napkin-folding.py) | _O(N^2 * K^2)_ | _O(N * K^2)_ | Very Hard | | Geometry, Sliding Window, Binary Search, BFS, DFS |
+
+## World Finals
+You can relive the magic of the 2019 Code Jam World Finals by watching the [Live Stream Recording](https://www.youtube.com/watch?v=biyvpvx9I7E) of the competition, problem explanations, interviews with Google and Code Jam engineers, and announcement of winners.
+
+| # | Title | Solution | Time | Space | Difficulty | Tag | Note |
+|---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
+|A| [Board Meeting](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77c)| [Python](./World%20Finals/board-meeting.py) | _O(NlogM)_ | _O(N)_ | Medium | | Binary Search, Math |
+|B| [Sort Permutation Unit](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77d)| | | Medium | | | |
+|C| [Won't Sum? Must now](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77e)| | | | Hard | | |
+|D| [Juggle Struggle: Part 1](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77f)| | Medium | | | | |
+|E| [Juggle Struggle: Part 2](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c933)| | Hard | | | | |
+|F| [Go To Considered Helpful](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c934)| | Hard| | | | |
