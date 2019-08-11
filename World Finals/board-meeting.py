@@ -26,10 +26,9 @@ def query_diff(u, v):
 
 def query_U(N, u, swap=False):
     v = 2*M + u%2
-    extra_diff = N if u%2 else 0  # there will be extra diff if v has been adjusted for query
     if swap:
         u, v = v, u
-    return query_diff(u, v) - extra_diff  # minus extra diff due to adjustment
+    return query_diff(u, v) - N*(u%2)  # minus extra diff due to adjustment
 
 def board_meeting():
     N = (query_diff(2*M+1, 2*M+1) - query_diff(2*M, 2*M)) // 2
