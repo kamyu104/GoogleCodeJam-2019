@@ -33,7 +33,7 @@ def query_U(N, u, swap=False):
 
 def board_meeting():
     N = (query_dist(2*M+1, 2*M+1) - query_dist(2*M, 2*M)) // 2
-    U, V = [], []
+    U, V = [], []  # u = x + y, v = x - y
     for swap, axis in enumerate([U, V]):
         for i in xrange(N):
             left, right = -2*M, 2*M
