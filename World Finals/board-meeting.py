@@ -19,20 +19,20 @@ def read_line():
         exit()
     return s
 
-def query_dist(u, v):
+def query_diff(u, v):
     assert(u%2 == v%2)
     print_line("%d %d" % ((u+v)//2, (u-v)//2))
-    return int(read_line())*2
+    return int(read_line())*2  # diff_in_U_V = 2 * diff_in_X_Y
 
 def query_U(N, u, swap=False):
     v = 2*M + u%2
     count = N if u%2 else 0
     if swap:
         u, v = v, u
-    return query_dist(u, v) - count
+    return query_diff(u, v) - count
 
 def board_meeting():
-    N = (query_dist(2*M+1, 2*M+1) - query_dist(2*M, 2*M)) // 2
+    N = (query_diff(2*M+1, 2*M+1) - query_diff(2*M, 2*M)) // 2
     U, V = [], []  # u = x + y, v = x - y
     for swap, axis in enumerate([U, V]):
         for i in xrange(N):
@@ -54,7 +54,7 @@ def board_meeting():
         result = 0
         for i in xrange(N):
             result += abs((x+y) - U[i]) + abs((x-y) - V[i])
-        result //= 2
+        result //= 2  # diff_in_X_Y= diff_in_U_V // 2
         print_line(result)
 
 T, MAX_N, M, R = map(int, raw_input().strip().split())
