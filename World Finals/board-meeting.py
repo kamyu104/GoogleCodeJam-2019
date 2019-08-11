@@ -54,7 +54,7 @@ def board_meeting():
         result = 0
         for i in xrange(N):
             result += abs((x+y) - U[i]) + abs((x-y) - V[i])
-        result //= 2  # diff_in_X_Y= diff_in_U_V // 2
+        result //= 2  # diff_in_X_Y = diff_in_U_V // 2
         print_line(result)
 
 T, MAX_N, M, R = map(int, raw_input().strip().split())
