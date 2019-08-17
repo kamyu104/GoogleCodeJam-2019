@@ -61,7 +61,7 @@ You can relive the magic of the 2019 Code Jam World Finals by watching the [Live
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Board Meeting](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77c)| [Python](./World%20Finals/board-meeting.py) | _O(NlogM)_ | _O(N)_ | Medium | | Binary Search, Math |
-|B| [Sort Permutation Unit](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77d)| [Python](./World%20Finals/sorting-permutation-unit.py) | _O(K * N^2)_ | _O(N)_ | Medium  | | Sort |
+|B| [Sorting Permutation Unit](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77d)| [Python](./World%20Finals/sorting-permutation-unit.py) | _O(K * N^2)_ | _O(N)_ | Medium  | | Sort |
 |C| [Won't Sum? Must now](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77e)| | | | Hard | | |
 |D| [Juggle Struggle: Part 1](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77f)| | | | Medium | | |
 |E| [Juggle Struggle: Part 2](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c933)| | | | Hard | | |
