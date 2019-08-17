@@ -66,21 +66,19 @@ def sorting_permutation_unit():
             while A[-1] != len(A)-1:
                 rotate_and_add_seq(A, (len(A)-2) - (shift[0]+A[-1])%(len(A)-1), seq, shift)
                 swap_and_add_seq(A, seq)
-
             # find the nearest incorrect relative position from the last position
             for curr in reversed(xrange(len(A)-1)):
                 if curr != (shift[0]+A[curr])%(len(A)-1):
                     break
             else:
                 break
-
             # rotate the nearest incorrect one to (N-1)th position and swap(N-1, N),
             # at most N operations due to choosing the nearest incorrect one to rotate
             # which makes one full cycle rotatation in total
             rotate_and_add_seq(A, (len(A)-2) - curr, seq, shift)
             swap_and_add_seq(A, seq)
-
-        rotate_and_add_seq(A, (len(A)-2) - A.index(len(A)-2), seq, shift)  # do the final rotations to put them in the correct absolute positions
+        # do the final rotations to put them in the correct absolute positions
+        rotate_and_add_seq(A, (len(A)-2) - A.index(len(A)-2), seq, shift)
         seq[0] = len(seq)-1
         result.append(" ".join(map(str, seq)))
     return "\n".join(result)
