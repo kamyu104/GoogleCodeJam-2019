@@ -44,7 +44,7 @@ def sorting_permutation_unit():
     perms.append(range(1, N+1))
     perms[-1][-1], perms[-1][-2] = perms[-1][-2], perms[-1][-1]
     for r in ROTATIONS:
-        if r > N:
+        if r > N-2:
             break
         perms.append(range(1, N+1))
         rotate(perms[-1], r, len(perms[-1])-1)
