@@ -61,7 +61,8 @@ def sorting_permutation_unit():
         seq = [0]
         shift = [0]
         while True:
-            # rotate the first N-1 ones into the correct positions and swap(N-1, N) until Nth position becomes the largest one,
+            # rotate the first N-1 ones into the correct positions and swap(N-1, N)
+            # until Nth position becomes the largest one,
             # at most 6N operations
             while A[-1] != len(A)-1:
                 rotate_and_add_seq(A, (len(A)-2) - (shift[0]+A[-1])%(len(A)-1), seq, shift)
