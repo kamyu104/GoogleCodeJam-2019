@@ -21,6 +21,8 @@ def rotate(nums, k, n):
             end -= 1
 
     k %= n
+    if k == 0:
+        return
     reverse(nums, 0, n)
     reverse(nums, 0, k)
     reverse(nums, k, n)
