@@ -16,7 +16,7 @@ def normalize(nums):
 def rotate(nums, k, n):
     def reverse(nums, start, end):
         while start < end:
-            nums[start], nums[end - 1] = nums[end - 1], nums[start]
+            nums[start], nums[end-1] = nums[end-1], nums[start]
             start += 1
             end -= 1
 
@@ -25,11 +25,12 @@ def rotate(nums, k, n):
     reverse(nums, 0, k)
     reverse(nums, k, n)
 
-def rotate_and_add_seq(nums, r, seq, offset):
-    offset[0] = (offset[0]+r)%(len(nums)-1)
-    rotate(nums, r, len(nums)-1)
+def rotate_and_add_seq(nums, k, seq, shift):
+    assert(k >= 0)  # it should be non-negative rotation count to avoid wrong small rotations
+    shift[0] = (shift[0]+k)%(len(nums)-1)
+    rotate(nums, k, len(nums)-1)
     for i in reversed(xrange(len(ROTATES))):
-        q, r = divmod(r, ROTATES[i])
+        q, k = divmod(k, ROTATES[i])
         seq.extend([i+2]*q)
 
 def swap_and_add_seq(nums, seq):
@@ -59,24 +60,23 @@ def sorting_permutation_unit():
     for A in As:
         B = list(A)
         seq = [0]
-        offset = [0]
-        if A[-1] != len(A)-1:
-            rotate_and_add_seq(A, (len(A)-2) - A.index(len(A)-1), seq, offset)
+        shift = [0]
+        if A[-1] != len(A)-1:  # make the last one the largest one
+            rotate_and_add_seq(A, (len(A)-2) - A.index(len(A)-1), seq, shift)
             swap_and_add_seq(A, seq) 
         while True:
-            for curr in reversed(xrange(len(A)-1)):
-                if curr != (A[curr]+offset[0])%(len(A)-1):
+            for curr in reversed(xrange(len(A)-1)):  # find any incorrect relative position
+                if curr != (shift[0]+A[curr])%(len(A)-1):
                     break
             else:
                 break
-            rotate_and_add_seq(A, (len(A)-2) - curr, seq, offset)
+            rotate_and_add_seq(A, (len(A)-2) - curr, seq, shift)  # rotate and swap incorrect one to the last one
             swap_and_add_seq(A, seq)
-            while A[-1] != len(A)-1:
-                rotate_and_add_seq(A, (len(A)-2) - (A[-1]+offset[0])%(len(A)-1), seq, offset)
+            while A[-1] != len(A)-1:  # rotate and swap the last one into the correct position until it becomes the largest one
+                rotate_and_add_seq(A, (len(A)-2) - (shift[0]+A[-1])%(len(A)-1), seq, shift)
                 swap_and_add_seq(A, seq)
-        rotate_and_add_seq(A, (len(A)-2) - A.index(len(A)-2), seq, offset)
+        rotate_and_add_seq(A, (len(A)-2) - A.index(len(A)-2), seq, shift)  # do the final rotations to put them in the correct absolute positions
         seq[0] = len(seq)-1
-
         result.append(" ".join(map(str, seq)))
     return "\n".join(result)
 
