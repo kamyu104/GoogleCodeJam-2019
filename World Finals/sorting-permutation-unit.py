@@ -3,7 +3,7 @@
 # Google Code Jam 2019 World Finals - Problem B. Sort Permutation Unit
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77d
 #
-# Time:  O(K*N^2), 1.5N + N + 6N = 8.5N operations
+# Time:  O(K*N^2), 1.5N + 6N + N = 8.5N operations
 # Space: O(N)
 #
 
@@ -60,10 +60,13 @@ def sorting_permutation_unit():
     for A in As:
         seq = [0]
         shift = [0]
-        if A[-1] != len(A)-1:  # make the last one the largest one
-            rotate_and_add_seq(A, (len(A)-2) - A.index(len(A)-1), seq, shift)
-            swap_and_add_seq(A, seq) 
         while True:
+            # rotate the first N-1 ones into the correct positions and swap(N-1, N) until Nth position becomes the largest one,
+            # at most 6N operations
+            while A[-1] != len(A)-1:
+                rotate_and_add_seq(A, (len(A)-2) - (shift[0]+A[-1])%(len(A)-1), seq, shift)
+                swap_and_add_seq(A, seq)
+
             # find the nearest incorrect relative position from the last position
             for curr in reversed(xrange(len(A)-1)):
                 if curr != (shift[0]+A[curr])%(len(A)-1):
@@ -77,11 +80,6 @@ def sorting_permutation_unit():
             rotate_and_add_seq(A, (len(A)-2) - curr, seq, shift)
             swap_and_add_seq(A, seq)
 
-            # rotate the first N-1 ones into the correct positions and swap(N-1, N) until Nth position becomes the largest one,
-            # at most 6N operations
-            while A[-1] != len(A)-1:
-                rotate_and_add_seq(A, (len(A)-2) - (shift[0]+A[-1])%(len(A)-1), seq, shift)
-                swap_and_add_seq(A, seq)
         rotate_and_add_seq(A, (len(A)-2) - A.index(len(A)-2), seq, shift)  # do the final rotations to put them in the correct absolute positions
         seq[0] = len(seq)-1
         result.append(" ".join(map(str, seq)))
