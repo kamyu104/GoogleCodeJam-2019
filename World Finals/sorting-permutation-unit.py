@@ -93,8 +93,8 @@ for i in xrange(1, len(dp)):
             dp[i] = list(dp[i-ROTATE_BY[j]])
             dp[i].append(j+2)  # 1-based index and index 1 reserved for swap permutation
 for k in xrange(MAX_N-1):
-    count = 0
     ROTATIONS.append(dp[k])
+    count = len(ROTATIONS[-1])
     for i in xrange(k+MAX_N-1, len(dp), MAX_N-1):
         if len(dp[i]) < len(ROTATIONS[-1]):
             ROTATIONS[-1] = dp[i]
