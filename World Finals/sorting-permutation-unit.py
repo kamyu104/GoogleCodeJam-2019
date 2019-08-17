@@ -3,7 +3,7 @@
 # Google Code Jam 2019 World Finals - Problem B. Sort Permutation Unit
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77d
 #
-# Time:  O(K*N^2), 1.5N + 6N + N = 8.5N operations
+# Time:  O(K * N^2), each array costs 1.5N + 6N + N = 8.5N operations
 # Space: O(N)
 #
 
