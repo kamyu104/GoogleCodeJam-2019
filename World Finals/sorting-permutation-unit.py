@@ -3,7 +3,7 @@
 # Google Code Jam 2019 World Finals - Problem B. Sort Permutation Unit
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77d
 #
-# Time:  O(K*N^2)
+# Time:  O(K*N^2), 1.5N + N + 6N = 8.5N operations
 # Space: O(N)
 #
 
@@ -26,14 +26,14 @@ def rotate(nums, k, n):
     reverse(nums, k, n)
 
 def rotate_and_add_seq(nums, k, seq, shift):
-    assert(k >= 0)  # it should be non-negative rotation count to avoid wrong small rotations
+    assert(k >= 0)  # k should be non-negative rotation count to avoid wrong permutations
     shift[0] = (shift[0]+k)%(len(nums)-1)
     rotate(nums, k, len(nums)-1)
-    for i in reversed(xrange(len(ROTATES))):
+    for i in reversed(xrange(len(ROTATES))):  # split k rotations into at most 6 permutations
         q, k = divmod(k, ROTATES[i])
         seq.extend([i+2]*q)
 
-def swap_and_add_seq(nums, seq):
+def swap_and_add_seq(nums, seq):  # at most 1.5N swaps
     nums[-1], nums[-2] = nums[-2], nums[-1]
     seq.append(1)
 
@@ -65,14 +65,22 @@ def sorting_permutation_unit():
             rotate_and_add_seq(A, (len(A)-2) - A.index(len(A)-1), seq, shift)
             swap_and_add_seq(A, seq) 
         while True:
-            for curr in reversed(xrange(len(A)-1)):  # find any incorrect relative position
+            # find the nearest incorrect relative position from the last position
+            for curr in reversed(xrange(len(A)-1)):
                 if curr != (shift[0]+A[curr])%(len(A)-1):
                     break
             else:
                 break
-            rotate_and_add_seq(A, (len(A)-2) - curr, seq, shift)  # rotate and swap incorrect one to the last one
+
+            # rotate the nearest incorrect one to (N-1)th position and swap(N-1, N),
+            # at most N operations due to choosing the nearest incorrect one to rotate
+            # which makes one full cycle rotatation in total
+            rotate_and_add_seq(A, (len(A)-2) - curr, seq, shift)
             swap_and_add_seq(A, seq)
-            while A[-1] != len(A)-1:  # rotate and swap the last one into the correct position until it becomes the largest one
+
+            # rotate the first N-1 ones into the correct positions and swap(N-1, N) until Nth position becomes the largest one,
+            # at most 6N operations
+            while A[-1] != len(A)-1:
                 rotate_and_add_seq(A, (len(A)-2) - (shift[0]+A[-1])%(len(A)-1), seq, shift)
                 swap_and_add_seq(A, seq)
         rotate_and_add_seq(A, (len(A)-2) - A.index(len(A)-2), seq, shift)  # do the final rotations to put them in the correct absolute positions
@@ -81,5 +89,13 @@ def sorting_permutation_unit():
     return "\n".join(result)
 
 ROTATES = [1, 3, 9, 27]
+MAX_N = 50
+for k in xrange(1, MAX_N-1):
+    count = 0
+    for i in reversed(xrange(len(ROTATES))):
+        q, k = divmod(k, ROTATES[i])
+        count += q
+    assert(count <= 6)  # each rotations could be represented as at most 6 permutations
+
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, sorting_permutation_unit())
