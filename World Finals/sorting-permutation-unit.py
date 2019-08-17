@@ -11,7 +11,7 @@ def normalize(nums):
     A = [(num, i) for i, num in enumerate(nums)]
     A.sort()
     lookup = {i:rank for rank, (num, i) in enumerate(A)}
-    return map(lambda x: lookup[x], range(len(nums)))
+    return map(lambda x: lookup[x], xrange(len(nums)))
 
 def rotate(nums, k, n):
     def reverse(nums, start, end):
