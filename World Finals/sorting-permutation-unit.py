@@ -58,7 +58,6 @@ def sorting_permutation_unit():
         result.append(" ".join(map(str, perm)))
 
     for A in As:
-        B = list(A)
         seq = [0]
         shift = [0]
         if A[-1] != len(A)-1:  # make the last one the largest one
