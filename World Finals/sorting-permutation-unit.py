@@ -27,13 +27,13 @@ def rotate(nums, k, n):
     reverse(nums, 0, k)
     reverse(nums, k, n)
 
-def rotate_and_add_seq(nums, k, seq, shift):
+def rotates(nums, k, seq, shift):
     assert(k >= 0)  # k should be non-negative rotation count to avoid wrong permutations
     shift[0] = (shift[0]+k)%(len(nums)-1)
     rotate(nums, k, len(nums)-1)
     seq.extend(ROTATIONS[k])  # split k rotations into at most 6 permutations
 
-def swap_and_add_seq(nums, seq):  # at most 1.5N swaps
+def swap(nums, seq):  # at most 1.5N swaps
     nums[-1], nums[-2] = nums[-2], nums[-1]
     seq.append(1)
 
@@ -63,8 +63,8 @@ def sorting_permutation_unit():
             # until Nth position becomes the largest one,
             # at most 6N operations
             while A[-1] != len(A)-1:
-                rotate_and_add_seq(A, (len(A)-2) - (shift[0]+A[-1])%(len(A)-1), seq, shift)
-                swap_and_add_seq(A, seq)
+                rotates(A, (len(A)-2) - (shift[0]+A[-1])%(len(A)-1), seq, shift)
+                swap(A, seq)
             # find the nearest incorrect relative position from the last position
             for nearest_pos in reversed(xrange(len(A)-1)):
                 if nearest_pos != (shift[0]+A[nearest_pos])%(len(A)-1):
@@ -74,10 +74,10 @@ def sorting_permutation_unit():
             # rotate the nearest incorrect one to (N-1)th position and swap(N-1, N),
             # at most N operations due to choosing the nearest incorrect one to rotate
             # which makes one full cycle rotatation in total
-            rotate_and_add_seq(A, (len(A)-2) - nearest_pos, seq, shift)
-            swap_and_add_seq(A, seq)
+            rotates(A, (len(A)-2) - nearest_pos, seq, shift)
+            swap(A, seq)
         # do the final rotations to put them in the correct absolute positions
-        rotate_and_add_seq(A, (len(A)-2) - A.index(len(A)-2), seq, shift)
+        rotates(A, (len(A)-2) - A.index(len(A)-2), seq, shift)
         seq[0] = len(seq)-1
         result.append(" ".join(map(str, seq)))
     return "\n".join(result)
