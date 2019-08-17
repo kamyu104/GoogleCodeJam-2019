@@ -29,8 +29,8 @@ def rotate_and_add_seq(nums, k, seq, shift):
     assert(k >= 0)  # k should be non-negative rotation count to avoid wrong permutations
     shift[0] = (shift[0]+k)%(len(nums)-1)
     rotate(nums, k, len(nums)-1)
-    for i in reversed(xrange(len(ROTATES))):  # split k rotations into at most 6 permutations
-        q, k = divmod(k, ROTATES[i])
+    for i in reversed(xrange(len(ROTATIONS))):  # split k rotations into at most 6 permutations
+        q, k = divmod(k, ROTATIONS[i])
         seq.extend([i+2]*q)
 
 def swap_and_add_seq(nums, seq):  # at most 1.5N swaps
@@ -46,7 +46,7 @@ def sorting_permutation_unit():
     perms = []
     perms.append(range(1, N+1))
     perms[-1][-1], perms[-1][-2] = perms[-1][-2], perms[-1][-1]
-    for r in ROTATES:
+    for r in ROTATIONS:
         if r > N:
             break
         perms.append(range(1, N+1))
@@ -84,12 +84,12 @@ def sorting_permutation_unit():
         result.append(" ".join(map(str, seq)))
     return "\n".join(result)
 
-ROTATES = [1, 3, 9, 27]
+ROTATIONS = [1, 3, 9, 27]
 MAX_N = 50
 for k in xrange(1, MAX_N-1):
     count = 0
-    for i in reversed(xrange(len(ROTATES))):
-        q, k = divmod(k, ROTATES[i])
+    for i in reversed(xrange(len(ROTATIONS))):
+        q, k = divmod(k, ROTATIONS[i])
         count += q
     assert(count <= 6)  # each rotations could be represented as at most 6 permutations
 
