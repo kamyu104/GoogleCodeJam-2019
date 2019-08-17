@@ -1,6 +1,6 @@
 # Copyright (c) 2019 kamyu. All rights reserved.
 #
-# Google Code Jam 2019 World Finals - Problem B. Sort Permutation Unit
+# Google Code Jam 2019 World Finals - Problem B. Sorting Permutation Unit
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77d
 #
 # Time:  O(K * N^2), each array costs 1.5N + 6N + N = 8.5N operations
