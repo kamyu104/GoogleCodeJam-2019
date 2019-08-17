@@ -39,9 +39,6 @@ def swap_and_add_seq(nums, seq):  # at most 1.5N swaps
 
 def sorting_permutation_unit():
     P, S, K, N = map(int, raw_input().strip().split())
-    As = []
-    for _ in xrange(K):
-        As.append(normalize(map(int, raw_input().strip().split())))
 
     perms = []
     perms.append(range(1, N+1))
@@ -57,7 +54,8 @@ def sorting_permutation_unit():
     for perm in perms:
         result.append(" ".join(map(str, perm)))
 
-    for A in As:
+    for _ in xrange(K):
+        A = normalize(map(int, raw_input().strip().split()))
         seq = [0]
         shift = [0]
         while True:
