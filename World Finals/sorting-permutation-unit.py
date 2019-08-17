@@ -80,17 +80,16 @@ def sorting_permutation_unit():
         result.append(" ".join(map(str, seq)))
     return "\n".join(result)
 
-ROTATE_BY = [1, 3, 9, 27]
-ROTATIONS = []
 MAX_N = 50
-for k in xrange(MAX_N-1):
+ROTATE_BY = [1, 3, 9, 27]
+ROTATIONS = [[] for _ in xrange(MAX_N-1)]
+for k in xrange(len(ROTATIONS)):
     count = 0
-    ROTATIONS.append([])
+    r = k
     for i in reversed(xrange(len(ROTATE_BY))):
-        q, k = divmod(k, ROTATE_BY[i])
-        if q > 0:
-            ROTATIONS[-1].extend([i+2]*q)  # 1-based index and index 1 reserved for swap permutation
-            count += q
+        q, r = divmod(r, ROTATE_BY[i])
+        ROTATIONS[k].extend([i+2]*q)  # 1-based index and index 1 reserved for swap permutation
+        count += q
     assert(count <= 6)  # each rotations could be represented as at most 6 permutations
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, sorting_permutation_unit())
