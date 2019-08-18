@@ -130,7 +130,7 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
             rollback(y, left_Y, start)
             rollback(x, left_X, start)
             continue
-        new_last_left_y = int("".join(map(str, left_Y)))
+        new_last_left_y = int("".join(map(str, left_Y)))  # todo, bug!!!
         if find_pair_with_hangover_length(s, x, y, start+overhang,
                                           new_left_carry, new_right_carry, new_last_left_y):
             return True
