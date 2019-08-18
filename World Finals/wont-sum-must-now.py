@@ -99,7 +99,7 @@ def wont_sum_must_now():
                 if s_str[0] != '1':
                     continue
                 carry = 1
-            for j in reversed(xrange(1, i+1)):
+            for j in xrange(1, i+1):
                 result = find_pair(s, i, j, carry)
                 if result is not None:
                     # if (S != p + result[0] + result[1]):
