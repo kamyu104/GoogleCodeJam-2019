@@ -53,11 +53,11 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
             x[start], x[-1-start] = None, None
 
 def get_overhang(s, start, overhang):
-    return int("".join(map(str, s[-(start+overhang):-start])))
+    return int("".join(map(str, s[len(s)-1-(start+overhang):len(s)-start])))
 
 def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry):
     overhang = len(x)-len(y)
-    #get_overhang(s, start, overhang)
+    print get_overhang(s, start, overhang)
     return False
 
 def find_pair(s, i, j, left_carry):
