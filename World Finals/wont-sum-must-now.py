@@ -31,14 +31,14 @@ def palindromes(S):
                 yield p
         n *= 10
 
-def find_pair_with_same_length(s, x, y, start, carry, right_carry):
+def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
     if start*2 >= len(x):
-        return carry == right_carry
+        return left_carry == right_carry
     for i in xrange(10):
-        for new_carry in xrange(2):
+        for new_left_carry in xrange(2):
             if start == 0 and i == 0:
                 continue
-            target = s[len(x)-1-start] + 10*carry - new_carry
+            target = s[len(x)-1-start] + 10*left_carry - new_left_carry
             j = target-i
             if not (0 <= j <= 9):
                 continue
@@ -49,7 +49,7 @@ def find_pair_with_same_length(s, x, y, start, carry, right_carry):
             x[start], x[-1-start] = i, i
             y[start], y[-1-start] = j, j
             new_right_carry = (i+j+right_carry)//10 if start != len(x)-1-start else right_carry
-            if find_pair_with_same_length(s, x, y, start+1, new_carry, new_right_carry):
+            if find_pair_with_same_length(s, x, y, start+1, new_left_carry, new_right_carry):
                 return True
             y[start], y[-1-start] = None, None
             x[start], x[-1-start] = None, None
@@ -57,20 +57,20 @@ def find_pair_with_same_length(s, x, y, start, carry, right_carry):
 def get_overhang(s, start, overhang):
     return int("".join(map(str, s[-(start+overhang):-start])))
 
-def find_pair_with_hangover_length(s, x, y, start, carry, right_carry):
+def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry):
     return False
     overhang = len(x)-len(y)
     get_overhang(s, start, overhang)
     return False
 
-def find_pair(S, i, j, carry):
+def find_pair(S, i, j, left_carry):
     s = map(int, list(str(S)))
     s.reverse()
     x, y = [None]*i, [None]*j
     if i == j:
-        result = find_pair_with_same_length(s, x, y, 0, carry, 0)
+        result = find_pair_with_same_length(s, x, y, 0, left_carry, 0)
     else:
-        result = find_pair_with_hangover_length(s, x, y, 0, carry, 0)
+        result = find_pair_with_hangover_length(s, x, y, 0, left_carry, 0)
     if not result:
         return None
     assert(x == x[::-1] and y == y[::-1] and x[0] != 0 and y[0] != 0)
@@ -88,16 +88,16 @@ def wont_sum_must_now():
         s = S-p
         s_str = str(s)
         for i in (len(s_str), len(s_str)-1):
-            carry = 0
+            left_carry = 0
             if len(s_str) > i:
                 if s_str[0] != '1':
                     continue
-                carry = 1
+                left_carry = 1
             for j in xrange(1, i+1):
-                result = find_pair(s, i, j, carry)
+                result = find_pair(s, i, j, left_carry)
                 if result is not None:
                     # if (S != p + result[0] + result[1]):
-                    #     print S, "!=", p + result[0] + result[1], "(", p, result[0], result[1], ")", carry
+                    #     print S, "!=", p + result[0] + result[1], "(", p, result[0], result[1], ")", left_carry
                     assert(S == p + result[0] + result[1])
                     for i in result:
                         assert(0 < i <= S)
