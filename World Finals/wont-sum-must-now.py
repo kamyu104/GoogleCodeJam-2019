@@ -32,23 +32,8 @@ def palindromes(S):
         n *= 10
 
 def find_pair_with_same_length(s, x, y, start, carry, right_carry):
-    if start == len(x)-1-start+1:  # terminated statement of even length
+    if start*2 >= len(x):
         return carry == right_carry
-    if start == len(x)-1-start:  # terminated statement of odd length
-        for i in xrange(10):
-            if start == 0 and i == 0:
-                continue
-            target = s[len(x)-1-start] + 10*carry - right_carry
-            j = target-i
-            if not (0 <= j <= 9):
-                continue
-            if start == 0 and j == 0:
-                continue
-            x[start], x[-1-start] = i, i
-            y[start], y[-1-start] = j, j
-            return True
-        return False
-    
     for i in xrange(10):
         for new_carry in xrange(2):
             if start == 0 and i == 0:
@@ -63,7 +48,8 @@ def find_pair_with_same_length(s, x, y, start, carry, right_carry):
                 continue
             x[start], x[-1-start] = i, i
             y[start], y[-1-start] = j, j
-            if find_pair_with_same_length(s, x, y, start+1, new_carry, (i+j+right_carry)//10):
+            new_right_carry = (i+j+right_carry)//10 if start != len(x)-1-start else right_carry
+            if find_pair_with_same_length(s, x, y, start+1, new_carry, new_right_carry):
                 return True
             y[start], y[-1-start] = None, None
             x[start], x[-1-start] = None, None
