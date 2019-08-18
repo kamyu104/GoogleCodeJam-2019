@@ -8,8 +8,8 @@
 #
 
 def palindromes(S):
-    yield 0
-    return
+    # yield 0
+    # return
     # at most 208 times because the smaller palindrome of triples
     # is at most 10801 in this problem
     for p in xrange(10):
@@ -87,41 +87,44 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
         if left_x < 0:
             continue
         left_X = map(int, list(str(left_x)))
-        if start == 0 and len(left_X) != overhang:  # leading digit can't be 0
-            continue
         # right_x
         left_X = [0]*(overhang-len(left_X)) + left_X  # zero-padding
+        if start == 0 and left_X[0] == 0:  # leading digit can't be 0
+            continue
         if not apply(x, left_X, start):
             rollback(x, left_X, start)
             continue
         #print x, left_X, start
-        # right_y
-        right_y_len = min((len(y)-1-start)-(start-1), overhang)
-        #print "x", right_y_len
-        right_x = int("".join(map(str, left_X[:right_y_len][::-1])))
-        right_s = int("".join(map(str, s[start:start+right_y_len][::-1])))
-        #print right_s, right_x
-        right_y = right_s-right_x
-        #print right_y
-        new_right_carry, right_y = divmod(right_s-right_x, 10**right_y_len)
-        new_right_carry = abs(new_right_carry)
-        # left_y
-        left_Y = map(int, list(str(right_y)[::-1]))
-        left_Y = left_Y + [0]*(right_y_len-len(left_Y))
-        if start == 0 and left_Y[0] == 0:  # leading digit can't be 0
-            continue
-        #print y, list(left_Y), start, right_y_len, overhang
-        if not apply(y, left_Y, start):
-            rollback(y, left_Y, start)
-            rollback(x, left_X, start)
-            continue
-        if terminate(y, left_Y, start):
+        left_Y = []
+        new_right_carry = 0
+        if (len(y)-1-start)-(start-1) > 0:
+            # right_y
+            right_y_len = min((len(y)-1-start)-(start-1), overhang)
+            #print "x", right_y_len
+            right_x = int("".join(map(str, left_X[:right_y_len][::-1])))
+            right_s = int("".join(map(str, s[start:start+right_y_len][::-1])))
+            #print right_s, right_x
+            right_y = right_s-right_x
+            #print right_y
+            new_right_carry, right_y = divmod(right_s-right_x, 10**right_y_len)
+            new_right_carry = abs(new_right_carry)
+            # left_y
+            left_Y = map(int, list(str(right_y)[::-1]))
+            left_Y = left_Y + [0]*(right_y_len-len(left_Y))
+            if start == 0 and left_Y[0] == 0:  # leading digit can't be 0
+                continue
+            #print y, list(left_Y), start, right_y_len, overhang
+            if not apply(y, left_Y, start):
+                rollback(y, left_Y, start)
+                rollback(x, left_X, start)
+                continue
+        if terminate(x, left_X, start):
             #print s, x, y, left_X, left_Y, left_carry, right_carry
             S = int("".join(map(str, s[start:start+len(left_X)]))[::-1])
             X = int("".join(map(str, x[start:start+len(left_X)]))[::-1])
-            Y = int("".join(map(str, y[start:start+len(left_Y)]))[::-1])
-            print "success" if S+left_carry*(10**len(left_Y)) == X+Y+right_carry else "failed", s, x, y, start, "S =", S, "X =", X, "Y =", Y, left_carry, right_carry
-            print left_X, left_Y
+            Y = int("".join(map(str, y[start:start+len(left_Y)]))[::-1]) if left_Y else 0
+            #print "success" if S+left_carry*(10**len(left_Y)) == X+Y+right_carry else "failed", s, x, y, start, "S =", S, "X =", X, "Y =", Y, left_carry, right_carry
+            #print left_X, left_Y
             if S+left_carry*(10**len(left_Y)) == X+Y+right_carry:
                 return True
             rollback(y, left_Y, start)
