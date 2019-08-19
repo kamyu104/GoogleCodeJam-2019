@@ -81,7 +81,7 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
 def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, left_Y):
     def find_left_x():
         left_X = to_int(s[len(x)-1-(start+overhang-1):len(x)-start][::-1]) + \
-                left_carry*(10**overhang) - new_left_carry - left_Y
+                 left_carry*(10**overhang) - new_left_carry - left_Y
         if not (0 <= left_X < 10**overhang):
             return None
         left_x = to_list(left_X)
