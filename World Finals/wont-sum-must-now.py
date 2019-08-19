@@ -13,7 +13,7 @@ def to_int(x):  # list of ints to int
 def to_list(X):  # string to list of ints
     return map(int, list(X))
 
-def palindromes(S):
+def gen_palindromes(S):
     # at most 208 times because the smallest palindrome of triples
     # is at most 10801 (208-th smallest palindrome) in this problem
     for P in xrange(10):
@@ -48,13 +48,13 @@ def clear_digits(x, o, start):
     for i in xrange(len(o)):
         x[start+i], x[-1-(start+i)] = None, None
 
-def find_X_Y(target, start):
+def gen_X_Y(target, start):
     for X in xrange(max(target-9, 0), min(target+1, 10)):
         Y = target-X
         if start == 0 and (X == 0 or Y == 0):  # leading digit can't be 0
             continue
-        return X, Y
-    return None, None
+        yield X, Y
+    yield None, None
 
 def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
     if len(x)-start*2 <= 0:
@@ -63,7 +63,8 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
         target = s[len(x)-1-start] + left_carry*10 - new_left_carry
         if s[start] != (target+right_carry)%10:
             continue
-        X, Y = find_X_Y(target, start)
+        gen = gen_X_Y(target, start)
+        X, Y = next(gen)
         if X is None or Y is None:
             continue
         set_digits(x, [X], start)
@@ -140,7 +141,7 @@ def wont_sum_must_now():
     s = to_list(str(S))
     if s == s[::-1]:
         return S
-    for P in palindromes(S):
+    for P in gen_palindromes(S):
         s = to_list(str(S-P))
         s.reverse()
         for i in xrange(len(s)-1, len(s)+1):
