@@ -48,22 +48,22 @@ def clear_digits(x, o, start):
     for i in xrange(len(o)):
         x[start+i], x[-1-(start+i)] = None, None
 
-def gen_X_Y(target, start):
-    for X in xrange(max(target-9, 0), min(target+1, 10)):
-        Y = target-X
-        if start == 0 and (X == 0 or Y == 0):  # leading digit can't be 0
-            continue
-        yield X, Y
-    yield None, None
-
 def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
+    def gen_X_Y():
+        for X in xrange(max(target-9, 0), min(target+1, 10)):
+            Y = target-X
+            if start == 0 and (X == 0 or Y == 0):  # leading digit can't be 0
+                continue
+            yield X, Y
+        yield None, None
+
     if len(x)-start*2 <= 0:
         return left_carry == right_carry
     for new_left_carry in xrange(2):
         target = s[len(x)-1-start] + left_carry*10 - new_left_carry
         if s[start] != (target+right_carry)%10:
             continue
-        gen = gen_X_Y(target, start)  # it doesn't matter which of options we take except for making a leading 0
+        gen = gen_X_Y()  # it doesn't matter which of options we take except for making a leading 0
         X, Y = next(gen)
         if X is None or Y is None:
             continue
@@ -79,42 +79,50 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
     return False
 
 def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, left_Y):
+    def find_left_x():
+        left_X = to_int(s[len(x)-1-(start+overhang-1):len(x)-start][::-1]) + \
+                left_carry*(10**overhang) - new_left_carry - left_Y
+        if not (0 <= left_X < 10**overhang):
+            return None
+        left_x = to_list(str(left_X))
+        left_x = [0]*(overhang-len(left_x)) + left_x  # zero-padding
+        if start == 0 and left_x[0] == 0:  # leading digit can't be 0
+            return None
+        if not set_digits(x, left_x, start):
+            clear_digits(x, left_x, start)
+            return None
+        return left_x
+
+    def find_right_y():
+        right_y_len = min(len(y)-start*2, overhang)
+        right_S = to_int(s[start:start+right_y_len][::-1])
+        right_X = to_int(left_x[:right_y_len][::-1])
+        new_right_carry, right_Y = map(abs, divmod(right_S-right_X-right_carry, 10**right_y_len))
+        right_y = to_list(str(right_Y)[::-1])
+        right_y = right_y + [0]*(right_y_len-len(right_y))  # zero-padding
+        if start == 0 and right_y[0] == 0:  # leading digit can't be 0
+            clear_digits(x, left_x, start)
+            return None, None
+        if not set_digits(y, right_y, start):
+            clear_digits(y, right_y, start)
+            clear_digits(x, left_x, start)
+            return None, None
+        return right_y, new_right_carry
+
     if len(x)-start*2 <= 0:
         return left_carry == right_carry
     overhang = min(len(x)-2*start, len(x)-len(y))
     for new_left_carry in xrange(2):
-        # find left x to be updated
-        left_X = to_int(s[len(x)-1-(start+overhang-1):len(x)-start][::-1]) + \
-                 left_carry*(10**overhang) - new_left_carry - left_Y
-        if not (0 <= left_X < 10**overhang):
+        left_x = find_left_x()
+        if left_x is None:
             continue
-        left_x = to_list(str(left_X))
-        left_x = [0]*(overhang-len(left_x)) + left_x  # zero-padding
-        if start == 0 and left_x[0] == 0:  # leading digit can't be 0
-            continue
-        if not set_digits(x, left_x, start):
-            clear_digits(x, left_x, start)
-            continue
-        right_y = []
-        new_right_carry = right_carry  # pass current right carry if y is not updated
+        right_y, new_right_carry = [], right_carry  # pass current right carry if y is not updated
         new_left_Y = 0
         if len(y)-start*2 > 0:  # if y needs update
-            # find right y to be updated
-            right_y_len = min(len(y)-start*2, overhang)
-            right_S = to_int(s[start:start+right_y_len][::-1])
-            right_X = to_int(left_x[:right_y_len][::-1])
-            new_right_carry, right_Y = map(abs, divmod(right_S-right_X-right_carry, 10**right_y_len))
-            right_y = to_list(str(right_Y)[::-1])
-            right_y = right_y + [0]*(right_y_len-len(right_y))  # zero-padding
-            if start == 0 and right_y[0] == 0:  # leading digit can't be 0
-                clear_digits(x, left_x, start)
+            right_y, new_right_carry = find_right_y()
+            if right_y is None or new_right_carry is None:
                 continue
-            if not set_digits(y, right_y, start):
-                clear_digits(y, right_y, start)
-                clear_digits(x, left_x, start)
-                continue
-            # find left y to be updated
-            if len(y)-start*2 > overhang:
+            if len(y)-start*2 > overhang:  # find left y to be updated
                 new_left_Y = to_int(right_y[:(len(y)-start*2)-overhang])
         if find_pair_with_overhang_length(s, x, y, start+overhang,
                                           new_left_carry, new_right_carry, new_left_Y):
