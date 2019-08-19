@@ -99,9 +99,9 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
             right_y_len = min(len(y)-start*2, overhang)
             right_s = to_int(s[start:start+right_y_len][::-1])
             right_X = to_int(left_x[:right_y_len][::-1])
-            new_right_carry, right_y2 = divmod(right_s-right_X-right_carry, 10**right_y_len)
+            new_right_carry, right_Y = divmod(right_s-right_X-right_carry, 10**right_y_len)
             new_right_carry = abs(new_right_carry)
-            right_y = to_list(str(right_y2)[::-1])
+            right_y = to_list(str(right_Y)[::-1])
             right_y = right_y + [0]*(right_y_len-len(right_y))
             if start == 0 and right_y[0] == 0:  # leading digit can't be 0
                 rollback(x, left_x, start)
