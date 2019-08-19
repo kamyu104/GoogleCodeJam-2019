@@ -7,10 +7,10 @@
 # Space: O(D)
 #
 
-def to_int(x):
+def to_int(x):  # list of ints to int
     return int("".join(map(str, x)))
 
-def to_list(X):
+def to_list(X):  # string to list of ints
     return map(int, list(X))
 
 def palindromes(S):
