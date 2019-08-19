@@ -48,29 +48,38 @@ def clear_digits(x, o, start):
     for i in xrange(len(o)):
         x[start+i], x[-1-(start+i)] = None, None
 
+def find_X_Y(target, start):
+    for X in xrange(max(target-9, 0), min(target+1, 10)):
+        if start == 0 and X == 0:  # leading digit can't be 0
+            continue
+        Y = target-X
+        assert(0 <= Y < 10)
+        if start == 0 and Y == 0:  # leading digit can't be 0
+            continue
+        return X, Y
+    return None, None
+
 def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
     if len(x)-start*2 <= 0:
         return left_carry == right_carry
     for new_left_carry in xrange(2):
         target = s[len(x)-1-start] + left_carry*10 - new_left_carry
-        for X in xrange(max(target-9, 0), min(target+1, 10)):
-            if start == 0 and X == 0:  # leading digit can't be 0
-                continue
-            Y = target-X
-            assert(0 <= Y < 10)
-            if start == 0 and Y == 0:  # leading digit can't be 0
-                continue
-            if s[start] != (X+Y+right_carry)%10:
-                continue
-            set_digits(x, [X], start)
-            set_digits(y, [Y], start)
-            new_right_carry = right_carry  # pass current right carry if the number of updated digits is only one
-            if len(x)-start*2 != 1:
-                new_right_carry = (X+Y+right_carry)//10
-            if find_pair_with_same_length(s, x, y, start+1, new_left_carry, new_right_carry):
-                return True
-            clear_digits(y, [Y], start)
-            clear_digits(x, [X], start)
+        if target < 0:
+            continue
+        if s[start] != (target+right_carry)%10:
+            continue
+        X, Y = find_X_Y(target, start)
+        if X is None or Y is None:
+            continue
+        set_digits(x, [X], start)
+        set_digits(y, [Y], start)
+        new_right_carry = right_carry  # pass current right carry if the number of updated digits is only one
+        if len(x)-start*2 != 1:
+            new_right_carry = (X+Y+right_carry)//10
+        if find_pair_with_same_length(s, x, y, start+1, new_left_carry, new_right_carry):
+            return True
+        clear_digits(y, [Y], start)
+        clear_digits(x, [X], start)
     return False
 
 def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, last_left_Y):
