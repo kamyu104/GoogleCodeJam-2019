@@ -3,8 +3,8 @@
 # Google Code Jam 2019 World Finals - Problem C. Won't sum? Must now
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77e
 #
-# Time:  left_X(2^(D/2) * D), D is the number of digits of S
-# Space: left_X(D)
+# Time:  O(2^(D/2) * D), D is the number of digits of S
+# Space: O(D)
 #
 
 def palindromes(S):
