@@ -16,43 +16,43 @@ def to_list(X):
 def palindromes(S):
     # at most 208 times because the smallest palindrome of triples
     # is at most 10801 (208-th smallest palindrome) in this problem
-    for p in xrange(10):
-        if p > S:
+    for P in xrange(10):
+        if P > S:
             return
-        yield p
+        yield P
         n = 1
     while True:
-        for p in xrange(n, 10*n):
-            p = int(str(p) + str(p)[::-1])
-            if p > S:
+        for P in xrange(n, 10*n):
+            P = int(str(P) + str(P)[::-1])
+            if P > S:
                 return
-            yield p
+            yield P
         for i in xrange(n, 10*n):
             for j in xrange(10):
-                p = int(str(i) + str(j) + str(i)[::-1])
-                if p > S:
+                P = int(str(i) + str(j) + str(i)[::-1])
+                if P > S:
                     return
-                yield p
+                yield P
         n *= 10
 
 def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
     if len(x)-start*2 <= 0:
         return left_carry == right_carry
-    for i in xrange(10):
+    for X in xrange(10):
         for new_left_carry in xrange(2):
-            if start == 0 and i == 0:  # leading digit can't be 0
+            if start == 0 and X == 0:  # leading digit can't be 0
                 continue
             target = s[len(x)-1-start] + left_carry*10 - new_left_carry
-            j = target-i
-            if not (0 <= j < 10):
+            Y = target-X
+            if not (0 <= Y < 10):
                 continue
-            if start == 0 and j == 0: # leading digit can't be 0
+            if start == 0 and Y == 0: # leading digit can't be 0
                 continue
-            if s[start] != (i+j+right_carry)%10:
+            if s[start] != (X+Y+right_carry)%10:
                 continue
-            x[start], x[-1-start] = i, i
-            y[start], y[-1-start] = j, j
-            new_right_carry = (i+j+right_carry)//10
+            x[start], x[-1-start] = X, X
+            y[start], y[-1-start] = Y, Y
+            new_right_carry = (X+Y+right_carry)//10
             if len(x)-start*2 == 1:
                 new_right_carry = right_carry
             if find_pair_with_same_length(s, x, y, start+1, new_left_carry, new_right_carry):
