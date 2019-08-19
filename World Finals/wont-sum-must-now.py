@@ -73,6 +73,7 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
                 return True
             rollback(y, [Y], start)
             rollback(x, [X], start)
+    return False
 
 def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, last_left_Y):
     if len(x)-start*2 <= 0:
