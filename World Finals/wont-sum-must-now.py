@@ -141,7 +141,7 @@ def wont_sum_must_now():
     for P in palindromes(S):
         s = to_list(str(S-P))
         s.reverse()
-        for i in (len(s), len(s)-1):
+        for i in xrange(len(s)-1, len(s)+1):
             left_carry = 0
             if len(s) > i:
                 if s[-1] != 1:
