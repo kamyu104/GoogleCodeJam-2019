@@ -35,6 +35,20 @@ def palindromes(S):
                 yield P
         n *= 10
 
+def apply(x, o, start):
+        for i in xrange(len(o)):
+            x[start+i] = o[i]
+        for i in xrange(len(o)):
+            if x[-1-(start+i)] is None:
+                x[-1-(start+i)] = o[i]
+            elif x[-1-(start+i)] != o[i]:
+                return False
+        return True
+
+def rollback(x, o, start):
+    for i in xrange(len(o)):
+        x[start+i], x[-1-(start+i)] = None, None
+
 def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
     if len(x)-start*2 <= 0:
         return left_carry == right_carry
@@ -50,31 +64,17 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
                 continue
             if s[start] != (X+Y+right_carry)%10:
                 continue
-            x[start], x[-1-start] = X, X
-            y[start], y[-1-start] = Y, Y
-            new_right_carry = (X+Y+right_carry)//10
-            if len(x)-start*2 == 1:
-                new_right_carry = right_carry
+            apply(x, [X], start)
+            apply(y, [Y], start)
+            new_right_carry = right_carry
+            if len(x)-start*2 != 1:
+                new_right_carry = (X+Y+right_carry)//10
             if find_pair_with_same_length(s, x, y, start+1, new_left_carry, new_right_carry):
                 return True
-            y[start], y[-1-start] = None, None
-            x[start], x[-1-start] = None, None
+            rollback(y, [Y], start)
+            rollback(x, [X], start)
 
 def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, last_left_Y):
-    def apply(x, o, start):
-        for i in xrange(len(o)):
-            x[start+i] = o[i]
-        for i in xrange(len(o)):
-            if x[-1-(start+i)] is None:
-                x[-1-(start+i)] = o[i]
-            elif x[-1-(start+i)] != o[i]:
-                return False
-        return True
-
-    def rollback(x, o, start):
-        for i in xrange(len(o)):
-            x[start+i], x[-1-(start+i)] = None, None
-
     if len(x)-start*2 <= 0:
         return left_carry == right_carry
     overhang = min(len(x)-2*start, len(x)-len(y))
