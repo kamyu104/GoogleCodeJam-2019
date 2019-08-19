@@ -62,7 +62,7 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
         for i in xrange(len(o)):
             if x[-1-(start+i)] is None:
                 x[-1-(start+i)] = o[i]
-            elif  x[-1-(start+i)] != o[i]:
+            elif x[-1-(start+i)] != o[i]:
                 return False
         return True
 
@@ -70,19 +70,15 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
         for i in xrange(len(o)):
             x[start+i], x[-1-(start+i)] = None, None
 
-    def terminate(x, o, start):
-        for i in xrange(len(o)):
-            if start+i+1 >= len(x)-1-(start+i):
-                return True
-        return False
-
-    overhang = len(x)-len(y)
+    if start*2 >= len(x):
+        return left_carry == right_carry
+    overhang = min(len(x)-2*start, len(x)-len(y))
     #print s, x, y, overhang
     for new_left_carry in xrange(2):
         # left_x
         #print "left_x", s, x, y, start, overhang, s[len(x)-1-(start+overhang-1):]
         left_x = int("".join(map(str, s[len(x)-1-(start+overhang-1):len(x)-start][::-1]))) + \
-                  left_carry*(10**overhang) - new_left_carry - last_left_y
+                                      left_carry*(10**overhang) - new_left_carry - last_left_y
         #print left_x
         if left_x < 0:
             continue
@@ -96,10 +92,11 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
             continue
         #print x, left_X, start
         left_Y = []
-        new_right_carry = 0
-        if (len(y)-1-start)-(start-1) > 0:
+        new_right_carry = right_carry  # pass current right carry if y is not updated
+        new_last_left_y = 0
+        if start*2 < len(y):  # y needs update
             # right_y
-            right_y_len = min((len(y)-1-start)-(start-1), overhang)
+            right_y_len = min(len(y)-start*2, overhang)
             #print "x", right_y_len
             right_x = int("".join(map(str, left_X[:right_y_len][::-1])))
             right_s = int("".join(map(str, s[start:start+right_y_len][::-1])))
@@ -118,19 +115,8 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
                 rollback(y, left_Y, start)
                 rollback(x, left_X, start)
                 continue
-        if terminate(x, left_X, start):
-            #print s, x, y, left_X, left_Y, left_carry, right_carry
-            S = int("".join(map(str, s[start:start+len(left_X)]))[::-1])
-            X = int("".join(map(str, x[start:start+len(left_X)]))[::-1])
-            Y = int("".join(map(str, y[start:start+len(left_Y)]))[::-1]) if left_Y else 0
-            #print "success" if S+left_carry*(10**len(left_Y)) == X+Y+right_carry else "failed", s, x, y, start, "S =", S, "X =", X, "Y =", Y, left_carry, right_carry
-            #print left_X, left_Y
-            if S+left_carry*(10**len(left_Y)) == X+Y+right_carry:
-                return True
-            rollback(y, left_Y, start)
-            rollback(x, left_X, start)
-            continue
-        new_last_left_y = int("".join(map(str, left_Y)))  # todo, bug!!!
+            if len(y)-start*2-overhang > 0:
+                new_last_left_y = int("".join(map(str, left_Y[:len(y)-start*2-overhang])))
         if find_pair_with_hangover_length(s, x, y, start+overhang,
                                           new_left_carry, new_right_carry, new_last_left_y):
             return True
