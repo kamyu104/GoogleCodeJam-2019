@@ -58,7 +58,7 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
                 continue
             Y = target-X
             assert(0 <= Y < 10)
-            if start == 0 and Y == 0: # leading digit can't be 0
+            if start == 0 and Y == 0:  # leading digit can't be 0
                 continue
             if s[start] != (X+Y+right_carry)%10:
                 continue
