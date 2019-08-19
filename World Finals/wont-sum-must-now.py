@@ -60,7 +60,7 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
             y[start], y[-1-start] = None, None
             x[start], x[-1-start] = None, None
 
-def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last_left_Y):
+def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, last_left_Y):
     def apply(x, o, start):
         for i in xrange(len(o)):
             x[start+i] = o[i]
@@ -113,7 +113,7 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
             # find left y to be updated
             if len(y)-start*2 > overhang:
                 new_last_left_Y = to_int(right_y[:(len(y)-start*2)-overhang])
-        if find_pair_with_hangover_length(s, x, y, start+overhang,
+        if find_pair_with_overhang_length(s, x, y, start+overhang,
                                           new_left_carry, new_right_carry, new_last_left_Y):
             return True
         rollback(y, right_y, start)
@@ -125,7 +125,7 @@ def find_pair(s, i, j, left_carry):
     if i == j:
         result = find_pair_with_same_length(s, x, y, 0, left_carry, 0)
     else:
-        result = find_pair_with_hangover_length(s, x, y, 0, left_carry, 0, 0)
+        result = find_pair_with_overhang_length(s, x, y, 0, left_carry, 0, 0)
     if not result:
         return None
     x.reverse()
