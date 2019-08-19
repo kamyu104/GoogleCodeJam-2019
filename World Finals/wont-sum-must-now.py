@@ -7,6 +7,12 @@
 # Space: O(D)
 #
 
+def to_int(x):
+    return int("".join(map(str, x)))
+
+def to_list(X):
+    return map(int, list(X))
+
 def palindromes(S):
     # at most 208 times because the smallest palindrome of triples
     # is at most 10801 (208-th smallest palindrome) in this problem
@@ -54,7 +60,7 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
             y[start], y[-1-start] = None, None
             x[start], x[-1-start] = None, None
 
-def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last_left_y):
+def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last_left_Y):
     def apply(x, o, start):
         for i in xrange(len(o)):
             x[start+i] = o[i]
@@ -74,44 +80,44 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
     overhang = min(len(x)-2*start, len(x)-len(y))
     for new_left_carry in xrange(2):
         # find left x to be updated
-        left_x = int("".join(map(str, s[len(x)-1-(start+overhang-1):len(x)-start][::-1]))) + \
-                                      left_carry*(10**overhang) - new_left_carry - last_left_y
-        if not (0 <= left_x < 10**overhang):
+        left_X = to_int(s[len(x)-1-(start+overhang-1):len(x)-start][::-1]) + \
+                 left_carry*(10**overhang) - new_left_carry - last_left_Y
+        if not (0 <= left_X < 10**overhang):
             continue
-        left_X = map(int, list(str(left_x)))
-        left_X = [0]*(overhang-len(left_X)) + left_X  # zero-padding
-        if start == 0 and left_X[0] == 0:  # leading digit can't be 0
+        left_x = to_list(str(left_X))
+        left_x = [0]*(overhang-len(left_x)) + left_x  # zero-padding
+        if start == 0 and left_x[0] == 0:  # leading digit can't be 0
             continue
-        if not apply(x, left_X, start):
-            rollback(x, left_X, start)
+        if not apply(x, left_x, start):
+            rollback(x, left_x, start)
             continue
-        right_Y = []
+        right_y = []
         new_right_carry = right_carry  # pass current right carry if y is not updated
-        new_last_left_y = 0
+        new_last_left_Y = 0
         if len(y)-start*2 > 0:  # if y needs update
             # find right y to be updated
             right_y_len = min(len(y)-start*2, overhang)
-            right_s = int("".join(map(str, s[start:start+right_y_len][::-1])))
-            right_x = int("".join(map(str, left_X[:right_y_len][::-1])))
-            new_right_carry, right_y = divmod(right_s-right_x-right_carry, 10**right_y_len)
+            right_s = to_int(s[start:start+right_y_len][::-1])
+            right_X = to_int(left_x[:right_y_len][::-1])
+            new_right_carry, right_y2 = divmod(right_s-right_X-right_carry, 10**right_y_len)
             new_right_carry = abs(new_right_carry)
-            right_Y = map(int, list(str(right_y)[::-1]))
-            right_Y = right_Y + [0]*(right_y_len-len(right_Y))
-            if start == 0 and right_Y[0] == 0:  # leading digit can't be 0
-                rollback(x, left_X, start)
+            right_y = to_list(str(right_y2)[::-1])
+            right_y = right_y + [0]*(right_y_len-len(right_y))
+            if start == 0 and right_y[0] == 0:  # leading digit can't be 0
+                rollback(x, left_x, start)
                 continue
-            if not apply(y, right_Y, start):
-                rollback(y, right_Y, start)
-                rollback(x, left_X, start)
+            if not apply(y, right_y, start):
+                rollback(y, right_y, start)
+                rollback(x, left_x, start)
                 continue
             # find left y to be updated
             if len(y)-start*2 > overhang:
-                new_last_left_y = int("".join(map(str, right_Y[:(len(y)-start*2)-overhang])))
+                new_last_left_Y = to_int(right_y[:(len(y)-start*2)-overhang])
         if find_pair_with_hangover_length(s, x, y, start+overhang,
-                                          new_left_carry, new_right_carry, new_last_left_y):
+                                          new_left_carry, new_right_carry, new_last_left_Y):
             return True
-        rollback(y, right_Y, start)
-        rollback(x, left_X, start)
+        rollback(y, right_y, start)
+        rollback(x, left_x, start)
     return False
 
 def find_pair(s, i, j, left_carry):
@@ -124,16 +130,16 @@ def find_pair(s, i, j, left_carry):
         return None
     x.reverse()
     y.reverse()
-    return int("".join(map(str, x))), int("".join(map(str, y)))
+    return to_int(x), to_int(y)
 
 def wont_sum_must_now():
     S = input()
 
-    s = map(int, list(str(S)))
+    s = to_list(str(S))
     if s == s[::-1]:
         return S
     for P in palindromes(S):
-        s = map(int, list(str(S-P)))
+        s = to_list(str(S-P))
         s.reverse()
         for i in (len(s), len(s)-1):
             left_carry = 0
