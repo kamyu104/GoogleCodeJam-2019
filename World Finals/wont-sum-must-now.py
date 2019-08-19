@@ -85,7 +85,7 @@ def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, left
         if not (0 <= left_X < 10**overhang):
             return None
         left_x = to_list(str(left_X))
-        left_x = [0]*(overhang-len(left_x)) + left_x  # zero-padding
+        left_x = [0]*(overhang-len(left_x)) + left_x  # 0-padding
         if start == 0 and left_x[0] == 0:  # leading digit can't be 0
             return None
         if not set_digits(x, left_x, start):
@@ -99,7 +99,7 @@ def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, left
         right_X = to_int(left_x[:right_y_len][::-1])
         new_right_carry, right_Y = map(abs, divmod(right_S-right_X-right_carry, 10**right_y_len))
         right_y = to_list(str(right_Y)[::-1])
-        right_y = right_y + [0]*(right_y_len-len(right_y))  # zero-padding
+        right_y = right_y + [0]*(right_y_len-len(right_y))  # 0-padding
         if start == 0 and right_y[0] == 0:  # leading digit can't be 0
             clear_digits(x, left_x, start)
             return None, None
