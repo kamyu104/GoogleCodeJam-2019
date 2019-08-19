@@ -8,8 +8,6 @@
 #
 
 def palindromes(S):
-    # yield 0
-    # return
     # at most 208 times because the smaller palindrome of triples
     # is at most 10801 in this problem
     for p in xrange(10):
@@ -56,7 +54,6 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
 
 def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last_left_y):
     def apply(x, o, start):
-        #print "apply", x, list(o), start, len(x), len(o)
         for i in xrange(len(o)):
             x[start+i] = o[i]
         for i in xrange(len(o)):
@@ -73,13 +70,10 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
     if start*2 >= len(x):
         return left_carry == right_carry
     overhang = min(len(x)-2*start, len(x)-len(y))
-    #print s, x, y, overhang
     for new_left_carry in xrange(2):
         # left_x
-        #print "left_x", overhang, s[::-1], x[::-1], y[::-1], start, overhang, s[len(x)-1-(start+overhang-1):]
         left_x = int("".join(map(str, s[len(x)-1-(start+overhang-1):len(x)-start][::-1]))) + \
                                       left_carry*(10**overhang) - new_left_carry - last_left_y
-        #print left_x
         if not (0 <= left_x < 10**overhang):
             continue
         left_X = map(int, list(str(left_x)))
@@ -90,34 +84,28 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
         if not apply(x, left_X, start):
             rollback(x, left_X, start)
             continue
-        #print "applied_x", left_X, overhang, s[::-1], x[::-1], y[::-1]
-        #print x, left_X, start
         left_Y = []
         new_right_carry = right_carry  # pass current right carry if y is not updated
         new_last_left_y = 0
         if start*2 < len(y):  # y needs update
             # right_y
             right_y_len = min(len(y)-start*2, overhang)
-            #print "x", right_y_len
             right_x = int("".join(map(str, left_X[:right_y_len][::-1])))
             right_s = int("".join(map(str, s[start:start+right_y_len][::-1])))
             new_right_carry, right_y = divmod(right_s-right_x-right_carry, 10**right_y_len)
-            #print "right_y", right_s, right_x, right_carry, right_y
             new_right_carry = abs(new_right_carry)
             # left_y
             left_Y = map(int, list(str(right_y)[::-1]))
             left_Y = left_Y + [0]*(right_y_len-len(left_Y))
             if start == 0 and left_Y[0] == 0:  # leading digit can't be 0
+                rollback(x, left_X, start)
                 continue
-            #print y, list(left_Y), start, right_y_len, overhang
             if not apply(y, left_Y, start):
                 rollback(y, left_Y, start)
                 rollback(x, left_X, start)
                 continue
-            #print "applied_y", left_Y, overhang, s[::-1], x[::-1], y[::-1]
             if len(y)-start*2-overhang > 0:
                 new_last_left_y = int("".join(map(str, left_Y[:len(y)-start*2-overhang])))
-                #print "last_left_y", x[::-1], y[::-1], new_last_left_y
         if find_pair_with_hangover_length(s, x, y, start+overhang,
                                           new_left_carry, new_right_carry, new_last_left_y):
             return True
@@ -127,14 +115,12 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
 
 def find_pair(s, i, j, left_carry):
     x, y = [None]*i, [None]*j
-    #print "------", len(s), i, j, left_carry, "------"
     if i == j:
         result = find_pair_with_same_length(s, x, y, 0, left_carry, 0)
     else:
         result = find_pair_with_hangover_length(s, x, y, 0, left_carry, 0, 0)
     if not result:
         return None
-    assert(x == x[::-1] and y == y[::-1] and x[0] != 0 and y[0] != 0)
     x.reverse()
     y.reverse()
     return int("".join(map(str, x))), int("".join(map(str, y)))
@@ -157,9 +143,6 @@ def wont_sum_must_now():
             for j in xrange(1, i+1):
                 result = find_pair(s, i, j, left_carry)
                 if result is not None:
-                    if (S != P + result[0] + result[1]):
-                        print S, P, result
-                    assert(S == P + result[0] + result[1])
                     if P == 0:
                         return "%d %d" % (result[0], result[1])
                     return "%d %d %d" % (P, result[0], result[1])
