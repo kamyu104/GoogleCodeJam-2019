@@ -80,14 +80,14 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
         clear_digits(x, [X], start)
     return False
 
-def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, prev_left_Y):
+def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, left_Y):
     if len(x)-start*2 <= 0:
         return left_carry == right_carry
     overhang = min(len(x)-2*start, len(x)-len(y))
     for new_left_carry in xrange(2):
         # find left x to be updated
         left_X = to_int(s[len(x)-1-(start+overhang-1):len(x)-start][::-1]) + \
-                 left_carry*(10**overhang) - new_left_carry - prev_left_Y
+                 left_carry*(10**overhang) - new_left_carry - left_Y
         if not (0 <= left_X < 10**overhang):
             continue
         left_x = to_list(str(left_X))
@@ -99,7 +99,7 @@ def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, prev
             continue
         right_y = []
         new_right_carry = right_carry  # pass current right carry if y is not updated
-        left_Y = 0
+        new_left_Y = 0
         if len(y)-start*2 > 0:  # if y needs update
             # find right y to be updated
             right_y_len = min(len(y)-start*2, overhang)
@@ -117,9 +117,9 @@ def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, prev
                 continue
             # find left y to be updated
             if len(y)-start*2 > overhang:
-                left_Y = to_int(right_y[:(len(y)-start*2)-overhang])
+                new_left_Y = to_int(right_y[:(len(y)-start*2)-overhang])
         if find_pair_with_overhang_length(s, x, y, start+overhang,
-                                          new_left_carry, new_right_carry, left_Y):
+                                          new_left_carry, new_right_carry, new_left_Y):
             return True
         clear_digits(y, right_y, start)
         clear_digits(x, left_x, start)
