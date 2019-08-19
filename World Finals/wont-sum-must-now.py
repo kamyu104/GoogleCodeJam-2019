@@ -51,13 +51,13 @@ def clear_digits(x, o, start):
 def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
     if len(x)-start*2 <= 0:
         return left_carry == right_carry
-    for X in xrange(10):
-        for new_left_carry in xrange(2):
+    for new_left_carry in xrange(2):
+        target = s[len(x)-1-start] + left_carry*10 - new_left_carry
+        for X in xrange(min(10, target+1)):
             if start == 0 and X == 0:  # leading digit can't be 0
                 continue
-            target = s[len(x)-1-start] + left_carry*10 - new_left_carry
             Y = target-X
-            if not (0 <= Y < 10):
+            if not (Y < 10):
                 continue
             if start == 0 and Y == 0: # leading digit can't be 0
                 continue
