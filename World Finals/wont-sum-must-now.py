@@ -66,7 +66,7 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
                 continue
             apply(x, [X], start)
             apply(y, [Y], start)
-            new_right_carry = right_carry
+            new_right_carry = right_carry  # pass current right carry if the number of updated digits is only one
             if len(x)-start*2 != 1:
                 new_right_carry = (X+Y+right_carry)//10
             if find_pair_with_same_length(s, x, y, start+1, new_left_carry, new_right_carry):
