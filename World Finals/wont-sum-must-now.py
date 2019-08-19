@@ -35,7 +35,7 @@ def palindromes(S):
                 yield P
         n *= 10
 
-def set_values(x, o, start):
+def set_digits(x, o, start):
     for i in xrange(len(o)):
         x[start+i] = o[i]
         if x[-1-(start+i)] is None:
@@ -44,7 +44,7 @@ def set_values(x, o, start):
             return False
     return True
 
-def clear_values(x, o, start):
+def clear_digits(x, o, start):
     for i in xrange(len(o)):
         x[start+i], x[-1-(start+i)] = None, None
 
@@ -63,15 +63,15 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
                 continue
             if s[start] != (X+Y+right_carry)%10:
                 continue
-            set_values(x, [X], start)
-            set_values(y, [Y], start)
+            set_digits(x, [X], start)
+            set_digits(y, [Y], start)
             new_right_carry = right_carry  # pass current right carry if the number of updated digits is only one
             if len(x)-start*2 != 1:
                 new_right_carry = (X+Y+right_carry)//10
             if find_pair_with_same_length(s, x, y, start+1, new_left_carry, new_right_carry):
                 return True
-            clear_values(y, [Y], start)
-            clear_values(x, [X], start)
+            clear_digits(y, [Y], start)
+            clear_digits(x, [X], start)
     return False
 
 def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, last_left_Y):
@@ -88,8 +88,8 @@ def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, last
         left_x = [0]*(overhang-len(left_x)) + left_x  # zero-padding
         if start == 0 and left_x[0] == 0:  # leading digit can't be 0
             continue
-        if not set_values(x, left_x, start):
-            clear_values(x, left_x, start)
+        if not set_digits(x, left_x, start):
+            clear_digits(x, left_x, start)
             continue
         right_y = []
         new_right_carry = right_carry  # pass current right carry if y is not updated
@@ -103,11 +103,11 @@ def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, last
             right_y = to_list(str(right_Y)[::-1])
             right_y = right_y + [0]*(right_y_len-len(right_y))  # zero-padding
             if start == 0 and right_y[0] == 0:  # leading digit can't be 0
-                clear_values(x, left_x, start)
+                clear_digits(x, left_x, start)
                 continue
-            if not set_values(y, right_y, start):
-                clear_values(y, right_y, start)
-                clear_values(x, left_x, start)
+            if not set_digits(y, right_y, start):
+                clear_digits(y, right_y, start)
+                clear_digits(x, left_x, start)
                 continue
             # find left y to be updated
             if len(y)-start*2 > overhang:
@@ -115,8 +115,8 @@ def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, last
         if find_pair_with_overhang_length(s, x, y, start+overhang,
                                           new_left_carry, new_right_carry, new_last_left_Y):
             return True
-        clear_values(y, right_y, start)
-        clear_values(x, left_x, start)
+        clear_digits(y, right_y, start)
+        clear_digits(x, left_x, start)
     return False
 
 def find_pair(s, i, j, left_carry):
