@@ -63,7 +63,7 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
         target = s[len(x)-1-start] + left_carry*10 - new_left_carry
         if s[start] != (target+right_carry)%10:
             continue
-        gen = gen_X_Y(target, start)
+        gen = gen_X_Y(target, start)  # it doesn't matter which of options we take except for making a leading 0
         X, Y = next(gen)
         if X is None or Y is None:
             continue
