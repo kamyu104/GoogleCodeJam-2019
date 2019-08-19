@@ -40,7 +40,7 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
                 continue
             target = s[len(x)-1-start] + left_carry*10 - new_left_carry
             j = target-i
-            if not (0 <= j <= 9):
+            if not (0 <= j < 10):
                 continue
             if start == 0 and j == 0: # leading digit can't be 0
                 continue
@@ -76,11 +76,11 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
     #print s, x, y, overhang
     for new_left_carry in xrange(2):
         # left_x
-        #print "left_x", s, x, y, start, overhang, s[len(x)-1-(start+overhang-1):]
+        print "left_x", overhang, s[::-1], x[::-1], y[::-1], start, overhang, s[len(x)-1-(start+overhang-1):]
         left_x = int("".join(map(str, s[len(x)-1-(start+overhang-1):len(x)-start][::-1]))) + \
                                       left_carry*(10**overhang) - new_left_carry - last_left_y
         #print left_x
-        if left_x < 0:
+        if not (0 <= left_x < 10**overhang):
             continue
         left_X = map(int, list(str(left_x)))
         # right_x
@@ -90,6 +90,7 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
         if not apply(x, left_X, start):
             rollback(x, left_X, start)
             continue
+        print "applied", left_x, left_X, overhang, s[::-1], x[::-1], y[::-1]
         #print x, left_X, start
         left_Y = []
         new_right_carry = right_carry  # pass current right carry if y is not updated
@@ -117,6 +118,7 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
                 continue
             if len(y)-start*2-overhang > 0:
                 new_last_left_y = int("".join(map(str, left_Y[:len(y)-start*2-overhang])))
+                print x[::-1], y[::-1], new_last_left_y
         if find_pair_with_hangover_length(s, x, y, start+overhang,
                                           new_left_carry, new_right_carry, new_last_left_y):
             return True
@@ -126,6 +128,7 @@ def find_pair_with_hangover_length(s, x, y, start, left_carry, right_carry, last
 
 def find_pair(s, i, j, left_carry):
     x, y = [None]*i, [None]*j
+    print "------", len(s), i, j, left_carry, "------"
     if i == j:
         result = find_pair_with_same_length(s, x, y, 0, left_carry, 0)
     else:
