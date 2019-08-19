@@ -8,8 +8,8 @@
 #
 
 def palindromes(S):
-    # at most 208 times because the smaller palindrome of triples
-    # is at most 10801 in this problem
+    # at most 208 times because the smallest palindrome of triples
+    # is at most 10801 (208-th smallest palindrome) in this problem
     for p in xrange(10):
         if p > S:
             return
