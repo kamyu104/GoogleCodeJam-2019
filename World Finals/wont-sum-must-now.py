@@ -64,8 +64,6 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
         return left_carry == right_carry
     for new_left_carry in xrange(2):
         target = s[len(x)-1-start] + left_carry*10 - new_left_carry
-        if target < 0:
-            continue
         if s[start] != (target+right_carry)%10:
             continue
         X, Y = find_X_Y(target, start)
