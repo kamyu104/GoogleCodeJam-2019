@@ -50,11 +50,8 @@ def clear_digits(x, o, start):
 
 def find_X_Y(target, start):
     for X in xrange(max(target-9, 0), min(target+1, 10)):
-        if start == 0 and X == 0:  # leading digit can't be 0
-            continue
         Y = target-X
-        assert(0 <= Y < 10)
-        if start == 0 and Y == 0:  # leading digit can't be 0
+        if start == 0 and (X == 0 or Y == 0):  # leading digit can't be 0
             continue
         return X, Y
     return None, None
