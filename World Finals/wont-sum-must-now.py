@@ -16,24 +16,19 @@ def to_list(X):  # int to list of ints
 def gen_palindromes(S):
     # at most 208 times because the smallest palindrome of triples
     # is at most 10801 (208-th smallest palindrome) in this problem
-    for P in xrange(10):
-        if P > S:
-            return
-        yield P
-    n = 1
+    l, n = 1, None
     while True:
-        for P in xrange(n, 10*n):
-            P = int(str(P) + str(P)[::-1])
-            if P > S:
-                return
-            yield P
-        for i in xrange(n, 10*n):
-            for j in xrange(10):
-                P = int(str(i) + str(j) + str(i)[::-1])
+        lefts = [""] if n is None else map(str, xrange(n, 10*n))
+        for left in lefts:
+            mids = map(str, xrange(10)) if l%2 == 1 else [""]
+            for mid in mids:
+                P = int(left + mid + left[::-1])
                 if P > S:
                     return
                 yield P
-        n *= 10
+        if l%2 == 1:
+            n = 1 if n is None else n*10
+        l += 1
 
 def set_digits(x, o, start):
     for i in xrange(len(o)):
