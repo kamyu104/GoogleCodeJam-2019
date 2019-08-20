@@ -60,9 +60,9 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
         target = s[len(x)-1-start] + left_carry*10 - new_left_carry
         if s[start] != (target+right_carry)%10:
             continue
+        new_right_carry = right_carry if len(x)-start*2 == 1 else (target+right_carry)//10
         for X, Y in gen_X_Y():  # it doesn't matter which of options we take except for making a leading 0
             set_digits(x, [X], start), set_digits(y, [Y], start)
-            new_right_carry = right_carry if len(x)-start*2 == 1 else (X+Y+right_carry)//10
             if find_pair_with_same_length(s, x, y, start+1, new_left_carry, new_right_carry):
                 return True
             clear_digits(y, [Y], start), clear_digits(x, [X], start)
