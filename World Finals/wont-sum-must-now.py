@@ -45,7 +45,7 @@ def clear_digits(x, o, start):
 
 def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
     def gen_X_Y():
-        for X in reversed(xrange(max(target-9, 0), min(target+1, 10))):
+        for X in reversed(xrange(max(target-9, 0), min(target+1, 10))):  # make X >= Y
             Y = target-X
             if start == 0 and (X == 0 or Y == 0):  # leading digit can't be 0
                 continue
@@ -134,7 +134,7 @@ def wont_sum_must_now():
         s = to_list(S-P)
         s.reverse()
         carry = int(s[-1] == 1)
-        for i in xrange(len(s)-carry, len(s)+1):
+        for i in reversed(xrange(len(s)-carry, len(s)+1)):  # prefer larger X
             left_carry = int(i < len(s))
             for j in xrange(1, i+1):
                 result = find_pair(s, i, j, left_carry)
