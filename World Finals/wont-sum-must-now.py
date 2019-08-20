@@ -45,7 +45,7 @@ def clear_digits(x, o, start):
 
 def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
     def gen_X_Y():
-        for X in xrange(max(target-9, 0), min(target+1, 10)):
+        for X in reversed(xrange(max(target-9, 0), min(target+1, 10))):
             Y = target-X
             if start == 0 and (X == 0 or Y == 0):  # leading digit can't be 0
                 continue
@@ -142,6 +142,7 @@ def wont_sum_must_now():
                     continue
                 if P > 0:
                     result.append(P)
+                assert(result[0] >= result[1] >= P)
                 return " ".join(map(str, result))
     assert(False)
 
