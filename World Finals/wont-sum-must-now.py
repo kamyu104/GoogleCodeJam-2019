@@ -142,10 +142,11 @@ def wont_sum_must_now():
             left_carry = int(i < len(s))
             for j in xrange(1, i+1):
                 result = find_pair(s, i, j, left_carry)
-                if result is not None:
-                    if P == 0:
-                        return "%d %d" % (result[0], result[1])
-                    return "%d %d %d" % (P, result[0], result[1])
+                if result is None:
+                    continue
+                if P == 0:
+                    return "%d %d" % (result[0], result[1])
+                return "%d %d %d" % (P, result[0], result[1])
     assert(False)
 
 for case in xrange(input()):
