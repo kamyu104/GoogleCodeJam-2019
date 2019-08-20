@@ -61,13 +61,11 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
         if s[start] != (target+right_carry)%10:
             continue
         for X, Y in gen_X_Y():  # it doesn't matter which of options we take except for making a leading 0
-            set_digits(x, [X], start)
-            set_digits(y, [Y], start)
+            set_digits(x, [X], start), set_digits(y, [Y], start)
             new_right_carry = right_carry if len(x)-start*2 == 1 else (X+Y+right_carry)//10
             if find_pair_with_same_length(s, x, y, start+1, new_left_carry, new_right_carry):
                 return True
-            clear_digits(y, [Y], start)
-            clear_digits(x, [X], start)
+            clear_digits(y, [Y], start), clear_digits(x, [X], start)
             break  # if an option fails, other options also fail
     return False
 
@@ -100,8 +98,7 @@ def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, left
             clear_digits(x, left_x, start)
             return None, None
         if not set_digits(y, left_y, start):
-            clear_digits(y, left_y, start)
-            clear_digits(x, left_x, start)
+            clear_digits(y, left_y, start), clear_digits(x, left_x, start)
             return None, None
         return left_y, new_right_carry
 
@@ -119,8 +116,7 @@ def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, left
         if find_pair_with_overhang_length(s, x, y, start+overhang,
                                           new_left_carry, new_right_carry, new_left_Y):
             return True
-        clear_digits(y, left_y, start)
-        clear_digits(x, left_x, start)
+        clear_digits(y, left_y, start), clear_digits(x, left_x, start)
     return False
 
 def find_pair(s, i, j, left_carry):
@@ -129,8 +125,7 @@ def find_pair(s, i, j, left_carry):
              find_pair_with_overhang_length(s, x, y, 0, left_carry, 0, 0)
     if not result:
         return None
-    x.reverse()
-    y.reverse()
+    x.reverse(), y.reverse()
     return to_int(x), to_int(y)
 
 def wont_sum_must_now():
