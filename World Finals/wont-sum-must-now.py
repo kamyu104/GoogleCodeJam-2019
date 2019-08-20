@@ -135,7 +135,7 @@ def wont_sum_must_now():
         s.reverse()
         carry = int(s[-1] == 1)
         for i in reversed(xrange(len(s)-carry, len(s)+1)):  # prefer larger X
-            left_carry = int(i < len(s))
+            left_carry = len(s)-i
             for j in xrange(1, i+1):
                 X, Y = find_pair(s, i, j, left_carry)
                 if X is None or Y is None:
