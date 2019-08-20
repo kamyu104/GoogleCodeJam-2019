@@ -7,6 +7,8 @@
 # Space: O(D)
 #
 
+from itertools import imap
+
 def to_int(x):  # list of ints to int
     return int("".join(map(str, x)))
 
@@ -18,9 +20,9 @@ def gen_palindromes(S):
     # is at most 10801 (208-th smallest palindrome) in this problem
     l, n = 1, None
     while True:
-        lefts = [""] if n is None else map(str, xrange(n, 10*n))
+        lefts = [""] if n is None else imap(str, xrange(n, 10*n))
         for left in lefts:
-            mids = map(str, xrange(10)) if l%2 == 1 else [""]
+            mids = [""] if l%2 == 0 else imap(str, xrange(10))
             for mid in mids:
                 P = int(left + mid + left[::-1])
                 if P > S:
