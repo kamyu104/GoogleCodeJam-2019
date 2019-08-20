@@ -125,10 +125,8 @@ def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, left
 
 def find_pair(s, i, j, left_carry):
     x, y = [None]*i, [None]*j
-    if i == j:
-        result = find_pair_with_same_length(s, x, y, 0, left_carry, 0)
-    else:
-        result = find_pair_with_overhang_length(s, x, y, 0, left_carry, 0, 0)
+    result = find_pair_with_same_length(s, x, y, 0, left_carry, 0) if i == j else \
+             find_pair_with_overhang_length(s, x, y, 0, left_carry, 0, 0)
     if not result:
         return None
     x.reverse()
