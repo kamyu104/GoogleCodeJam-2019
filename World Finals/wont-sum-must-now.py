@@ -62,7 +62,7 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
         target = s[len(x)-1-start] + left_carry*10 - new_left_carry
         if s[start] != (target+right_carry)%10:
             continue
-        for X, Y in gen_X_Y():
+        for X, Y in gen_X_Y():  # it doesn't matter which of options we take except for making a leading 0
             set_digits(x, [X], start)
             set_digits(y, [Y], start)
             new_right_carry = right_carry  # pass current right carry if the number of updated digits is only one
@@ -72,7 +72,7 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
                 return True
             clear_digits(y, [Y], start)
             clear_digits(x, [X], start)
-            break  # it doesn't matter which of options we take except for making a leading 0
+            break  # if an option fails, other options also fail
     return False
 
 def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, left_Y):
