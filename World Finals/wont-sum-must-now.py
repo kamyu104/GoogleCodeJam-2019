@@ -55,7 +55,6 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
             if start == 0 and (X == 0 or Y == 0):  # leading digit can't be 0
                 continue
             yield X, Y
-        yield None, None
 
     if len(x)-start*2 <= 0:
         return left_carry == right_carry
@@ -63,19 +62,17 @@ def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
         target = s[len(x)-1-start] + left_carry*10 - new_left_carry
         if s[start] != (target+right_carry)%10:
             continue
-        gen = gen_X_Y()  # it doesn't matter which of options we take except for making a leading 0
-        X, Y = next(gen)
-        if X is None or Y is None:
-            continue
-        set_digits(x, [X], start)
-        set_digits(y, [Y], start)
-        new_right_carry = right_carry  # pass current right carry if the number of updated digits is only one
-        if len(x)-start*2 != 1:
-            new_right_carry = (X+Y+right_carry)//10
-        if find_pair_with_same_length(s, x, y, start+1, new_left_carry, new_right_carry):
-            return True
-        clear_digits(y, [Y], start)
-        clear_digits(x, [X], start)
+        for X, Y in gen_X_Y():
+            set_digits(x, [X], start)
+            set_digits(y, [Y], start)
+            new_right_carry = right_carry  # pass current right carry if the number of updated digits is only one
+            if len(x)-start*2 != 1:
+                new_right_carry = (X+Y+right_carry)//10
+            if find_pair_with_same_length(s, x, y, start+1, new_left_carry, new_right_carry):
+                return True
+            clear_digits(y, [Y], start)
+            clear_digits(x, [X], start)
+            break  # it doesn't matter which of options we take except for making a leading 0
     return False
 
 def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, left_Y):
