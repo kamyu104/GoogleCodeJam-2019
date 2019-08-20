@@ -37,11 +37,10 @@ def gen_palindromes(S):
 
 def set_digits(x, o, start):
     for i in xrange(len(o)):
-        x[start+i] = o[i]
-        if x[-1-(start+i)] is None:
-            x[-1-(start+i)] = o[i]
-        elif x[-1-(start+i)] != o[i]:
+        if x[start+i] is not None and x[start+i] != o[i]:
             return False
+        x[start+i] = o[i]
+        x[-1-(start+i)] = o[i]
     return True
 
 def clear_digits(x, o, start):
