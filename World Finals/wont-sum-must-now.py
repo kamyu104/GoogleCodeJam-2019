@@ -39,8 +39,7 @@ def set_digits(x, o, start):
     for i in xrange(len(o)):
         if x[start+i] is not None and x[start+i] != o[i]:
             return False
-        x[start+i] = o[i]
-        x[-1-(start+i)] = o[i]
+        x[start+i], x[-1-(start+i)] = o[i], o[i]
     return True
 
 def clear_digits(x, o, start):
