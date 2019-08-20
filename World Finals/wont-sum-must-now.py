@@ -20,7 +20,7 @@ def gen_palindromes(S):
         if P > S:
             return
         yield P
-        n = 1
+    n = 1
     while True:
         for P in xrange(n, 10*n):
             P = int(str(P) + str(P)[::-1])
