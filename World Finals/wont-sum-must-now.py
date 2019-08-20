@@ -126,7 +126,7 @@ def find_pair(s, i, j, left_carry):
     if not result:
         return None
     x.reverse(), y.reverse()
-    return to_int(x), to_int(y)
+    return [to_int(x), to_int(y)]
 
 def wont_sum_must_now():
     S = input()
@@ -144,8 +144,9 @@ def wont_sum_must_now():
                 result = find_pair(s, i, j, left_carry)
                 if result is None:
                     continue
-                return "%d %d" % (result[0], result[1]) if P == 0 else \
-                       "%d %d %d" % (P, result[0], result[1])
+                if P > 0:
+                    result.append(P)
+                return " ".join(map(str, result))
     assert(False)
 
 for case in xrange(input()):
