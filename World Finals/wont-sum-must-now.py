@@ -45,8 +45,8 @@ def clear_digits(x, o, start):
 
 def find_pair_with_same_length(s, x, y, start, left_carry, right_carry):
     def gen_X_Y():
-        for X in reversed(xrange(max(target-9, 0), min(target+1, 10))):  # make X >= Y
-            Y = target-X
+        for Y in xrange(max(target-9, 0), min(target+1, 10)):  # make X >= Y
+            X = target-Y
             if start == 0 and (X == 0 or Y == 0):  # leading digit can't be 0
                 continue
             yield X, Y
