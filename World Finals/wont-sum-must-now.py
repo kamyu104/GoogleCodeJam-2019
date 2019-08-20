@@ -120,9 +120,9 @@ def find_pair(s, i, j, left_carry):
     result = find_pair_with_same_length(s, x, y, 0, left_carry, 0) if i == j else \
              find_pair_with_overhang_length(s, x, y, 0, left_carry, 0, 0)
     if not result:
-        return None
+        return None, None
     x.reverse(), y.reverse()
-    return [to_int(x), to_int(y)]
+    return to_int(x), to_int(y)
 
 def wont_sum_must_now():
     S = input()
@@ -137,12 +137,13 @@ def wont_sum_must_now():
         for i in reversed(xrange(len(s)-carry, len(s)+1)):  # prefer larger X
             left_carry = int(i < len(s))
             for j in xrange(1, i+1):
-                result = find_pair(s, i, j, left_carry)
-                if result is None:
+                X, Y = find_pair(s, i, j, left_carry)
+                if X is None or Y is None:
                     continue
-                if P > 0:
+                assert(X >= Y >= P)
+                result = [X, Y]
+                if P != 0:
                     result.append(P)
-                assert(result[0] >= result[1] >= P)
                 return " ".join(map(str, result))
     assert(False)
 
