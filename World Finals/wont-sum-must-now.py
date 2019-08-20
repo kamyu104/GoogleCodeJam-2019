@@ -88,8 +88,7 @@ def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, left
         if len(y)-start*2 <= 0:
             return [], right_carry  # pass current right carry if y is not updated
         right_y_len = min(len(y)-start*2, overhang)
-        right_S = to_int(s[start:start+right_y_len][::-1])
-        right_X = to_int(left_x[:right_y_len][::-1])
+        right_S, right_X = map(to_int, [s[start:start+right_y_len][::-1], left_x[:right_y_len][::-1]])
         new_right_carry, right_Y = map(abs, divmod(right_S-right_X-right_carry, 10**right_y_len))
         right_y = to_list(right_Y)
         right_y = [0]*(right_y_len-len(right_y)) + right_y  # 0-padding
