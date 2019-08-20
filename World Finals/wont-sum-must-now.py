@@ -91,6 +91,8 @@ def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, left
         return left_x
 
     def find_left_y():
+        if len(y)-start*2 <= 0:
+            return [], right_carry  # pass current right carry if y is not updated
         right_y_len = min(len(y)-start*2, overhang)
         right_S = to_int(s[start:start+right_y_len][::-1])
         right_X = to_int(left_x[:right_y_len][::-1])
@@ -114,14 +116,12 @@ def find_pair_with_overhang_length(s, x, y, start, left_carry, right_carry, left
         left_x = find_left_x()
         if left_x is None:
             continue
-        left_y, new_right_carry = [], right_carry  # pass current right carry if y is not updated
+        left_y, new_right_carry = find_left_y()
+        if left_y is None or new_right_carry is None:
+            continue
         new_left_Y = 0
-        if len(y)-start*2 > 0:  # if y needs update
-            left_y, new_right_carry = find_left_y()
-            if left_y is None or new_right_carry is None:
-                continue
-            if len(y)-start*2 > overhang:  # find left y to be updated
-                new_left_Y = to_int(left_y[:(len(y)-start*2)-overhang])
+        if len(y)-start*2 > overhang:  # find left y to be updated
+            new_left_Y = to_int(left_y[:(len(y)-start*2)-overhang])
         if find_pair_with_overhang_length(s, x, y, start+overhang,
                                           new_left_carry, new_right_carry, new_left_Y):
             return True
