@@ -137,12 +137,9 @@ def wont_sum_must_now():
     for P in gen_palindromes(S):
         s = to_list(S-P)
         s.reverse()
-        for i in xrange(len(s)-1, len(s)+1):
-            left_carry = 0
-            if len(s) > i:
-                if s[-1] != 1:
-                    continue
-                left_carry = 1
+        carry = int(s[-1] == 1)
+        for i in xrange(len(s)-carry, len(s)+1):
+            left_carry = int(i < len(s))
             for j in xrange(1, i+1):
                 result = find_pair(s, i, j, left_carry)
                 if result is not None:
