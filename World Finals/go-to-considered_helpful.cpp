@@ -92,7 +92,7 @@ string go_to_considered_helpful() {
     for (int dr = -R + 1; dr < R; ++dr) {  // enumerate (dr, dc)
         for (int dc = -C + 1; dc < C; ++dc) {
             if ((dr == 0 && dc == 0) ||
-                !check(G, N.first + dr, N.second + dc)) {
+                !check(G, N.first - dr, N.second - dc)) {
                 continue;
             }
             vector<vector<vector<bool>>> is_valid(2,
@@ -103,7 +103,7 @@ string go_to_considered_helpful() {
                 }
             }
             for (int k = 1;
-                 check(G, N.first + dr * k, N.second + dc * k);
+                 check(G, N.first - dr * k, N.second - dc * k);
                  ++k) {  // enumerate K
                 // the number of (dr, dc, k) combinations is
                 // at most sum(N / max(abs(dr), abs(dc)))
@@ -115,14 +115,14 @@ string go_to_considered_helpful() {
                     for (int c = 0; c < C; ++c) {
                         is_valid_after_k_loops[r][c] =
                             is_valid_after_k_minus_1_loops[r][c] &&
-                            check(G, r + dr * k, c + dc * k);
+                            check(G, r - dr * k, c - dc * k);
                     }
                 }
                 const auto& Q1 = bfs(G, N.first, N.second,
                      [&is_valid_after_k_loops](int r, int c) {
                          return is_valid_after_k_loops[r][c];
                      });
-                const auto& Q2 = bfs(G, N.first + dr, N.second + dc,
+                const auto& Q2 = bfs(G, N.first - dr, N.second - dc,
                      [&is_valid_after_k_minus_1_loops](int r, int c) {
                          return is_valid_after_k_minus_1_loops[r][c];
                      });
@@ -134,7 +134,7 @@ string go_to_considered_helpful() {
                         // instructions :
                         // M ---P---> B ---Q1---> N ---Q2---> Goto B
                         result = min(result,
-                                     P[r + dr * k][c + dc * k] +
+                                     P[r - dr * k][c - dc * k] +
                                      Q1[r][c] + Q2[r][c] + 1);
                     }
                 }
