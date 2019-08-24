@@ -53,15 +53,15 @@ def go_to_considered_helpful():
                 assert(cnt <= 2*max(R, C)**2)  # the number of (dr, dc, k) combinations is
                                                # at most sum(N / max(abs(dr), abs(dc)))
                                                # for each (dr, dc) = O(N^2)
-                is_valid_after_k_times, is_valid_after_k_minus_1_times = is_valid[k%2], is_valid[(k-1)%2]
+                is_valid_after_k_loops, is_valid_after_k_minus_1_loops = is_valid[k%2], is_valid[(k-1)%2]
                 for r in xrange(R):
                     for c in xrange(C):
-                        is_valid_after_k_times[r][c] = is_valid_after_k_minus_1_times[r][c] and check(G, r+dr*k, c+dc*k)
-                Q1 = bfs(G, N[0], N[1], lambda r, c: is_valid_after_k_times[r][c])
-                Q2 = bfs(G, N[0]+dr, N[1]+dc, lambda r, c: is_valid_after_k_minus_1_times[r][c])
+                        is_valid_after_k_loops[r][c] = is_valid_after_k_minus_1_loops[r][c] and check(G, r+dr*k, c+dc*k)
+                Q1 = bfs(G, N[0], N[1], lambda r, c: is_valid_after_k_loops[r][c])
+                Q2 = bfs(G, N[0]+dr, N[1]+dc, lambda r, c: is_valid_after_k_minus_1_loops[r][c])
                 for r in xrange(R):
                     for c in xrange(C):
-                        if not is_valid_after_k_times[r][c]:
+                        if not is_valid_after_k_loops[r][c]:
                             continue
                         # instructions : M ---P---> B ---Q1---> N ---Q2---> Goto B
                         result = min(result, P[r+dr*k][c+dc*k] + Q1[r][c] + Q2[r][c] + 1)

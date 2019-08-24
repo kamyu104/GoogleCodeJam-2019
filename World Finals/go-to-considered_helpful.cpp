@@ -109,26 +109,26 @@ string go_to_considered_helpful() {
                 // at most sum(N / max(abs(dr), abs(dc)))
                 // for each (dr, dc) = O(N^2)
                 assert(++cnt <= 2 * max(R, C) * max(R, C));
-                auto& is_valid_after_k_times = is_valid[k % 2];
-                auto& is_valid_after_k_minus_1_times = is_valid[(k - 1) % 2];
+                auto& is_valid_after_k_loops = is_valid[k % 2];
+                auto& is_valid_after_k_minus_1_loops = is_valid[(k - 1) % 2];
                 for (int r = 0; r < R; ++r) {
                     for (int c = 0; c < C; ++c) {
-                        is_valid_after_k_times[r][c] =
-                            is_valid_after_k_minus_1_times[r][c] &&
+                        is_valid_after_k_loops[r][c] =
+                            is_valid_after_k_minus_1_loops[r][c] &&
                             check(G, r + dr * k, c + dc * k);
                     }
                 }
                 const auto& Q1 = bfs(G, N.first, N.second,
-                     [&is_valid_after_k_times](int r, int c) {
-                         return is_valid_after_k_times[r][c];
+                     [&is_valid_after_k_loops](int r, int c) {
+                         return is_valid_after_k_loops[r][c];
                      });
                 const auto& Q2 = bfs(G, N.first + dr, N.second + dc,
-                     [&is_valid_after_k_minus_1_times](int r, int c) {
-                         return is_valid_after_k_minus_1_times[r][c];
+                     [&is_valid_after_k_minus_1_loops](int r, int c) {
+                         return is_valid_after_k_minus_1_loops[r][c];
                      });
                 for (int r = 0; r < R; ++r) {
                     for (int c = 0; c < C; ++c) {
-                        if (!is_valid_after_k_times[r][c]) {
+                        if (!is_valid_after_k_loops[r][c]) {
                             continue;
                         }
                         // instructions :
