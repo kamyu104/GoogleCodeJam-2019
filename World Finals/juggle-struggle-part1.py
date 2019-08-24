@@ -32,6 +32,9 @@ def kthElement(nums, k, compare=lambda a, b: a < b):
         else:  # new_pivot_idx < k - 1.
             left = new_pivot_idx + 1
 
+def slope(y, x):
+    return (y[1]-x[1])*1.0/(y[0]-x[0]) if (y[0]-x[0]) else float("inf")
+
 def area(p, q, r):
     return (p[0]-r[0])*(q[1]-r[1]) - (p[1]-r[1])*(q[0]-r[0])
 
@@ -72,14 +75,8 @@ def juggle_struggle_part1():
     seed = P.index(min(P))
     point_idx = [i for i in xrange(len(P)) if i != seed]
     mid = len(point_idx)//2
-    cnt, logN = 0, len(point_idx).bit_length()
-    while True:
-        cnt += 1
-        assert(cnt <= logN)
-        kthElement(point_idx, mid, lambda a, b: area(P[a], P[b], P[seed]) < 0)
-        comp = point_idx[mid]
-        if sum(int(area(P[i], P[comp], P[seed]) < 0) for i in point_idx) == mid:
-            break
+    point_idx.sort(key=lambda x: slope(P[x], P[seed]))
+    comp = point_idx[mid]
     left, right = point_idx[:mid], point_idx[mid+1:]
     result = [None]*(2*N)
     pairing(P, left, right, result)
