@@ -106,8 +106,8 @@ string go_to_considered_helpful() {
                  check(G, N.first + dr * k, N.second + dc * k);
                  ++k) {  // enumerate K
                 // the number of (dr, dc, k) combinations is
-                // at most sum(max(abs(dr), abs(dc)) / k)
-                // for each (dr, dc, k) = O(N^2)
+                // at most sum(N / max(abs(dr), abs(dc)))
+                // for each (dr, dc) = O(N^2)
                 assert(++cnt <= 2 * max(R, C) * max(R, C));
                 auto& is_valid_after_k_times = is_valid[k % 2];
                 auto& is_valid_after_k_minus_1_times = is_valid[(k - 1) % 2];
