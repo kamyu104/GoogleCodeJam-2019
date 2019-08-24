@@ -126,7 +126,7 @@ string go_to_considered_helpful() {
                      [&is_valid_after_k_minus_1_loops](int r, int c) {
                          return is_valid_after_k_minus_1_loops[r][c];
                      });
-                for (int r = 0; r < R; ++r) {
+                for (int r = 0; r < R; ++r) {  // enumerate all possible cells B
                     for (int c = 0; c < C; ++c) {
                         if (!is_valid_after_k_loops[r][c]) {
                             continue;

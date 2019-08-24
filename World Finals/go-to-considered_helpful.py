@@ -59,7 +59,7 @@ def go_to_considered_helpful():
                         is_valid_after_k_loops[r][c] = is_valid_after_k_minus_1_loops[r][c] and check(G, r-dr*k, c-dc*k)
                 Q1 = bfs(G, N[0], N[1], lambda r, c: is_valid_after_k_loops[r][c])
                 Q2 = bfs(G, N[0]-dr, N[1]-dc, lambda r, c: is_valid_after_k_minus_1_loops[r][c])
-                for r in xrange(R):
+                for r in xrange(R):  # enumerate all possible cells B
                     for c in xrange(C):
                         if not is_valid_after_k_loops[r][c]:
                             continue
