@@ -9,8 +9,8 @@
 
 from collections import deque
 
-def bfs(G, r, c, check_fn):  # Time: O(N^2)
-    R, C = len(G), len(G[0])
+def bfs(A, r, c, check_fn):  # Time: O(N^2)
+    R, C = len(A), len(A[0])
     dist = [[INF for _ in xrange(C)] for _ in xrange(R)]
     dist[r][c] = 0
     q = deque([(r, c)])
@@ -24,31 +24,31 @@ def bfs(G, r, c, check_fn):  # Time: O(N^2)
                 q.append((nr, nc))
     return dist
 
-def check(G, r, c):
-    R, C = len(G), len(G[0])
-    return  0 <= r < R and 0 <= c < C and G[r][c] != '#'
+def check(A, r, c):
+    R, C = len(A), len(A[0])
+    return  0 <= r < R and 0 <= c < C and A[r][c] != '#'
 
 def go_to_considered_helpful():
     R, C = map(int, raw_input().strip().split())
-    G = []
+    A = []
     for r in xrange(R):
-        G.append(list(raw_input().strip()))
+        A.append(list(raw_input().strip()))
         for c in xrange(C):
-            if G[r][c] == 'M':
+            if A[r][c] == 'M':
                 M = (r, c)
-            elif  G[r][c] == 'N':
+            elif  A[r][c] == 'N':
                 N = (r, c)
-    P = bfs(G, M[0], M[1], lambda r, c: G[r][c] != '#')
+    P = bfs(A, M[0], M[1], lambda r, c: A[r][c] != '#')
     result = P[N[0]][N[1]]
     cnt = 0
     for dr in xrange(-R+1, R):  # enumerate (dr, dc)
          for dc in xrange(-C+1, C):
-            if (dr, dc) == (0, 0) or not check(G, N[0]-dr, N[1]-dc):
+            if (dr, dc) == (0, 0) or not check(A, N[0]-dr, N[1]-dc):
                 continue
-            is_valid = [[[check(G, r, c) if k == 0 else False for c in xrange(C)] for r in xrange(R)] \
+            is_valid = [[[check(A, r, c) if k == 0 else False for c in xrange(C)] for r in xrange(R)] \
                           for k in xrange(2)]
             k = 1
-            while check(G, N[0]-dr*k, N[1]-dc*k):  # enumerate k
+            while check(A, N[0]-dr*k, N[1]-dc*k):  # enumerate k
                 cnt += 1
                 assert(cnt <= 2*max(R, C)**2)  # the number of (dr, dc, k) combinations is
                                                # at most sum(N / max(abs(dr), abs(dc)))
@@ -56,12 +56,12 @@ def go_to_considered_helpful():
                 is_valid_for_all_k_loops, is_valid_for_all_k_minus_1_loops = is_valid[k%2], is_valid[(k-1)%2]
                 for r in xrange(R):
                     for c in xrange(C):
-                        is_valid_for_all_k_loops[r][c] = is_valid_for_all_k_minus_1_loops[r][c] and check(G, r-dr*k, c-dc*k)
-                Q1 = bfs(G, N[0], N[1], lambda r, c: is_valid_for_all_k_loops[r][c])
-                Q2 = bfs(G, N[0]-dr, N[1]-dc, lambda r, c: is_valid_for_all_k_minus_1_loops[r][c])
+                        is_valid_for_all_k_loops[r][c] = is_valid_for_all_k_minus_1_loops[r][c] and check(A, r-dr*k, c-dc*k)
+                Q1 = bfs(A, N[0], N[1], lambda r, c: is_valid_for_all_k_loops[r][c])
+                Q2 = bfs(A, N[0]-dr, N[1]-dc, lambda r, c: is_valid_for_all_k_minus_1_loops[r][c])
                 for r in xrange(R):  # enumerate all possible cells B
                     for c in xrange(C):
-                        if not check(G, r-dr*k, c-dc*k):
+                        if not check(A, r-dr*k, c-dc*k):
                             continue
                         # instructions: M ---P---> B ---Q1---> N ---Q2---> Goto B
                         result = min(result, P[r-dr*k][c-dc*k] + Q1[r][c] + Q2[r][c] + 1)

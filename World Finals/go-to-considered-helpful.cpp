@@ -39,10 +39,10 @@ const int MAX_C = 100;
 const int INF = MAX_R * MAX_C;
 
 // Time: O(N^2)
-vector<vector<int>> inline bfs(const vector<vector<char>>& G,
+vector<vector<int>> inline bfs(const vector<vector<char>>& A,
                                const int r, int c,
                                const function<bool(int, int)>& check_fn) {
-    const auto& R = G.size(), &C = G[0].size();
+    const auto& R = A.size(), &C = A[0].size();
     static const vector<pair<int, int>> directions{{0, 1}, {1, 0},
                                                    {0, -1}, {-1, 0}};
     vector<vector<int>> dist(R, vector<int>(C, INF));
@@ -63,47 +63,47 @@ vector<vector<int>> inline bfs(const vector<vector<char>>& G,
     return dist;
 }
 
-bool inline check(const vector<vector<char>>& G, int r, int c) {
-    const auto& R = G.size(), &C = G[0].size();
+bool inline check(const vector<vector<char>>& A, int r, int c) {
+    const auto& R = A.size(), &C = A[0].size();
     return 0 <= r && r < R &&
            0 <= c && c < C &&
-           G[r][c] != '#';
+           A[r][c] != '#';
 }
 
 string go_to_considered_helpful() {
     int R, C;
     cin >> R >> C;
-    vector<vector<char>> G(R, vector<char>(C));
+    vector<vector<char>> A(R, vector<char>(C));
     pair<int, int> M, N;
     for (int r = 0; r < R; ++r) {
         for (int c = 0; c < C; ++c) {
-            cin >> G[r][c];
-            if (G[r][c] == 'N') {
+            cin >> A[r][c];
+            if (A[r][c] == 'N') {
                 N = make_pair(r, c);
-            } else if (G[r][c] == 'M') {
+            } else if (A[r][c] == 'M') {
                 M = make_pair(r, c);
             }
         }
     }
-    const auto& P = bfs(G, M.first, M.second,
-        [&G](int r, int c) { return G[r][c] != '#'; });
+    const auto& P = bfs(A, M.first, M.second,
+        [&A](int r, int c) { return A[r][c] != '#'; });
     int result = P[N.first][N.second];
     int cnt = 0;
     for (int dr = -R + 1; dr < R; ++dr) {  // enumerate (dr, dc)
         for (int dc = -C + 1; dc < C; ++dc) {
             if ((dr == 0 && dc == 0) ||
-                !check(G, N.first - dr, N.second - dc)) {
+                !check(A, N.first - dr, N.second - dc)) {
                 continue;
             }
             vector<vector<vector<bool>>> is_valid(2,
                 vector<vector<bool>>(R, vector<bool>(C)));
             for (int r = 0; r < R; ++r) {
                 for (int c = 0; c < C; ++c) {
-                    is_valid[0][r][c] = check(G, r, c);
+                    is_valid[0][r][c] = check(A, r, c);
                 }
             }
             for (int k = 1;
-                 check(G, N.first - dr * k, N.second - dc * k);
+                 check(A, N.first - dr * k, N.second - dc * k);
                  ++k) {  // enumerate K
                 // the number of (dr, dc, k) combinations is
                 // at most sum(N / max(abs(dr), abs(dc)))
@@ -115,20 +115,20 @@ string go_to_considered_helpful() {
                     for (int c = 0; c < C; ++c) {
                         is_valid_for_all_k_loops[r][c] =
                             is_valid_for_all_k_minus_1_loops[r][c] &&
-                            check(G, r - dr * k, c - dc * k);
+                            check(A, r - dr * k, c - dc * k);
                     }
                 }
-                const auto& Q1 = bfs(G, N.first, N.second,
+                const auto& Q1 = bfs(A, N.first, N.second,
                      [&is_valid_for_all_k_loops](int r, int c) {
                          return is_valid_for_all_k_loops[r][c];
                      });
-                const auto& Q2 = bfs(G, N.first - dr, N.second - dc,
+                const auto& Q2 = bfs(A, N.first - dr, N.second - dc,
                      [&is_valid_for_all_k_minus_1_loops](int r, int c) {
                          return is_valid_for_all_k_minus_1_loops[r][c];
                      });
                 for (int r = 0; r < R; ++r) {  // enumerate all possible cells B
                     for (int c = 0; c < C; ++c) {
-                        if (!check(G, r - dr * k, c - dc * k)) {
+                        if (!check(A, r - dr * k, c - dc * k)) {
                             continue;
                         }
                         // instructions:
