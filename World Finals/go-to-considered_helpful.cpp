@@ -144,6 +144,7 @@ string go_to_considered_helpful() {
 
 int main() {
     ios_base::sync_with_stdio(0);
+    cin.tie(0);
     int T;
     cin >> T;
     for (int test = 1; test <= T; ++test) {
