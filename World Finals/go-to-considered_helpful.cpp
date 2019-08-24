@@ -39,8 +39,9 @@ const int MAX_C = 100;
 const int INF = MAX_R * MAX_C;
 
 // Time: O(N^2)
-vector<vector<int>> bfs(const vector<vector<char>>& G, const int r, int c,
-                        const function<bool(int, int)>& check_fn) {
+vector<vector<int>> inline bfs(const vector<vector<char>>& G,
+                               const int r, int c,
+                               const function<bool(int, int)>& check_fn) {
     const auto& R = G.size(), &C = G[0].size();
     static const vector<pair<int, int>> directions{{0, 1}, {1, 0},
                                                    {0, -1}, {-1, 0}};
@@ -62,10 +63,9 @@ vector<vector<int>> bfs(const vector<vector<char>>& G, const int r, int c,
     return dist;
 }
 
-bool check(const vector<vector<char>>& G, int r, int c) {
-    const auto& R = G.size(), &C = G[0].size();
-    return 0 <= r && r < R &&
-           0 <= c && c < C &&
+bool inline check(const vector<vector<char>>& G, int r, int c) {
+    return 0 <= r && r < G.size() &&
+           0 <= c && c < G[0].size() &&
            G[r][c] != '#';
 }
 
