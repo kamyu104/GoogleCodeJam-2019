@@ -110,7 +110,7 @@ string go_to_considered_helpful() {
                 // for each (dr, dc) = O(N^2)
                 assert(++cnt <= 2 * max(R, C) * max(R, C));
                 auto& is_valid_for_all_k_loops = is_valid[k % 2];
-                const auto& is_valid_for_all_k_minus_1_loops = is_valid[(k - 1) % 2];
+                auto& is_valid_for_all_k_minus_1_loops = is_valid[(k - 1) % 2];
                 for (int r = 0; r < R; ++r) {
                     for (int c = 0; c < C; ++c) {
                         is_valid_for_all_k_loops[r][c] =
@@ -145,8 +145,7 @@ string go_to_considered_helpful() {
 }
 
 int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
+    ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     int T;
     cin >> T;
     for (int test = 1; test <= T; ++test) {
