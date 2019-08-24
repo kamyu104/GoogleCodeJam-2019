@@ -38,6 +38,7 @@ const int MAX_R = 100;
 const int MAX_C = 100;
 const int INF = MAX_R * MAX_C;
 
+// Time: O(N^2)
 vector<vector<int>> bfs(const vector<vector<char>>& G, const int r, int c,
                         const function<bool(int, int)>& check_fn) {
     const auto& R = G.size(), &C = G[0].size();
