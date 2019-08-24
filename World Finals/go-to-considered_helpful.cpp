@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <cassert>
 
+using std::ios_base;
 using std::cin;
 using std::cout;
 using std::endl;
@@ -39,9 +40,10 @@ const int INF = MAX_R * MAX_C;
 
 vector<vector<int>> bfs(const vector<vector<char>>& G, const int r, int c,
                         const function<bool(int, int)>& check_fn) {
+    const auto& R = G.size(), &C = G[0].size();
     static const vector<pair<int, int>> directions{{0, 1}, {1, 0},
                                                    {0, -1}, {-1, 0}};
-    vector<vector<int>> dist(G.size(), vector<int>(G[0].size(), INF));
+    vector<vector<int>> dist(R, vector<int>(C, INF));
     dist[r][c] = 0;
     queue<pair<int, int>> q({{r, c}});
     while (!q.empty()) {
@@ -49,7 +51,7 @@ vector<vector<int>> bfs(const vector<vector<char>>& G, const int r, int c,
         tie(r, c) = q.front(); q.pop();
         for (const auto& kvp : directions) {
             int nr = r + kvp.first, nc = c + kvp.second;
-            if (0 <= nr && nr < G.size() && 0 <= nc && nc < G[0].size() &&
+            if (0 <= nr && nr < R && 0 <= nc && nc < C &&
                 dist[nr][nc] == INF && check_fn(nr, nc)) {
                 dist[nr][nc] = dist[r][c] + 1;
                 q.emplace(nr, nc);
@@ -60,8 +62,10 @@ vector<vector<int>> bfs(const vector<vector<char>>& G, const int r, int c,
 }
 
 bool check(const vector<vector<char>>& G, int r, int c) {
-    return 0 <= r && r < G.size() && 0 <= c &&
-           c < G[0].size() && G[r][c] != '#';
+    const auto& R = G.size(), &C = G[0].size();
+    return 0 <= r && r < R &&
+           0 <= c && c < C &&
+           G[r][c] != '#';
 }
 
 string go_to_considered_helpful() {
@@ -90,7 +94,7 @@ string go_to_considered_helpful() {
                 continue;
             }
             vector<vector<vector<bool>>> is_valid(2,
-                vector<vector<bool>>(G.size(), vector<bool>(G[0].size())));
+                vector<vector<bool>>(R, vector<bool>(C)));
             for (int r = 0; r < R; ++r) {
                 for (int c = 0; c < C; ++c) {
                     is_valid[0][r][c] = check(G, r, c);
@@ -139,6 +143,7 @@ string go_to_considered_helpful() {
 }
 
 int main() {
+    ios_base::sync_with_stdio(0);
     int T;
     cin >> T;
     for (int test = 1; test <= T; ++test) {
