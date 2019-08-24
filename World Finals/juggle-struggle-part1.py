@@ -71,8 +71,7 @@ def juggle_struggle_part1():
     seed = P.index(min(P))
     point_idx = [i for i in xrange(len(P)) if i != seed]
     mid = len(point_idx)//2
-    logN = len(point_idx).bit_length()
-    cnt = 0
+    cnt, logN = 0, len(point_idx).bit_length()
     while True:
         cnt += 1
         assert(cnt <= 2*logN)
