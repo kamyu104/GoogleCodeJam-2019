@@ -45,21 +45,21 @@ def pairing(P, left, right, result):
     p, q = P[left[randint(0, len(left)-1)]], P[right[randint(0, len(right)-1)]]
     points = []
     for i in left:
-        points.append((area(p, q, P[i]), -1-i, i))
+        points.append((area(p, q, P[i]), ~i))
     for i in right:
-        points.append((area(p, q, P[i]), i, i))
+        points.append((area(p, q, P[i]), i))
     kthElement(points, len(points)//2)
     left1, right1, left2, right2 = [], [], [], []
     for i in xrange(len(points)//2):
         if points[i][1] < 0:
-            left1.append(points[i][2])
+            left1.append(~points[i][1])
         else:
-            right2.append(points[i][2])
+            right2.append(points[i][1])
     for i in xrange(len(points)//2, len(points)):
         if points[i][1] < 0:
-            left2.append(points[i][2])
+            left2.append(~points[i][1])
         else:
-            right1.append(points[i][2])
+            right1.append(points[i][1])
     pairing(P, left1, right1, result)
     pairing(P, left2, right2, result)
 
@@ -85,6 +85,6 @@ def juggle_struggle_part1():
     result[seed], result[comp] = comp, seed
     return " ".join(map(str, map(lambda x: x+1, result)))
 
-seed(1)
+seed(0)
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, juggle_struggle_part1())
