@@ -69,14 +69,14 @@ def juggle_struggle_part1():
     P = [None]*(2*N)
     for i in xrange(len(P)):
         P[i] = map(int, raw_input().strip().split())
-    seed = P.index(min(P))
-    point_idx = [i for i in xrange(len(P)) if i != seed]
+    bottom_left = P.index(min(P))
+    point_idx = [i for i in xrange(len(P)) if i != bottom_left]
     mid = len(point_idx)//2
-    nth_element(point_idx, mid, lambda a, b: area(P[a], P[b], P[seed]) < 0)
-    comp = point_idx[mid]
+    nth_element(point_idx, mid, lambda a, b: area(P[a], P[b], P[bottom_left]) < 0)
+    mid_idx = point_idx[mid]
     left, right = point_idx[:mid], point_idx[mid+1:]
     result = [None]*(2*N)
-    result[seed], result[comp] = comp, seed
+    result[bottom_left], result[mid_idx] = mid_idx, bottom_left
     pairing(P, left, right, result)
     return " ".join(map(str, map(lambda x: x+1, result)))
 
