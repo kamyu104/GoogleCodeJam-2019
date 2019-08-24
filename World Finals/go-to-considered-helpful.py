@@ -32,7 +32,7 @@ def go_to_considered_helpful():
     R, C = map(int, raw_input().strip().split())
     G = []
     for r in xrange(R):
-        G.append(raw_input().strip())
+        G.append(list(raw_input().strip()))
         for c in xrange(C):
             if G[r][c] == 'M':
                 M = (r, c)
