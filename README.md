@@ -1,4 +1,4 @@
-# [GoogleCodeJam 2019](https://codingcompetitions.withgoogle.com/codejam/archive/2019) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-24%20%2F%2027-ff69b4.svg)
+# [GoogleCodeJam 2019](https://codingcompetitions.withgoogle.com/codejam/archive/2019) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-25%20%2F%2027-ff69b4.svg)
 
 Python solutions of Google Code Jam 2019. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds).
 
@@ -65,4 +65,4 @@ You can relive the magic of the 2019 Code Jam World Finals by watching the [Live
 |C| [Won't sum? Must now](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77e)| [Python](./World%20Finals/wont-sum-must-now.py) | _O(2^(D/2) * D)_ | _O(D)_ | Hard | | Backtracking, Arithmetic, Palindrome |
 |D| [Juggle Struggle: Part 1](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77f)| | | | Medium | | |
 |E| [Juggle Struggle: Part 2](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c933)| | | | Hard | | |
-|F| [Go To Considered Helpful](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c934)| | | | Medium | | |
+|F| [Go To Considered Helpful](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c934)| [C++](./World%20Finals/go-to-considered_helpful.cpp) [*PyPy](./World%20Finals/go-to-considered_helpful.py) |_O(N^4)_ | _O(N^2)_| Medium | | BFS |
