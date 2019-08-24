@@ -65,4 +65,4 @@ You can relive the magic of the 2019 Code Jam World Finals by watching the [Live
 |C| [Won't sum? Must now](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77e)| [Python](./World%20Finals/wont-sum-must-now.py) | _O(2^(D/2) * D)_ | _O(D)_ | Hard | | Backtracking, Arithmetic, Palindrome |
 |D| [Juggle Struggle: Part 1](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77f)| | | | Medium | | |
 |E| [Juggle Struggle: Part 2](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c933)| | | | Hard | | |
-|F| [Go To Considered Helpful](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c934)| [C++](./World%20Finals/go-to-considered_helpful.cpp) [*PyPy](./World%20Finals/go-to-considered_helpful.py) |_O(N^4)_ | _O(N^2)_ | Medium | | BFS, DP |
+|F| [Go To Considered Helpful](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c934)| [C++](./World%20Finals/go-to-considered-helpful.cpp) [*PyPy](./World%20Finals/go-to-considered-helpful.py) |_O(N^4)_ | _O(N^2)_ | Medium | | BFS, DP |
