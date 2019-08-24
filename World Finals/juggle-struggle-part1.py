@@ -48,14 +48,15 @@ def pairing(P, left, right, result):
         points.append((area(p, q, P[i]), ~i))
     for i in right:
         points.append((area(p, q, P[i]), i))
-    kthElement(points, len(points)//2)
+    mid = len(points)//2
+    kthElement(points, mid)
     left1, right1, left2, right2 = [], [], [], []
-    for i in xrange(len(points)//2):
+    for i in xrange(mid):
         if points[i][1] < 0:
             left1.append(~points[i][1])
         else:
             right2.append(points[i][1])
-    for i in xrange(len(points)//2, len(points)):
+    for i in xrange(mid, len(points)):
         if points[i][1] < 0:
             left2.append(~points[i][1])
         else:
