@@ -76,8 +76,8 @@ def juggle_struggle_part1():
     comp = point_idx[mid]
     left, right = point_idx[:mid], point_idx[mid+1:]
     result = [None]*(2*N)
-    pairing(P, left, right, result)
     result[seed], result[comp] = comp, seed
+    pairing(P, left, right, result)
     return " ".join(map(str, map(lambda x: x+1, result)))
 
 seed(0)
