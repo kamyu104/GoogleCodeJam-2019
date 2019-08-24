@@ -52,7 +52,7 @@ vector<vector<int>> inline bfs(const vector<vector<char>>& G,
         int r, c;
         tie(r, c) = q.front(); q.pop();
         for (const auto& kvp : directions) {
-            int nr = r + kvp.first, nc = c + kvp.second;
+            const auto& nr = r + kvp.first, &nc = c + kvp.second;
             if (0 <= nr && nr < R && 0 <= nc && nc < C &&
                 dist[nr][nc] == INF && check_fn(nr, nc)) {
                 dist[nr][nc] = dist[r][c] + 1;
