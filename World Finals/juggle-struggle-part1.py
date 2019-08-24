@@ -7,7 +7,7 @@
 # Space: O(N)
 #
 
-from random import randint
+from random import randint, seed
 
 def kthElement(nums, k, compare=lambda a, b: a < b):
     def PartitionAroundPivot(left, right, pivot_idx, nums, compare):
@@ -74,7 +74,7 @@ def juggle_struggle_part1():
     cnt, logN = 0, len(point_idx).bit_length()
     while True:
         cnt += 1
-        assert(cnt <= 2*logN)
+        assert(cnt <= logN)
         kthElement(point_idx, mid, lambda a, b: area(P[a], P[b], P[seed]) < 0)
         comp = point_idx[mid]
         if sum(int(area(P[i], P[comp], P[seed]) < 0) for i in point_idx) == mid:
@@ -85,5 +85,6 @@ def juggle_struggle_part1():
     result[seed], result[comp] = comp, seed
     return " ".join(map(str, map(lambda x: x+1, result)))
 
+seed(1)
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, juggle_struggle_part1())
