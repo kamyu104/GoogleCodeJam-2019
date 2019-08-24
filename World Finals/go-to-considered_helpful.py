@@ -9,7 +9,7 @@
 
 from collections import deque
 
-def bfs(G, r, c, check_fn):
+def bfs(G, r, c, check_fn):  # Time: O(N^2)
     R, C = len(G), len(G[0])
     dist = [[INF for _ in xrange(C)] for _ in xrange(R)]
     dist[r][c] = 0
@@ -41,18 +41,18 @@ def go_to_considered_helpful():
     P = bfs(G, M[0], M[1], lambda r, c: G[r][c] != '#')
     result = P[N[0]][N[1]]
     cnt = 0
-    for dr in xrange(-R+1, R):   # enumerate (dr, dc)
+    for dr in xrange(-R+1, R):  # enumerate (dr, dc)
          for dc in xrange(-C+1, C):
             if (dr, dc) == (0, 0) or not check(G, N[0]+dr, N[1]+dc):
                 continue
             is_valid = [[[check(G, r, c) if k == 0 else False for c in xrange(C)] for r in xrange(R)] \
                           for k in xrange(2)]
             k = 1
-            while check(G, N[0]+dr*k, N[1]+dc*k): # enumerate k
+            while check(G, N[0]+dr*k, N[1]+dc*k):  # enumerate k
                 cnt += 1
-                assert(cnt <= 2*max(R, C)**2) # the number of (dr, dc, k) combinations is
-                                              # at most sum(max(abs(dr), abs(dc)) / k)
-                                              # for each (dr, dc, k) = O(N^2)
+                assert(cnt <= 2*max(R, C)**2)  # the number of (dr, dc, k) combinations is
+                                               # at most sum(max(abs(dr), abs(dc)) / k)
+                                               # for each (dr, dc, k) = O(N^2)
                 is_valid_after_k_times, is_valid_after_k_minus_1_times = is_valid[k%2], is_valid[(k-1)%2]
                 for r in xrange(R):
                     for c in xrange(C):
