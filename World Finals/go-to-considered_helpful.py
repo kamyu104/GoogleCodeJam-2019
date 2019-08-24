@@ -61,9 +61,9 @@ def go_to_considered_helpful():
                 Q2 = bfs(G, N[0]-dr, N[1]-dc, lambda r, c: is_valid_for_all_k_minus_1_loops[r][c])
                 for r in xrange(R):  # enumerate all possible cells B
                     for c in xrange(C):
-                        if not is_valid_for_all_k_loops[r][c]:
+                        if not check(G, r-dr*k, c-dc*k):
                             continue
-                        # instructions : M ---P---> B ---Q1---> N ---Q2---> Goto B
+                        # instructions: M ---P---> B ---Q1---> N ---Q2---> Goto B
                         result = min(result, P[r-dr*k][c-dc*k] + Q1[r][c] + Q2[r][c] + 1)
                 k += 1
     return "IMPOSSIBLE" if result == INF else result

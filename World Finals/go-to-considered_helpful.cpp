@@ -128,10 +128,10 @@ string go_to_considered_helpful() {
                      });
                 for (int r = 0; r < R; ++r) {  // enumerate all possible cells B
                     for (int c = 0; c < C; ++c) {
-                        if (!is_valid_for_all_k_loops[r][c]) {
+                        if (!check(G, r - dr * k, c - dc * k)) {
                             continue;
                         }
-                        // instructions :
+                        // instructions:
                         // M ---P---> B ---Q1---> N ---Q2---> Goto B
                         result = min(result,
                                      P[r - dr * k][c - dc * k] +
