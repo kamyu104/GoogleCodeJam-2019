@@ -4,7 +4,7 @@
  * Google Code Jam 2019 World Finals - Problem F. Go To Considered Helpful
  * https:#codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c934
  *
- * Time:  O(N^4)
+ * Time:  O(N^4), N is max(R, C)
  * Space: O(N^2)
  *
  */
