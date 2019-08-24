@@ -69,6 +69,7 @@ def juggle_struggle_part1():
     P = [None]*(2*N)
     for i in xrange(len(P)):
         P[i] = map(int, raw_input().strip().split())
+
     bottom_left = P.index(min(P))
     point_idx = [i for i in xrange(len(P)) if i != bottom_left]
     mid = len(point_idx)//2
