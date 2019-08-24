@@ -38,6 +38,7 @@ def go_to_considered_helpful():
                 N = (r, c)
     P = bfs(G, M[0], M[1], lambda r, c: G[r][c] != '#')
     result = P[N[0]][N[1]]
+    cnt = 0
     for dr in xrange(-len(G)+1, len(G)):   # enumerate (dr, dc)
          for dc in xrange(-len(G[0])+1, len(G[0])):
             if (dr, dc) == (0, 0) or not check(G, N[0]+dr, N[1]+dc):
@@ -46,16 +47,19 @@ def go_to_considered_helpful():
                           for k in xrange(2)]
             k = 1
             while check(G, N[0]+dr*k, N[1]+dc*k): # enumerate k
-                # the number of (dr, dc, k) combinations is
-                # at most sum(max(abs(dr), abs(dc)) / k) for each (dr, dc, k) = O(N^2)
+                cnt += 1
+                assert(cnt <= 2*max(len(G), len(G[0]))**2) # the number of (dr, dc, k) combinations is
+                                                           # at most sum(max(abs(dr), abs(dc)) / k)
+                                                           # for each (dr, dc, k) = O(N^2)
+                is_valid_after_k_times, is_valid_after_k_minus_1_times = is_valid[k%2], is_valid[(k-1)%2]
                 for r in xrange(len(G)):
                     for c in xrange(len(G[0])):
-                        is_valid[k%2][r][c] = is_valid[(k-1)%2][r][c] and check(G, r+dr*k, c+dc*k)
-                Q1 = bfs(G, N[0], N[1], lambda r, c: is_valid[k%2][r][c])
-                Q2 = bfs(G, N[0]+dr, N[1]+dc, lambda r, c: is_valid[(k-1)%2][r][c])
+                        is_valid_after_k_times[r][c] = is_valid_after_k_minus_1_times[r][c] and check(G, r+dr*k, c+dc*k)
+                Q1 = bfs(G, N[0], N[1], lambda r, c: is_valid_after_k_times[r][c])
+                Q2 = bfs(G, N[0]+dr, N[1]+dc, lambda r, c: is_valid_after_k_minus_1_times[r][c])
                 for r in xrange(len(G)):
                     for c in xrange(len(G[0])):
-                        if not is_valid[k%2][r][c]:
+                        if not is_valid_after_k_times[r][c]:
                             continue
                         # instructions : M ---P---> B ---Q1---> N ---Q2---> Goto B
                         result = min(result, P[r+dr*k][c+dc*k] + Q1[r][c] + Q2[r][c] + 1)
