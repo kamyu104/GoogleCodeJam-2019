@@ -64,7 +64,7 @@ vector<vector<int>> inline bfs(const vector<vector<char>>& G,
 }
 
 bool inline check(const vector<vector<char>>& G, int r, int c) {
-	const auto& R = G.size(), &C = G[0].size();
+    const auto& R = G.size(), &C = G[0].size();
     return 0 <= r && r < R &&
            0 <= c && c < C &&
            G[r][c] != '#';
