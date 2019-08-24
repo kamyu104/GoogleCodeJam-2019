@@ -1,0 +1,148 @@
+// Copyright (c) 2019 kamyu. All rights reserved.
+
+/*
+ * Google Code Jam 2019 World Finals - Problem F. Go To Considered Helpful
+ * https:#codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c934
+ *
+ * Time:  O(N^4)
+ * Space: O(N^2)
+ *
+ */
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <queue>
+#include <functional>
+#include <utility>
+#include <tuple>
+#include <algorithm>
+#include <cassert>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::vector;
+using std::string;
+using std::to_string;
+using std::queue;
+using std::function;
+using std::pair;
+using std::make_pair;
+using std::tie;
+using std::max;
+using std::min;
+
+const int MAX_R = 100;
+const int MAX_C = 100;
+const int INF = MAX_R * MAX_C;
+
+vector<vector<int>> bfs(const vector<vector<char>>& G, const int r, int c,
+                        const function<bool(int, int)>& check_fn) {
+    static const vector<pair<int, int>> directions{{0, 1}, {1, 0},
+                                                   {0, -1}, {-1, 0}};
+    vector<vector<int>> dist(G.size(), vector<int>(G[0].size(), INF));
+    dist[r][c] = 0;
+    queue<pair<int, int>> q({{r, c}});
+    while (!q.empty()) {
+        int r, c;
+        tie(r, c) = q.front(); q.pop();
+        for (const auto& kvp : directions) {
+            int nr = r + kvp.first, nc = c + kvp.second;
+            if (0 <= nr && nr < G.size() && 0 <= nc && nc < G[0].size() &&
+                dist[nr][nc] == INF && check_fn(nr, nc)) {
+                dist[nr][nc] = dist[r][c] + 1;
+                q.emplace(nr, nc);
+            }
+        }
+    }
+    return dist;
+}
+
+bool check(const vector<vector<char>>& G, int r, int c) {
+    return 0 <= r && r < G.size() && 0 <= c &&
+           c < G[0].size() && G[r][c] != '#';
+}
+
+string go_to_considered_helpful() {
+    int R, C;
+    cin >> R >> C;
+    vector<vector<char>> G(R, vector<char>(C));
+    pair<int, int> M, N;
+    for (int r = 0; r < R; ++r) {
+        for (int c = 0; c < C; ++c) {
+            cin >> G[r][c];
+            if (G[r][c] == 'N') {
+                N = make_pair(r, c);
+            } else if (G[r][c] == 'M') {
+                M = make_pair(r, c);
+            }
+        }
+    }
+    const auto& P = bfs(G, M.first, M.second,
+        [&G](int r, int c) { return G[r][c] != '#'; });
+    int result = P[N.first][N.second];
+    int cnt = 0;
+    for (int dr = -R + 1; dr < R; ++dr) {  // enumerate (dr, dc)
+        for (int dc = -C + 1; dc < C; ++dc) {
+            if ((dr == 0 && dc == 0) ||
+                !check(G, N.first + dr, N.second + dc)) {
+                continue;
+            }
+            vector<vector<vector<bool>>> is_valid(2,
+                vector<vector<bool>>(G.size(), vector<bool>(G[0].size())));
+            for (int r = 0; r < R; ++r) {
+                for (int c = 0; c < C; ++c) {
+                    is_valid[0][r][c] = check(G, r, c);
+                }
+            }
+            for (int k = 1;
+                 check(G, N.first + dr * k, N.second + dc * k);
+                 ++k) {  // enumerate K
+                // the number of (dr, dc, k) combinations is
+                // at most sum(max(abs(dr), abs(dc)) / k)
+                // for each (dr, dc, k) = O(N^2)
+                assert(++cnt <= 2 * max(R, C) * max(R, C));
+                auto& is_valid_after_k_times = is_valid[k % 2];
+                auto& is_valid_after_k_minus_1_times = is_valid[(k - 1) % 2];
+                for (int r = 0; r < R; ++r) {
+                    for (int c = 0; c < C; ++c) {
+                        is_valid_after_k_times[r][c] =
+                            is_valid_after_k_minus_1_times[r][c] &&
+                            check(G, r + dr * k, c + dc * k);
+                    }
+                }
+                const auto& Q1 = bfs(G, N.first, N.second,
+                     [&is_valid_after_k_times](int r, int c) {
+                         return is_valid_after_k_times[r][c];
+                     });
+                const auto& Q2 = bfs(G, N.first + dr, N.second + dc,
+                     [&is_valid_after_k_minus_1_times](int r, int c) {
+                         return is_valid_after_k_minus_1_times[r][c];
+                     });
+                for (int r = 0; r < R; ++r) {
+                    for (int c = 0; c < C; ++c) {
+                        if (!is_valid_after_k_times[r][c]) {
+                            continue;
+                        }
+                        // instructions :
+                        // M ---P---> B ---Q1---> N ---Q2---> Goto B
+                        result = min(result,
+                                     P[r + dr * k][c + dc * k] +
+                                     Q1[r][c] + Q2[r][c] + 1);
+                    }
+                }
+            }
+        }
+    }
+    return result == INF ? "IMPOSSIBLE" : to_string(result);
+}
+
+int main() {
+    int T;
+    cin >> T;
+    for (int test = 1; test <= T; ++test) {
+        cout << "Case #" << test << ": " << go_to_considered_helpful() << endl;
+    }
+    return 0;
+}
