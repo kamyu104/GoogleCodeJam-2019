@@ -9,8 +9,8 @@
 
 from random import randint, seed
 
-def kthElement(nums, k, compare=lambda a, b: a < b):
-    def PartitionAroundPivot(left, right, pivot_idx, nums, compare):
+def nth_element(nums, n, compare=lambda a, b: a < b):
+    def partition_around_pivot(left, right, pivot_idx, nums, compare):
         new_pivot_idx = left
         nums[pivot_idx], nums[right] = nums[right], nums[pivot_idx]
         for i in xrange(left, right):
@@ -24,12 +24,12 @@ def kthElement(nums, k, compare=lambda a, b: a < b):
     left, right = 0, len(nums) - 1
     while left <= right:
         pivot_idx = randint(left, right)
-        new_pivot_idx = PartitionAroundPivot(left, right, pivot_idx, nums, compare)
-        if new_pivot_idx == k - 1:
+        new_pivot_idx = partition_around_pivot(left, right, pivot_idx, nums, compare)
+        if new_pivot_idx == n:
             return
-        elif new_pivot_idx > k - 1:
+        elif new_pivot_idx > n:
             right = new_pivot_idx - 1
-        else:  # new_pivot_idx < k - 1.
+        else:  # new_pivot_idx < n
             left = new_pivot_idx + 1
 
 def slope(y, x):
@@ -52,7 +52,7 @@ def pairing(P, left, right, result):
     for i in right:
         points.append((area(p, q, P[i]), i))
     mid = len(points)//2
-    kthElement(points, mid)
+    nth_element(points, mid)
     left1, right1, left2, right2 = [], [], [], []
     for i in xrange(mid):
         if points[i][1] < 0:
@@ -75,7 +75,7 @@ def juggle_struggle_part1():
     seed = P.index(min(P))
     point_idx = [i for i in xrange(len(P)) if i != seed]
     mid = len(point_idx)//2
-    point_idx.sort(key=lambda x: slope(P[x], P[seed]))
+    nth_element(point_idx, mid, lambda a, b: slope(P[a], P[seed]) < slope(P[b], P[seed]))
     comp = point_idx[mid]
     left, right = point_idx[:mid], point_idx[mid+1:]
     result = [None]*(2*N)
