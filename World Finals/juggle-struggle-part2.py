@@ -23,8 +23,8 @@ def juggle_struggle_part2():
     for i in xrange(len(P)):
         X1, Y1, X2, Y2 = map(int, raw_input().strip().split())
         P[i] = [(X1, Y1), (X2, Y2)]
-    result = []
 
+    result = []
     lookup = set()
     for i in xrange(len(P)-1):
         for j in xrange(i+1, len(P)):
