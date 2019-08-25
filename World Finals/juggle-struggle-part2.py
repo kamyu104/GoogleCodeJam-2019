@@ -24,7 +24,6 @@ def juggle_struggle_part2():
         X1, Y1, X2, Y2 = map(int, raw_input().strip().split())
         P[i] = [(X1, Y1), (X2, Y2)]
 
-    result = []
     lookup = set()
     for i in xrange(len(P)):
         for j in xrange(i+1, len(P)):
@@ -32,8 +31,7 @@ def juggle_struggle_part2():
                 continue
             lookup.add(i)
             lookup.add(j)
-        if i in lookup:
-            result.append(i)
+    result = [i for i in xrange(len(P)) if i in lookup]
     return " ".join(map(str, map(lambda x: x+1, result))) if result else "MAGNIFICENT"
 
 for case in xrange(input()):
