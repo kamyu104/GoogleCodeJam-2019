@@ -28,9 +28,10 @@ def juggle_struggle_part2():
     lookup = set()
     for i in xrange(len(P)-1):
         for j in xrange(i+1, len(P)):
-            if not intersect(P[i][0], P[i][1], P[j][0], P[j][1]):
-                lookup.add(i)
-                lookup.add(j)
+            if intersect(P[i][0], P[i][1], P[j][0], P[j][1]):
+                continue
+            lookup.add(i)
+            lookup.add(j)
         if i in lookup:
             result.append(i)
     return " ".join(map(str, map(lambda x: x+1, result))) if result else "MAGNIFICENT"
