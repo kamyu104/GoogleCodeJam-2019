@@ -26,7 +26,7 @@ def juggle_struggle_part2():
 
     result = []
     lookup = set()
-    for i in xrange(len(P)-1):
+    for i in xrange(len(P)):
         for j in xrange(i+1, len(P)):
             if intersect(P[i][0], P[i][1], P[j][0], P[j][1]):
                 continue
