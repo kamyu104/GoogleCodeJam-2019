@@ -9,7 +9,7 @@
 
 from itertools import islice
 
-# Computes the cross product of vectors AB and AC
+# Compute the cross product of vectors AB and AC
 CW, COLINEAR, CCW = range(-1, 2)
 def ccw(A, B, C):
     area = (B[0]-A[0])*(C[1]-A[1]) - (B[1]-A[1])*(C[0]-A[0])
