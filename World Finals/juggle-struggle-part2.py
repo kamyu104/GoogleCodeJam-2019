@@ -43,7 +43,7 @@ def find_leftmost_below(L, F):
     if not L:
         return
 
-    # after removing vertical segments from L, we can sort L by y coordinate at X0
+    # after removing vertical lines from L, we can sort L by y coordinate at X0
     X0 = min(min(l[1][0], l[2][0]) for l in L)
     L.sort(reverse=True, key=lambda x: find_intersection(x[1], x[2], (X0, 0), (X0, 1))[1])
     X1 = max(max(l[1][0], l[2][0]) for l in L)
