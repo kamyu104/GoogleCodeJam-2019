@@ -3,7 +3,7 @@
 # Google Code Jam 2019 World Finals - Problem E. Juggle Struggle: Part 2
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c933
 #
-# Time:  O(NlogN)
+# Time:  O(NlogN), pass in PyPy2 but Python2
 # Space: O(N)
 #
 
