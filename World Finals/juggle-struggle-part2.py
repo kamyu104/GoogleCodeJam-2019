@@ -21,10 +21,7 @@ def intersect(A, B, C, D):
 
 # Return the intersection of AB and CD if it exists
 def find_intersection(A, B, C, D):
-    x1, y1 = A
-    x2, y2 = B
-    x3, y3 = C
-    x4, y4 = D
+    (x1, y1), (x2, y2), (x3, y3), (x4, y4) = A, B, C, D
     px, py = None, None
     detC = (x1-x2)*(y3-y4)-(y1-y2)*(x3-x4)
     if detC:
