@@ -61,7 +61,7 @@ def find_leftmost_below(L, F):
             stk.pop()
         if idx in F:
             continue
-        stk.append((i, X))  # only keep valid X in stk       
+        stk.append((i, X))  # only keep valid X in stk
 
 def juggle_struggle_part2():
     N = input()
