@@ -103,7 +103,7 @@ def juggle_struggle_part2():
             if not intersect(A, B, C, D):
                 F.add(idx)
     assert(len(F) <= MAX_F_SIZE)
-    result = [i+1 for i in xrange(len(L)) if i in F]
+    result = map(lambda x: x+1, sorted(F))
     return "MAGNIFICENT" if not result else " ".join(map(str, result))
 
 MAX_F_SIZE = 25
