@@ -98,7 +98,7 @@ def juggle_struggle_part2():
     for f in list(F):  # at most 25 by limit constraint
         i, A, B = L[f]
         for idx, C, D in L:
-            if i == idx:
+            if idx == i or idx in F:
                 continue
             if not intersect(A, B, C, D):
                 F.add(idx)
