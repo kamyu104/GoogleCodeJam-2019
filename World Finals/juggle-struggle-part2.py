@@ -31,7 +31,7 @@ def find_intersection(A, B, C, D):
         detA, detB = (x1*y2-y1*x2)*(x3-x4), (x3*y4-y3*x4)
         px = (detA-(x1-x2)*detB)*1.0/detC
         py = (detA-(y1-y2)*detB)*1.0/detC
-    return [px, py]
+    return (px, py)
 
 def reflect_across_x(p):
     return (p[0], -p[1])
