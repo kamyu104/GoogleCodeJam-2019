@@ -19,6 +19,7 @@ def ccw(A, B, C):
 def intersect(A, B, C, D):
     return ccw(A,C,D) != ccw(B,C,D) and ccw(A,B,C) != ccw(A,B,D)
 
+# Return the intersection of AB and CD if it exists
 def find_intersection(A, B, C, D):
     x1, y1 = A
     x2, y2 = B
