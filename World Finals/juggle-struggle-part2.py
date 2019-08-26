@@ -49,7 +49,7 @@ def find_leftmost_below(L, F):
     X1 = max(max(l[1][0], l[2][0]) for l in L)
     stk = [(0, X1)]
     for i, (idx, A, B) in enumerate(islice(L, 1, len(L)), 1):
-        while True:  # enumerate below and above direction to check all possible leftmost intersections
+        while True:  # enumerate below and above directions to check all possible leftmost intersections
             _, C, D = L[stk[-1][0]]
             X = find_intersection(A, B, C, D)[0]
             if not (X is not None and
