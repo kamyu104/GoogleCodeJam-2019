@@ -24,10 +24,12 @@ def find_intersection(A, B, C, D):
     x2, y2 = B
     x3, y3 = C
     x4, y4 = D
-    px = ( (x1*y2-y1*x2)*(x3-x4)-(x1-x2)*(x3*y4-y3*x4) )*1.0 / ( (x1-x2)*(y3-y4)-(y1-y2)*(x3-x4) ) \
-         if ( (x1-x2)*(y3-y4)-(y1-y2)*(x3-x4) ) else None
-    py = ( (x1*y2-y1*x2)*(y3-y4)-(y1-y2)*(x3*y4-y3*x4) )*1.0 / ( (x1-x2)*(y3-y4)-(y1-y2)*(x3-x4) ) \
-         if ( (x1-x2)*(y3-y4)-(y1-y2)*(x3-x4) ) else None
+    px, py = None, None
+    detC = (x1-x2)*(y3-y4)-(y1-y2)*(x3-x4)
+    if detC:
+        detA, detB = (x1*y2-y1*x2)*(x3-x4), (x3*y4-y3*x4)
+        px = (detA-(x1-x2)*detB)*1.0/detC
+        py = (detA-(y1-y2)*detB)*1.0/detC
     return [px, py]
 
 def reflect_across_x(p):
