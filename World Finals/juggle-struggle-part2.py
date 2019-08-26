@@ -84,6 +84,7 @@ def juggle_struggle_part2():
                 continue
             if not intersect(A, B, C, D):
                 F.add(idx)
+                break
 
     for leftmost in [True, False]:
         for below in [True, False]:
