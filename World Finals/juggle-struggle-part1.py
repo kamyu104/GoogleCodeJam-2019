@@ -42,6 +42,7 @@ def pairing(P, left, right, result):
     if len(left) == 1 and len(right) == 1:
         result[left[0]], result[right[0]] = right[0], left[0]
         return
+    # to avoid worst case, randomly pick (p, q) to partition points like quick sort
     p, q = P[left[randint(0, len(left)-1)]], P[right[randint(0, len(right)-1)]]
     points = []
     for i in left:
