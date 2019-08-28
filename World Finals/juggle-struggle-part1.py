@@ -48,16 +48,16 @@ def pairing(P, left, right, result):
         points.append((area(p, q, P[i]), ~i))
     for i in right:
         points.append((area(p, q, P[i]), i))
-    mid = len(points)//2
+    mid = len(points)//2  # evenly partitioned by point-line distance, then by left/right area
     nth_element(points, mid)
     left1, right1, left2, right2 = [], [], [], []
     for i in xrange(mid):
-        if points[i][1] < 0:
+        if points[i][1] < 0:  # come from left area
             left1.append(~points[i][1])
         else:
             right2.append(points[i][1])
     for i in xrange(mid, len(points)):
-        if points[i][1] < 0:
+        if points[i][1] < 0:  # come from left area
             left2.append(~points[i][1])
         else:
             right1.append(points[i][1])
@@ -70,14 +70,14 @@ def juggle_struggle_part1():
     for i in xrange(len(P)):
         P[i] = map(int, raw_input().strip().split())
 
-    bottom_left = P.index(min(P))
-    point_idx = [i for i in xrange(len(P)) if i != bottom_left]
-    mid = len(point_idx)//2
-    nth_element(point_idx, mid, lambda a, b: area(P[a], P[b], P[bottom_left]) < 0)
+    left_bottom = P.index(min(P))  # find a convex hull point
+    point_idx = [i for i in xrange(len(P)) if i != left_bottom]
+    mid = len(point_idx)//2  # no collinear triple points, can be evenly partitioned
+    nth_element(point_idx, mid, lambda a, b: area(P[a], P[b], P[left_bottom]) < 0)
     mid_idx = point_idx[mid]
     left, right = point_idx[:mid], point_idx[mid+1:]
     result = [None]*(2*N)
-    result[bottom_left], result[mid_idx] = mid_idx, bottom_left
+    result[left_bottom], result[mid_idx] = mid_idx, left_bottom
     pairing(P, left, right, result)
     return " ".join(map(str, map(lambda x: x+1, result)))
 

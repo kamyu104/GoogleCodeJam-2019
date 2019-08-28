@@ -10,10 +10,10 @@
 from itertools import islice
 
 # Compute the cross product of vectors AB and AC
-CW, COLINEAR, CCW = range(-1, 2)
+CW, COLLINEAR, CCW = range(-1, 2)
 def ccw(A, B, C):
     area = (B[0]-A[0])*(C[1]-A[1]) - (B[1]-A[1])*(C[0]-A[0])
-    return CCW if area > 0 else CW if area < 0 else COLINEAR
+    return CCW if area > 0 else CW if area < 0 else COLLINEAR
 
 # Return true if line segments AB and CD intersect
 def intersect(A, B, C, D):
