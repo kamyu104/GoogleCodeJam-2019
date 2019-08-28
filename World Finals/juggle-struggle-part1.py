@@ -73,7 +73,7 @@ def juggle_struggle_part1():
 
     left_bottom = P.index(min(P))  # pick a convex hull point
     point_idx = [i for i in xrange(len(P)) if i != left_bottom]
-    mid = len(point_idx)//2  # no collinear triple points, can be evenly partitioned
+    mid = len(point_idx)//2  # no collinear triple points, evenly partitioned by a convex hull point
     nth_element(point_idx, mid, lambda a, b: area(P[a], P[b], P[left_bottom]) < 0)
     mid_idx = point_idx[mid]
     left, right = point_idx[:mid], point_idx[mid+1:]
