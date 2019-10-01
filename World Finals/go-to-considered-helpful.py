@@ -19,7 +19,7 @@ def bfs(A, r, c, check_fn):  # Time: O(N^2)
         for d in DIRECTIONS:
             nr, nc = r+d[0], c+d[1]
             if 0 <= nr < R and 0 <= nc < C and \
-               check_fn(nr, nc) and dist[nr][nc] == INF:
+               dist[nr][nc] == INF and check_fn(nr, nc):
                 dist[nr][nc] = dist[r][c]+1
                 q.append((nr, nc))
     return dist
