@@ -104,7 +104,7 @@ string go_to_considered_helpful() {
             }
             for (int k = 1;
                  check(A, N.first - dr * k, N.second - dc * k);
-                 ++k) {  // enumerate K
+                 ++k) {  // enumerate k
                 // the number of (dr, dc, k) combinations is
                 // at most sum(N / max(abs(dr), abs(dc)))
                 // for each (dr, dc) = O(N^2)
