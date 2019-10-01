@@ -26,7 +26,7 @@ def bfs(A, r, c, check_fn):  # Time: O(N^2)
 
 def check(A, r, c):
     R, C = len(A), len(A[0])
-    return  0 <= r < R and 0 <= c < C and A[r][c] != '#'
+    return 0 <= r < R and 0 <= c < C and A[r][c] != '#'
 
 def go_to_considered_helpful():
     R, C = map(int, raw_input().strip().split())
