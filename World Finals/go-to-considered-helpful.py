@@ -45,8 +45,7 @@ def go_to_considered_helpful():
          for dc in xrange(-C+1, C):
             if (dr, dc) == (0, 0) or not check(A, N[0]-dr, N[1]-dc):
                 continue
-            is_valid = [[[check(A, r, c) if k == 0 else False for c in xrange(C)] for r in xrange(R)] \
-                          for k in xrange(2)]
+            is_valid = [[[check(A, r, c) if k == 0 else False for c in xrange(C)] for r in xrange(R)] for k in xrange(2)]
             k = 1
             while check(A, N[0]-dr*k, N[1]-dc*k):  # enumerate k
                 cnt += 1
