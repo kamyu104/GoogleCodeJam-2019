@@ -78,10 +78,10 @@ string go_to_considered_helpful() {
     for (int r = 0; r < R; ++r) {
         for (int c = 0; c < C; ++c) {
             cin >> A[r][c];
-            if (A[r][c] == 'N') {
-                N = make_pair(r, c);
-            } else if (A[r][c] == 'M') {
+            if (A[r][c] == 'M') {
                 M = make_pair(r, c);
+            } else if (A[r][c] == 'N') {
+                N = make_pair(r, c);
             }
         }
     }
