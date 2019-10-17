@@ -53,7 +53,7 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 |A| [Zillionim](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000158f1a)| [Python](./Round%203/zillionim.py) [Python](./Round%203/zillionim2.py) | _O(R^2)_ | _O(R)_ | Easy | | Sprague-Grundy Theorem, Nim |
 |B| [Pancake Pyramid](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/00000000001591be)| [Python](./Round%203/pancake-pyramid.py) | _O(S)_ | _O(S)_ | Medium | | Mono Stack |
 |C| [Datacenter Duplex](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000158f1c)| [Python](./Round%203/datacenter-duplex.py) | _O(R * C)_ | _O(R * C)_ | Medium | | Union Find |
-|D| [Napkin Folding](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170)| [Python](./Round%203/napkin-folding.py) | _O(N^2 * K^2)_ | _O(N * K^2)_ | Very Hard | the most interesting problem this year | Geometry, Sliding Window, Binary Search, BFS, DFS |
+|D| [Napkin Folding](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707/0000000000159170)| [Python](./Round%203/napkin-folding.py) | _O(N^2 * K^2)_ | _O(N * K^2)_ | Very Hard | ❤️ | Geometry, Sliding Window, Binary Search, BFS, DFS |
 
 ## World Finals
 You can relive the magic of the 2019 Code Jam World Finals by watching the [Live Stream Recording](https://www.youtube.com/watch?v=biyvpvx9I7E) of the competition, problem explanations, interviews with Google and Code Jam engineers, and announcement of winners.
@@ -62,7 +62,7 @@ You can relive the magic of the 2019 Code Jam World Finals by watching the [Live
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Board Meeting](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77c)| [Python](./World%20Finals/board-meeting.py) | _O(NlogM)_ | _O(N)_ | Medium | | Binary Search, Math |
 |B| [Sorting Permutation Unit](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77d)| [Python](./World%20Finals/sorting-permutation-unit.py) | _O(K * N^2)_ | _O(N)_ | Medium  | | Sort |
-|C| [Won't sum? Must now](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77e)| [Python](./World%20Finals/wont-sum-must-now.py) | _O(2^(D/2) * D)_ | _O(D)_ | Hard | | Backtracking, Arithmetic, Palindrome |
+|C| [Won't sum? Must now](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77e)| [Python](./World%20Finals/wont-sum-must-now.py) | _O(2^(D/2) * D)_ | _O(D)_ | Hard | ❤️ | Backtracking, Arithmetic, Palindrome |
 |D| [Juggle Struggle: Part 1](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c77f)| [PyPy](./World%20Finals/juggle-struggle-part1.py) |_O(NlogN)_ on average | _O(N)_ | Medium | | Geometry, Recursion, Quick Select |
-|E| [Juggle Struggle: Part 2](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c933)| [PyPy](./World%20Finals/juggle-struggle-part2.py) |_O(NlogN)_ | _O(N)_  | Hard | | Geometry, Sort, Mono Stack, Convex Hull |
+|E| [Juggle Struggle: Part 2](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c933)| [PyPy](./World%20Finals/juggle-struggle-part2.py) |_O(NlogN)_ | _O(N)_  | Hard | ❤️ | Geometry, Sort, Mono Stack, Convex Hull |
 |F| [Go To Considered Helpful](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051708/000000000016c934)| [C++](./World%20Finals/go-to-considered-helpful.cpp) [*PyPy](./World%20Finals/go-to-considered-helpful.py) |_O(N^4)_ | _O(N^2)_ | Medium | | BFS, DP |
