@@ -28,7 +28,7 @@ Python solutions of Google Code Jam 2019. Solution begins with `*` means it will
 ## Round 1B
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
-|A| [Manhattan Crepe Cart](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/000000000012295c)| [Python](./Round%201B/manhattan-crepe-cart.py)| _O(PlogP)_ | _O(P)_ | Easy | | Sweep Line |
+|A| [Manhattan Crepe Cart](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/000000000012295c)| [Python](./Round%201B/manhattan-crepe-cart.py)| _O(PlogP)_ | _O(P)_ | Easy | | Line Sweep |
 |B| [Draupnir](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/0000000000122837)| [Python](./Round%201B/draupnir.py) | _O(1)_ | _O(1)_ | Medium | | Math |
 |C| [Fair Fight](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706/0000000000122838)| [Python](./Round%201B/fair-fight.py) [PyPy](./Round%201B/fair-fight2.py)| _O(NlogN)_ | _O(N)_ | Hard | | Mono Stack, Binary Search, RMQ |
 
