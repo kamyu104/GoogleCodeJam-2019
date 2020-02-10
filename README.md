@@ -2,6 +2,7 @@
 
 Python solutions of Google Code Jam 2019. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds).
 
+* [GoogleCodeJame-2018](https://github.com/kamyu104/GoogleCodeJam-2018)
 * [Qualification Round](https://github.com/kamyu104/GoogleCodeJam-2019#qualification-round)
 * [Round 1A](https://github.com/kamyu104/GoogleCodeJam-2019#round-1a)
 * [Round 1B](https://github.com/kamyu104/GoogleCodeJam-2019#round-1b)
